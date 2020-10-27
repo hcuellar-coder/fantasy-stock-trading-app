@@ -21,6 +21,9 @@ namespace FantasyStockTradingApp
         public void ConfigureServices(IServiceCollection services)
         {
 
+
+            
+            services.AddControllers();
             services.AddControllersWithViews();
 
             // In production, the React files will be served from this directory
@@ -45,7 +48,9 @@ namespace FantasyStockTradingApp
             }
 
             app.UseHttpsRedirection();
+
             app.UseStaticFiles();
+
             app.UseSpaStaticFiles();
 
             app.UseRouting();
