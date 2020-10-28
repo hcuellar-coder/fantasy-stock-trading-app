@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Form, Button, Container } from 'react-bootstrap';
 
-function Login(props) {
+function NewUser(props) {
     const [validated, setValidated] = useState(false);
 
     function handleSubmit(e) {
@@ -13,9 +13,9 @@ function Login(props) {
         setValidated(true);
     }
 
-    function handleNewUser(e) {
-        props.login(false);
-        console.log('handle new user information');
+    function handleAlreadyExistingUser(e) {
+        props.login(true);
+        console.log('handle already existing user');
     }
 
     return (
@@ -39,13 +39,22 @@ function Login(props) {
                         />
                     </Form.Group>
                 </Form.Row>
+                <Form.Row>
+                    <Form.Group>
+                        <Form.Control
+                            required
+                            type='text'
+                            placeholder="Confirm Password"
+                        />
+                    </Form.Group>
+                </Form.Row>
                 <div id='login-buttons-div'>
-                    <Button id="new-user-button" onClick={handleNewUser}>New User?</Button>
-                    <Button id="login-user-button" type="submit">Login</Button>
+                    <Button id="already-existing-user-button" onClick={handleAlreadyExistingUser}>Already Have an account?</Button>
+                    <Button id="join-user-button" type="submit">Join</Button>
                 </div>
             </Form>
         </Container>
     )
 }
 
-export default Login;
+export default NewUser;

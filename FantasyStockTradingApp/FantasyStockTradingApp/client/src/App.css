@@ -24,6 +24,30 @@
     margin-right: 20px;
 }
 
+#already-existing-user-button {
+    margin-bottom: 10px;
+}
+
+#login-buttons-div {
+    display: flex;
+    flex-direction: column;
+}
+
+#login-container {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+}
+
+#login-user-button {
+
+}
+
 #nav-bar {
     background-color: rgb(255, 255, 255);
 }
+
+#new-user-button {
+    margin-bottom: 10px;
+}
+

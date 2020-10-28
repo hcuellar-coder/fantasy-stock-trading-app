@@ -20,9 +20,6 @@ function NavBar(props) {
                     <NavItem>
                         <NavLink className='Navlink' to='/report' hidden={true} >Report</NavLink>
                     </NavItem>
-                    <NavItem>
-                        <NavLink className='Navlink' to='/login' hidden={false}>Login</NavLink>
-                    </NavItem>
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
