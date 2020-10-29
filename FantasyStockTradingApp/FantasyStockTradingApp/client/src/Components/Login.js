@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button, Container, NavLink  } from 'react-bootstrap';
 
 function Login(props) {
     const [validated, setValidated] = useState(false);
@@ -40,8 +40,11 @@ function Login(props) {
                     </Form.Group>
                 </Form.Row>
                 <div id='login-buttons-div'>
-                    <Button id="new-user-button" onClick={handleNewUser}>New User?</Button>
                     <Button id="login-user-button" type="submit">Login</Button>
+                    <div id='new-user-login-div'>
+                        Don't have an account?
+                        <NavLink id="new-user-button" onClick={handleNewUser}>Sign up</NavLink>
+                    </div>
                 </div>
             </Form>
         </Container>

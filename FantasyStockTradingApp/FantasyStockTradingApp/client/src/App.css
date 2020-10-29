@@ -1,3 +1,4 @@
+
 .navbar-nav {
     float: right;
     flex-direction: row;
@@ -25,6 +26,7 @@
 }
 
 #already-existing-user-button {
+    margin-left: -10px;
     margin-bottom: 10px;
 }
 
@@ -39,8 +41,13 @@
     text-align: center;
 }
 
-#login-user-button {
+#login-new-user-div {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+}
 
+#login-user-button {
 }
 
 #nav-bar {
@@ -48,6 +55,13 @@
 }
 
 #new-user-button {
+    margin-left:-10px;
     margin-bottom: 10px;
+}
+
+#new-user-login-div {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
 }
 

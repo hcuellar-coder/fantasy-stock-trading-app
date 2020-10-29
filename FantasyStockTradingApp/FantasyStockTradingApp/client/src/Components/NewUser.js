@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Form, Button, Container } from 'react-bootstrap';
+import { Form, Button, Container, NavLink } from 'react-bootstrap';
 
 function NewUser(props) {
     const [validated, setValidated] = useState(false);
@@ -35,7 +35,7 @@ function NewUser(props) {
                         <Form.Control
                             required
                             type='text'
-                            placeholder="Password"
+                            placeholder="First Name"
                         />
                     </Form.Group>
                 </Form.Row>
@@ -44,13 +44,34 @@ function NewUser(props) {
                         <Form.Control
                             required
                             type='text'
+                            placeholder="Last Name"
+                        />
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group>
+                        <Form.Control
+                            required
+                            type='password'
+                            placeholder="Password"
+                        />
+                    </Form.Group>
+                </Form.Row>
+                <Form.Row>
+                    <Form.Group>
+                        <Form.Control
+                            required
+                            type='password'
                             placeholder="Confirm Password"
                         />
                     </Form.Group>
                 </Form.Row>
                 <div id='login-buttons-div'>
-                    <Button id="already-existing-user-button" onClick={handleAlreadyExistingUser}>Already Have an account?</Button>
-                    <Button id="join-user-button" type="submit">Join</Button>
+                    <Button id='join-user-button' type="submit">Join</Button>
+                    <div id='login-new-user-div'>
+                        Have an account?
+                        <NavLink id="already-existing-user-button" onClick={handleAlreadyExistingUser}>Log in</NavLink>
+                    </div>
                 </div>
             </Form>
         </Container>

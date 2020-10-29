@@ -22,7 +22,7 @@ namespace FantasyStockTradingApp
         {
 
 
-            
+
             services.AddControllers();
             services.AddControllersWithViews();
 
