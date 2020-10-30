@@ -1,3 +1,4 @@
+using FantasyStockTradingApp.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -5,6 +6,8 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NHibernate.NetCore;
+using System;
 
 namespace FantasyStockTradingApp
 {
@@ -21,7 +24,12 @@ namespace FantasyStockTradingApp
         public void ConfigureServices(IServiceCollection services)
         {
             //var connStr = Configuration.GetConnectionString("DefaultConnection");
-
+            var path = System.IO.Path.Combine(
+            AppDomain.CurrentDomain.BaseDirectory,
+            "hibernate.config"
+    );
+            // add NHibernate services;
+            services.AddHibernate(path);
 
             services.AddControllers();
             services.AddControllersWithViews();
@@ -31,6 +39,8 @@ namespace FantasyStockTradingApp
             {
                 configuration.RootPath = "client/build";
             });
+
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
