@@ -13,6 +13,7 @@ namespace FantasyStockTradingApp.Services
     public interface IUserService
     {
         IQueryable<User> GetUserInformation(string email, string password);
+        void AddNewUser(string email, string password, string first_name, string last_name);
     }
     public class UserService : IUserService
     {
@@ -28,19 +29,42 @@ namespace FantasyStockTradingApp.Services
             {
                 using (var session = _sessionFactory.OpenSession())
                 {
-                    /*using (var transaction = session.BeginTransaction())
-                    {
-                        return await session.
-                    }*/
-                    //var result = await session.Query<User>().FirstOrDefault();
-                    return session.Query<User>().Where(user => user.Email == email && user.Password == password);
-                    //return result;
+                    var result = session.Query<User>().Where(user => user.Email == email && user.Password == password);
+                    return result;
                 }
             }
             catch ( Exception ex)
             {
                 var errorString = $"User does not exist: { ex }";
                 throw new Exception(errorString);
+            }
+
+        }
+
+        public void AddNewUser(string email, string password, string first_name, string last_name)
+        {
+            try
+            {
+                using (var session = _sessionFactory.OpenSession())
+                {
+                    var user = new User
+                    {
+                        Email = email,
+                        Password = password,
+                        First_name = first_name,
+                        Last_name = last_name
+                    };
+                    session.Save(user);
+                }
+            }
+            catch (Exception ex)
+            {
+                var errorString = $"Error inserting user: { ex }";
+                throw new Exception(errorString);
+            }
+            finally
+            {
+                
             }
 
         }

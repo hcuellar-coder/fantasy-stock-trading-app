@@ -24,10 +24,7 @@ namespace FantasyStockTradingApp
         public void ConfigureServices(IServiceCollection services)
         {
             //var connStr = Configuration.GetConnectionString("DefaultConnection");
-            var path = System.IO.Path.Combine(
-            AppDomain.CurrentDomain.BaseDirectory,
-            "hibernate.config"
-    );
+            var path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"hibernate.cfg");
             // add NHibernate services;
             services.AddHibernate(path);
 
