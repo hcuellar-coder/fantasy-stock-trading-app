@@ -20,8 +20,8 @@ function NewUser(props) {
 
     return (
         <Container id="login-container">
-            <Form class="login-form" noValidate validated={validated} onSubmit={handleSubmit}>
-                <Form.Row class="login-row">
+            <Form className="login-form" noValidate validated={validated} onSubmit={handleSubmit}>
+                <Form.Row className="login-row">
                     <Form.Group>
                         <Form.Control
                             required
@@ -30,7 +30,7 @@ function NewUser(props) {
                         />
                     </Form.Group>
                 </Form.Row>
-                <Form.Row class="login-row">
+                <Form.Row className="login-row">
                     <Form.Group>
                         <Form.Control
                             required
@@ -39,7 +39,7 @@ function NewUser(props) {
                         />
                     </Form.Group>
                 </Form.Row>
-                <Form.Row class="login-row">
+                <Form.Row className="login-row">
                     <Form.Group>
                         <Form.Control
                             required
@@ -48,7 +48,7 @@ function NewUser(props) {
                         />
                     </Form.Group>
                 </Form.Row>
-                <Form.Row class="login-row">
+                <Form.Row className="login-row">
                     <Form.Group>
                         <Form.Control
                             required
@@ -57,7 +57,7 @@ function NewUser(props) {
                         />
                     </Form.Group>
                 </Form.Row>
-                <Form.Row class="login-row">
+                <Form.Row className="login-row">
                     <Form.Group>
                         <Form.Control
                             required

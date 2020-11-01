@@ -1,29 +1,42 @@
 import React, { useState } from 'react';
 import { Form, Button, Container, NavLink } from 'react-bootstrap';
-import axios from 'axios';
+import { dbAccess } from './API';
 
 function Login(props) {
     const [validated, setValidated] = useState(false);
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
     async function getUser(email, password) {
         try {
-            const response = await axios.get('/login?', {
+            const response = await dbAccess.get('/login?', {
                 params: {
                     email: email,
                     password: password
                 }
             });
-            console.log(response);
+            return response;
         } catch(error) {
             console.error(error);
         }
     }
 
-    function handleSubmit(e) {
+    function handleEmailChange(e) {
         e.preventDefault();
-        const form = e.target;
+        setEmail(e.target.value);
+    }
+
+    function handlePasswordChange(e) {
+        e.preventDefault();
+        setPassword(e.target.value);
+    }
+
+   async function handleSubmit(e) {
+        e.preventDefault();
+       const form = e.target;
+       console.log('form =', form);
         if (form.checkValidity() !== false) {
-            await getUser(form.email, form.password).then(async() => (response) {
+            await getUser(email, password).then((response) => {
                 console.log(response);
             });
             console.log('data is valid');
@@ -38,22 +51,26 @@ function Login(props) {
 
     return (
         <Container id="login-container">
-            <Form class="login-form" noValidate validated={validated} onSubmit={handleSubmit}>
-                <Form.Row class="login-row">
+            <Form className="login-form" noValidate validated={validated} onSubmit={handleSubmit}>
+                <Form.Row className="login-row">
                     <Form.Group>
                         <Form.Control
                             required
                             type='text'
                             placeholder="Email"
+                            onChange={handleEmailChange}
+                            value={email}
                         />
                     </Form.Group>
                 </Form.Row>
-                <Form.Row class="login-row">
+                <Form.Row className="login-row">
                     <Form.Group>
                         <Form.Control
                             required
                             type='text'
                             placeholder="Password"
+                            onChange={handlePasswordChange}
+                            value={password}
                         />
                     </Form.Group>
                 </Form.Row>
