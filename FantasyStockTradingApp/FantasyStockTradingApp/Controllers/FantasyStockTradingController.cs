@@ -26,13 +26,24 @@ namespace FantasyStockTradingApp.Controllers
         [HttpGet("login")]
         public IQueryable<User> GetUser(string email, string password)
         {
+            Console.WriteLine("in Login");
+            Console.WriteLine("email = " + email);
+            Console.WriteLine("password = " + password);
+            var tempuser = new User();
+
             return _userService.GetUserInformation(email, password);
         }
 
-        [HttpPost("newuser")]
-        public void PostNewUser(string email, string password, string first_name, string last_name)
+        [HttpPost("new_user")]
+        public async Task NewUser(string email, string password, string first_name, string last_name)
         {
-            _userService.AddNewUser(email, password, first_name, last_name);
+            Console.WriteLine("in Post");
+            Console.WriteLine("email = " + email);
+            Console.WriteLine("password = " + password);
+            Console.WriteLine("first_name = "+ first_name);
+            Console.WriteLine("last_name = "+ last_name);
+            //_userService.AddNewUser(email, password, first_name, last_name);
+          await _userService.AddNewUser("heriberto.cuellar1329@gmail.com", "testing123", "Heriberto", "Cuellar");
         }
 
         // GET api/<FantasyStockTradingController>/5

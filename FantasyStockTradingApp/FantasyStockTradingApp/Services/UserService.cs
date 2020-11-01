@@ -1,5 +1,5 @@
 ﻿using FantasyStockTradingApp.Models;
-using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using NHibernate;
 using NHibernate.Linq;
 using System;
@@ -13,25 +13,36 @@ namespace FantasyStockTradingApp.Services
     public interface IUserService
     {
         IQueryable<User> GetUserInformation(string email, string password);
-        void AddNewUser(string email, string password, string first_name, string last_name);
+        Task AddNewUser(string email, string password, string first_name, string last_name);
     }
     public class UserService : IUserService
     {
-        private readonly ISessionFactory _sessionFactory;
+        /*private readonly ISessionFactory _session;
 
         public UserService(ISessionFactory sessionFactory)
         {
-            _sessionFactory = sessionFactory;
+            _sessionFact = sessionFactory;
+        }*/
+
+        private readonly ISession _session;
+
+        public UserService(ISession session)
+        {
+            _session = session;
         }
+
+
         public IQueryable<User> GetUserInformation(string email, string password)
         {
+            Console.WriteLine("email = "+ email);
+            Console.WriteLine("password = "+ password);
             try
             {
-                using (var session = _sessionFactory.OpenSession())
+                using (ITransaction transaction = _session.BeginTransaction())
                 {
-                    var result = session.Query<User>().Where(user => user.Email == email && user.Password == password);
-                    return result;
-                }
+                    var result = _session.Query<User>().Where(user => user.Email == email && user.Password == password);
+                        return result;
+                    }
             }
             catch ( Exception ex)
             {
@@ -41,11 +52,15 @@ namespace FantasyStockTradingApp.Services
 
         }
 
-        public void AddNewUser(string email, string password, string first_name, string last_name)
+        public async Task AddNewUser(string email, string password, string first_name, string last_name)
         {
+            Console.WriteLine("email = "+ email);
+            Console.WriteLine("password = "+ password);
+            Console.WriteLine("first_name = "+ first_name);
+            Console.WriteLine("last_name = "+ last_name);
             try
             {
-                using (var session = _sessionFactory.OpenSession())
+                using (ITransaction transaction = _session.BeginTransaction())
                 {
                     var user = new User
                     {
@@ -54,7 +69,8 @@ namespace FantasyStockTradingApp.Services
                         First_name = first_name,
                         Last_name = last_name
                     };
-                    session.Save(user);
+                    await _session.SaveAsync(user);
+                    await transaction.CommitAsync();
                 }
             }
             catch (Exception ex)

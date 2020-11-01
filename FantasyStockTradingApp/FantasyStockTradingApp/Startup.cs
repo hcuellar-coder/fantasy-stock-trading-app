@@ -1,4 +1,7 @@
 using FantasyStockTradingApp.Services;
+using FantasyStockTradingApp.SessionFactories;
+using FluentNHibernate.Cfg;
+using FluentNHibernate.Cfg.Db;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -6,7 +9,9 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using NHibernate;
 using NHibernate.NetCore;
+using NHibernate.Tool.hbm2ddl;
 using System;
 
 namespace FantasyStockTradingApp
@@ -23,10 +28,6 @@ namespace FantasyStockTradingApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            //var connStr = Configuration.GetConnectionString("DefaultConnection");
-            //var path = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory,"hibernate.cfg");
-            // add NHibernate services;
-            services.AddHibernate("Models/hibernate.cfg.xml");
 
             services.AddControllers();
             services.AddControllersWithViews();
@@ -38,6 +39,18 @@ namespace FantasyStockTradingApp
             });
 
             services.AddScoped<IUserService, UserService>();
+
+            var _sessionFactory = Fluently.Configure()
+               .Database(PostgreSQLConfiguration.Standard.ConnectionString(Configuration.GetConnectionString("DefaultConnection")))
+               .Mappings(m => m.FluentMappings.AddFromAssembly(GetType().Assembly))
+               .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
+               .BuildSessionFactory();
+
+            services.AddScoped(f =>
+            {
+                return _sessionFactory.OpenSession();
+            });
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

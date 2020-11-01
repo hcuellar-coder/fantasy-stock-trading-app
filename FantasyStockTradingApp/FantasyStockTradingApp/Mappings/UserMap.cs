@@ -11,13 +11,13 @@ namespace FantasyStockTradingApp.Mappings
     {
         public UserMap()
         {
-            Id(x => x.Id);
+            Id(x => x.Id).GeneratedBy.Increment();
 
             Map(x => x.Email);
             Map(x => x.Password);
             Map(x => x.First_name);
             Map(x => x.Last_name);
-
+            Table("userlogin");
         }
     }
 }
