@@ -1,13 +1,31 @@
 import React, { useState } from 'react';
-import { Form, Button, Container, NavLink  } from 'react-bootstrap';
+import { Form, Button, Container, NavLink } from 'react-bootstrap';
+import axios from 'axios';
 
 function Login(props) {
     const [validated, setValidated] = useState(false);
+
+    async function getUser(email, password) {
+        try {
+            const response = await axios.get('/login?', {
+                params: {
+                    email: email,
+                    password: password
+                }
+            });
+            console.log(response);
+        } catch(error) {
+            console.error(error);
+        }
+    }
 
     function handleSubmit(e) {
         e.preventDefault();
         const form = e.target;
         if (form.checkValidity() !== false) {
+            await getUser(form.email, form.password).then(async() => (response) {
+                console.log(response);
+            });
             console.log('data is valid');
         }
         setValidated(true);
@@ -20,8 +38,8 @@ function Login(props) {
 
     return (
         <Container id="login-container">
-            <Form noValidate validated={validated} onSubmit={handleSubmit}>
-                <Form.Row>
+            <Form class="login-form" noValidate validated={validated} onSubmit={handleSubmit}>
+                <Form.Row class="login-row">
                     <Form.Group>
                         <Form.Control
                             required
@@ -30,7 +48,7 @@ function Login(props) {
                         />
                     </Form.Group>
                 </Form.Row>
-                <Form.Row>
+                <Form.Row class="login-row">
                     <Form.Group>
                         <Form.Control
                             required
