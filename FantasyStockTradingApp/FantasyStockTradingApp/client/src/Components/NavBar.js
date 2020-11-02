@@ -1,9 +1,16 @@
 ﻿import React, { useState } from 'react';
 import { Nav, Navbar, NavItem } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect} from 'react-router-dom';
+import { useAuth } from "../Context/Auth";
 
 function NavBar(props) {
     const [expanded, setExpanded] = useState(false);
+    const { authTokens, setAuthTokens } = useAuth();
+
+    function handleLogOut() {
+        setAuthTokens('');
+        return < Redirect to = '/' />;
+    }
 
     return (
         <Navbar id="nav-bar" expanded={expanded} expand="sm" sticky="top">
@@ -15,10 +22,13 @@ function NavBar(props) {
                         <NavLink className='Navlink' to='/' exact={true}>Home</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink className='Navlink' to='/summary' hidden={true} >Summary</NavLink>
+                        <NavLink className='Navlink' to='/summary'>Summary</NavLink>
                     </NavItem>
                     <NavItem>
-                        <NavLink className='Navlink' to='/report' hidden={true} >Report</NavLink>
+                        <NavLink className='Navlink' to='/report' >Report</NavLink>
+                    </NavItem>
+                    <NavItem>
+                        <Nav.Link className='Navlink' onClick={handleLogOut} hidden={!authTokens} >Log Out</Nav.Link>
                     </NavItem>
                 </Nav>
             </Navbar.Collapse>

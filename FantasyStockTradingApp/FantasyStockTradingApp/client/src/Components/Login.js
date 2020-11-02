@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { Redirect } from 'react-router-dom';
 import { Form, Button, Container, NavLink } from 'react-bootstrap';
 import { dbAccess } from './API';
+import { useAuth } from '../Context/Auth';
 
 function Login(props) {
+    const [isError, setIsError] = useState(false);
     const [validated, setValidated] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { setAuthTokens } = useAuth();
 
-    async function getUser(email, password) {
+    function getUser() {
         try {
-            const response = await dbAccess.get('/login?', {
+            const response = dbAccess.get('/login?', {
                 params: {
                     email: email,
                     password: password
@@ -31,13 +35,20 @@ function Login(props) {
         setPassword(e.target.value);
     }
 
-   async function handleSubmit(e) {
+    function handleSubmit(e) {
         e.preventDefault();
        const form = e.target;
        console.log('form =', form);
         if (form.checkValidity() !== false) {
-            await getUser(email, password).then((response) => {
+             getUser().then((response) => {
+                if (response.status === 200 && response.data.length !== 0) {
+                    setAuthTokens(response.data);
+                } else {
+                    setIsError(true);
+                }
                 console.log(response);
+            }).catch(e => {
+                setIsError(true);
             });
             console.log('data is valid');
         }
@@ -48,6 +59,14 @@ function Login(props) {
         props.login(false);
         console.log('handle new user information');
     }
+
+    useEffect(() => {
+        if (isError) {
+            setEmail('');
+            setPassword('');
+            setIsError(false);
+        }
+    },[isError])
 
     return (
         <Container id="login-container">
@@ -72,6 +91,9 @@ function Login(props) {
                             onChange={handlePasswordChange}
                             value={password}
                         />
+                        <Form.Control.Feedback type="invalid">
+                            Incorrect username or password.
+                        </Form.Control.Feedback>
                     </Form.Group>
                 </Form.Row>
                 <div id='login-buttons-div'>

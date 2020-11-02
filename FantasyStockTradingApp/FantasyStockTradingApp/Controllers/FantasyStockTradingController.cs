@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 using FantasyStockTradingApp.Models;
 using FantasyStockTradingApp.Services;
 using Microsoft.AspNetCore.Mvc;
-
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace FantasyStockTradingApp.Controllers
 {
@@ -16,6 +17,7 @@ namespace FantasyStockTradingApp.Controllers
     {
 
         private readonly IUserService _userService;
+        static readonly JsonSerializer _serializer = new JsonSerializer();
 
         public FantasyStockTradingController(IUserService userService)
         {
@@ -29,21 +31,24 @@ namespace FantasyStockTradingApp.Controllers
             Console.WriteLine("in Login");
             Console.WriteLine("email = " + email);
             Console.WriteLine("password = " + password);
-            var tempuser = new User();
 
             return _userService.GetUserInformation(email, password);
         }
 
         [HttpPost("new_user")]
-        public async Task NewUser(string email, string password, string first_name, string last_name)
+        public async Task NewUser(JObject data)
         {
+            var email = data["email"].ToString();
+            var password = data["password"].ToString();
+            var first_name = data["first_name"].ToString();
+            var last_name = data["last_name"].ToString();
             Console.WriteLine("in Post");
             Console.WriteLine("email = " + email);
             Console.WriteLine("password = " + password);
-            Console.WriteLine("first_name = "+ first_name);
-            Console.WriteLine("last_name = "+ last_name);
-            //_userService.AddNewUser(email, password, first_name, last_name);
-          await _userService.AddNewUser("heriberto.cuellar1329@gmail.com", "testing123", "Heriberto", "Cuellar");
+            Console.WriteLine("first_name = " + first_name);
+            Console.WriteLine("last_name = " + last_name);
+
+            await _userService.AddNewUser(email, password, first_name, last_name);
         }
 
         // GET api/<FantasyStockTradingController>/5

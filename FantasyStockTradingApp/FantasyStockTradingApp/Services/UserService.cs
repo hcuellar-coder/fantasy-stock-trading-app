@@ -6,6 +6,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Net.Http;
+using System.Web;
+using Microsoft.AspNetCore.Server.HttpSys;
+using System.Net;
 
 namespace FantasyStockTradingApp.Services
 {
@@ -41,8 +45,8 @@ namespace FantasyStockTradingApp.Services
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     var result = _session.Query<User>().Where(user => user.Email == email && user.Password == password);
-                        return result;
-                    }
+                    return result;
+                }
             }
             catch ( Exception ex)
             {
