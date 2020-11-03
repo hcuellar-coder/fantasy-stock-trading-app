@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, NavLink } from 'react-bootstrap';
-import { dbAccess } from './API';
+import { api } from './API';
 import { useAuth } from '../Context/Auth';
 
 function NewUser(props) {
@@ -27,7 +27,7 @@ function NewUser(props) {
          */
 
         try {
-            const response = dbAccess.post('/new_user', {
+            const response = api.post('/new_user', {
                     email: email,
                     password: password,
                     first_name: firstName,

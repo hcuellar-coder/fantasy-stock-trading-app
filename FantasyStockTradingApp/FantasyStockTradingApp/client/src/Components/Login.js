@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Form, Button, Container, NavLink } from 'react-bootstrap';
-import { dbAccess } from './API';
+import { api } from './API';
 import { useAuth } from '../Context/Auth';
 
 function Login(props) {
@@ -13,7 +13,7 @@ function Login(props) {
 
     function getUser() {
         try {
-            const response = dbAccess.get('/login?', {
+            const response = api.get('/login?', {
                 params: {
                     email: email,
                     password: password
@@ -86,7 +86,7 @@ function Login(props) {
                     <Form.Group>
                         <Form.Control
                             required
-                            type='text'
+                            type='password'
                             placeholder="Password"
                             onChange={handlePasswordChange}
                             value={password}

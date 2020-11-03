@@ -2,15 +2,14 @@
 
 axios.defaults.headers.post['Content-Type'] = 'application/json';
 
-const dbAccess = axios.create({
-    baseURL: 'https://localhost:5001/api/fantasystocktrading/',
+const api = axios.create({
+    baseURL: '/api/fantasystocktrading/',
 });
 
-const iexCloudAPI = axios.create({
-    baseURL: 'https://cloud.iexapis.com/v1/',
-});
+/*const iexCloudAPI = axios.create({
+    baseURL: '/api/fantasystocktrading/',
+});*/
 
 export {
-    dbAccess,
-    iexCloudAPI
+    api
 };

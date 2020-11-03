@@ -28,7 +28,7 @@ function NavBar(props) {
                         <NavLink className='Navlink' to='/report' >Report</NavLink>
                     </NavItem>
                     <NavItem>
-                        <Nav.Link className='Navlink' onClick={handleLogOut} hidden={!authTokens} >Log Out</Nav.Link>
+                        <a className='Navlink' onClick={handleLogOut} hidden={!authTokens} >Log Out</a>
                     </NavItem>
                 </Nav>
             </Navbar.Collapse>
