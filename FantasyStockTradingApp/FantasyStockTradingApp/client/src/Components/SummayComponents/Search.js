@@ -13,7 +13,7 @@ function Search() {
 
     function searchSymbol() {
         try {
-            const response = api.get('/get_book', {
+            const response = api.get('/get_quote', {
                 params: {
                     symbol: search
                 }

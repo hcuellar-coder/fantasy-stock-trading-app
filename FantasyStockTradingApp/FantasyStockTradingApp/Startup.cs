@@ -14,21 +14,41 @@ using NHibernate;
 using NHibernate.NetCore;
 using NHibernate.Tool.hbm2ddl;
 using System;
+using System.Configuration;
 
 namespace FantasyStockTradingApp
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
-        {
-            Configuration = configuration;
-        }
+        public IConfiguration _configuration;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
-        public IConfiguration Configuration { get; }
+        public Startup(IConfiguration configuration, 
+            IWebHostEnvironment hostingEnvironment)
+        {
+            _configuration = configuration;
+            _hostingEnvironment = hostingEnvironment;
+        }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            var TOKEN = "";
+            if (_hostingEnvironment.IsDevelopment())
+            {
+                TOKEN = ConfigurationManager.AppSettings["token"];
+            }
+            else
+            {
+                TOKEN = Environment.GetEnvironmentVariable("token");
+            }
+
+            services.AddHttpClient("iexCloud", c =>
+            {
+                c.BaseAddress = new Uri("https://cloud.iexapis.com/v1/");
+                c.DefaultRequestHeaders.Add("Authorization", "token " + TOKEN);
+                //c.DefaultRequestHeaders.Add("token", TOKEN);
+            });
 
             services.AddControllers();
             services.AddControllersWithViews();
@@ -41,9 +61,10 @@ namespace FantasyStockTradingApp
             });
 
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IIexCloudService, IexCloudService>();
 
             var _sessionFactory = Fluently.Configure()
-               .Database(PostgreSQLConfiguration.Standard.ConnectionString(Configuration.GetConnectionString("DefaultConnection")))
+               .Database(PostgreSQLConfiguration.Standard.ConnectionString(_configuration.GetConnectionString("DefaultConnection")))
                .Mappings(m => m.FluentMappings.AddFromAssembly(GetType().Assembly))
                .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
                .BuildSessionFactory();

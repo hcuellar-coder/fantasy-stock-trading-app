@@ -21,12 +21,6 @@ namespace FantasyStockTradingApp.Services
     }
     public class UserService : IUserService
     {
-        /*private readonly ISessionFactory _session;
-
-        public UserService(ISessionFactory sessionFactory)
-        {
-            _sessionFact = sessionFactory;
-        }*/
 
         private readonly ISession _session;
 

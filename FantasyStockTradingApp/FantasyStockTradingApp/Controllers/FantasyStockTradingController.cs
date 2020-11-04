@@ -17,11 +17,14 @@ namespace FantasyStockTradingApp.Controllers
     {
 
         private readonly IUserService _userService;
-        static readonly JsonSerializer _serializer = new JsonSerializer();
+        private readonly IIexCloudService _iexCloudService;
 
-        public FantasyStockTradingController(IUserService userService)
+        //This is were the problem isf
+        public FantasyStockTradingController(IUserService userService,
+            IIexCloudService iexCloudService)
         {
             _userService = userService;
+            _iexCloudService = iexCloudService;
         }
 
         // GET: api/<FantasyStockTradingController>
@@ -33,6 +36,16 @@ namespace FantasyStockTradingApp.Controllers
             Console.WriteLine("password = " + password);
 
             return _userService.GetUserInformation(email, password);
+        }
+
+        // GET: api/<FantasyStockTradingController>
+        [HttpGet("get_quote")]
+        public Task<Quote> GetQuote(string symbol)
+        {
+            Console.WriteLine("getting Quote");
+            Console.WriteLine("symbol = " + symbol);
+
+            return _iexCloudService.GetQuote(symbol);
         }
 
         [HttpPost("new_user")]
