@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Button, Card, CardDeck } from 'react-bootstrap';
 import { api } from '../API';
+import TransactionModal from './TransactionModal';
 
 function Search() {
     const [isError, setIsError] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+    const [isBuying, setIsBuying] = useState(true);
     const [search, setSearch] = useState('');
     const [searchValid, setSearchValid] = useState(false);
     const [validated, setValidated] = useState(false);
@@ -36,7 +39,7 @@ function Search() {
             searchSymbol().then((response) => {
                 if (response.status === 200 && response.data.length !== 0) {
                     console.log(response.data);
-                    setStockData([...stockData, response.data]);
+                    setStockData(response.data);
                     setSearchValid(true);
                 } else {
                     setIsError(true);
@@ -52,11 +55,21 @@ function Search() {
 
 
     function handleBuyButton() {
-
+        console.log('Buying');
+        console.log("latestPrice = " + stockData.latestPrice);
+        setIsBuying(true);
+        setShowModal(true);
     }
 
     function handleSellButton() {
+        console.log('Selling');
+        console.log("latestPrice = " + stockData.latestPrice);
+        setIsBuying(false);
+        setShowModal(true);
+    }
 
+    function handleClose() {
+        setShowModal(false);
     }
 
     useEffect(() => {
@@ -65,6 +78,7 @@ function Search() {
 
     return (
         <div>
+            <TransactionModal show={showModal} handleClose={handleClose} isBuying={isBuying} stockData={stockData}/>
             <Form className="search-form" noValidate validated={validated} onSubmit={handleSubmit}>
                 <Form.Group>
                     <Form.Label className="search-label">Search Symbol</Form.Label>
@@ -89,13 +103,13 @@ function Search() {
                     <Card>
                         <Card.Img variant="top" src="holder.js/100px160" />
                         <Card.Body>
-                            <Card.Title>{stockData[0].companyName}</Card.Title>
+                            <Card.Title>{stockData.companyName}</Card.Title>
                             <Card.Text>
-                                <span>Price ${stockData[0].latestPrice} | Change {stockData[0].change} | % Changes {stockData[0].changePercent*100}</span>
+                                <span>Price ${stockData.latestPrice} | Change {stockData.change} | % Changes {stockData.changePercent*100}</span>
                             </Card.Text>
                             <div className="card-buttons">
-                                <Button className="card-button">Buy</Button>
-                                <Button className="card-button">Sell</Button>
+                                <Button className="card-button" onClick={ handleBuyButton }>Buy</Button>
+                                {/* <Button className="card-button" onClick={ handleSellButton }>Sell</Button> */}
                             </div>
                         </Card.Body>
                     </Card>

@@ -18,13 +18,16 @@ namespace FantasyStockTradingApp.Controllers
 
         private readonly IUserService _userService;
         private readonly IIexCloudService _iexCloudService;
+        private readonly ITransactionService _transactionService;
 
         //This is were the problem isf
         public FantasyStockTradingController(IUserService userService,
-            IIexCloudService iexCloudService)
+                                     IIexCloudService iexCloudService,
+                                     ITransactionService transactionService)
         {
             _userService = userService;
             _iexCloudService = iexCloudService;
+            _transactionService = transactionService;
         }
 
         // GET: api/<FantasyStockTradingController>
@@ -62,6 +65,23 @@ namespace FantasyStockTradingApp.Controllers
             Console.WriteLine("last_name = " + last_name);
 
             await _userService.AddNewUser(email, password, first_name, last_name);
+        }
+
+        [HttpPost("stock_transaction")]
+        public async Task StockTransaction(JObject data)
+        {
+            var cost = float.Parse(data["cost"].ToString());
+            var stock_count = Int32.Parse(data["stock_count"].ToString());
+            var symbol = data["symbol"].ToString();
+            var type = data["type"].ToString();
+
+            Console.WriteLine("in Post");
+            Console.WriteLine("cost = " + cost);
+            Console.WriteLine("stock_count = " + stock_count);
+            Console.WriteLine("symbol = " + symbol);
+            Console.WriteLine("type = " + type);
+
+            await _transactionService.StockTransaction(cost, stock_count, symbol, type);
         }
 
         // GET api/<FantasyStockTradingController>/5

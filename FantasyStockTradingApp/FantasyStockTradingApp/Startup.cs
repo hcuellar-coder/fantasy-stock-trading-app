@@ -61,6 +61,7 @@ namespace FantasyStockTradingApp
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IIexCloudService, IexCloudService>();
+            services.AddScoped<ITransactionService, TransactionService>();
 
             var _sessionFactory = Fluently.Configure()
                .Database(PostgreSQLConfiguration.Standard.ConnectionString(_configuration.GetConnectionString("DefaultConnection")))
