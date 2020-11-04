@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Button, Card, CardDeck } from 'react-bootstrap';
 import { api } from '../API';
 
@@ -7,7 +7,7 @@ function Search() {
     const [search, setSearch] = useState('');
     const [searchValid, setSearchValid] = useState(false);
     const [validated, setValidated] = useState(false);
-    const [stock, setStock] = useState([]);
+    const [stockData, setStockData] = useState([]);
 
 
 
@@ -24,7 +24,6 @@ function Search() {
         }
     }
 
-
     function handleChange(e) {
         e.preventDefault();
         setSearch(e.target.value);
@@ -37,6 +36,7 @@ function Search() {
             searchSymbol().then((response) => {
                 if (response.status === 200 && response.data.length !== 0) {
                     console.log(response.data);
+                    setStockData([...stockData, response.data]);
                     setSearchValid(true);
                 } else {
                     setIsError(true);
@@ -49,6 +49,19 @@ function Search() {
         }
         setValidated(true);
     }
+
+
+    function handleBuyButton() {
+
+    }
+
+    function handleSellButton() {
+
+    }
+
+    useEffect(() => {
+        console.log(stockData);
+    },[stockData])
 
     return (
         <div>
@@ -76,10 +89,9 @@ function Search() {
                     <Card>
                         <Card.Img variant="top" src="holder.js/100px160" />
                         <Card.Body>
-                            <Card.Title>Card title</Card.Title>
+                            <Card.Title>{stockData[0].companyName}</Card.Title>
                             <Card.Text>
-                                This is a wider card with supporting text below as a natural lead-in to
-                                additional content. This content is a little bit longer.
+                                <span>Price ${stockData[0].latestPrice} | Change {stockData[0].change} | % Changes {stockData[0].changePercent*100}</span>
                             </Card.Text>
                             <div className="card-buttons">
                                 <Button className="card-button">Buy</Button>

@@ -33,7 +33,7 @@ namespace FantasyStockTradingApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            var TOKEN = "";
+            /*var TOKEN = "";
             if (_hostingEnvironment.IsDevelopment())
             {
                 TOKEN = ConfigurationManager.AppSettings["token"];
@@ -41,13 +41,12 @@ namespace FantasyStockTradingApp
             else
             {
                 TOKEN = Environment.GetEnvironmentVariable("token");
-            }
+            }*/
 
             services.AddHttpClient("iexCloud", c =>
             {
                 c.BaseAddress = new Uri("https://cloud.iexapis.com/v1/");
-                c.DefaultRequestHeaders.Add("Authorization", "token " + TOKEN);
-                //c.DefaultRequestHeaders.Add("token", TOKEN);
+                /*c.DefaultRequestHeaders.Add("Authorization", "token " + TOKEN);*/
             });
 
             services.AddControllers();

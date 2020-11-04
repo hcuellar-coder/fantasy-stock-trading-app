@@ -12,6 +12,7 @@ using Microsoft.AspNetCore.Server.HttpSys;
 using System.Net;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Configuration;
 
 namespace FantasyStockTradingApp.Services
 {
@@ -24,23 +25,22 @@ namespace FantasyStockTradingApp.Services
     public class IexCloudService : IIexCloudService
     {
         private readonly IHttpClientFactory _clientFactory;
+        private readonly IConfiguration _configuration;
 
-        public IexCloudService(IHttpClientFactory clientFactory)
+        public IexCloudService(IHttpClientFactory clientFactory,
+                IConfiguration configuration)
         {
             _clientFactory = clientFactory;
+            _configuration = configuration;
         }
 
 
         public async Task<Quote> GetQuote(string symbol)
         {
+            var token = _configuration["Token_Key:token"];
             Console.WriteLine("symbol = " + symbol);
 
-            /*var queryStrings = new Dictionary<string, string>()
-            {
-                {"symbol", symbol }
-            };
-*/
-            var requestUri = "stock/"+symbol+"/quote/";
+            var requestUri = "stock/"+symbol+"/quote?token="+token;
 
             Console.WriteLine("requestUri = " + requestUri);
 
@@ -60,6 +60,7 @@ namespace FantasyStockTradingApp.Services
             }
 
             var responseStream = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("responseStream = " + responseStream);
             return JsonConvert.DeserializeObject<Quote>(responseStream);
 
         }

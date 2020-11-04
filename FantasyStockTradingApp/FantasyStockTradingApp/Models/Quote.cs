@@ -7,6 +7,8 @@ namespace FantasyStockTradingApp.Models
 {
     public class Quote
     {
+        public string symbol { get; set; }
+        public string companyName { get; set; }
         public float latestPrice { get; set; }
         public float change { get; set; }
         public float changePercent { get; set; }
