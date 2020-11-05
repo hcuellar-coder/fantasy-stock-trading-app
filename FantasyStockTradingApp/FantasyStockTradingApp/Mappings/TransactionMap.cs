@@ -13,10 +13,13 @@ namespace FantasyStockTradingApp.Mappings
         {
             Id(x => x.Id).GeneratedBy.Increment();
 
-            Map(x => x.Cost);
-            Map(x => x.Stock_count);
-            Map(x => x.Symbol);
+            Map(x => x.Account_Id);
             Map(x => x.Type);
+            Map(x => x.Symbol);
+            Map(x => x.Stock_count);
+            Map(x => x.Cost);
+            Map(x => x.Date_of_Transaction);
+
             Table("transactions");
         }
     }
