@@ -13,8 +13,8 @@ namespace FantasyStockTradingApp.Services
         IQueryable<Holdings> GetHoldings(int account_id);
         Task NewHolding(int account_id, string symbol, int stock_count,
                 float latest_cost_per_stock, string last_Updated);
-        Task UpdateHoldings(int account_id, string symbol, int stock_count, 
-                        float latest_cost_per_stock, string updated_time);
+        Task UpdateHolding(int account_id, string symbol, int stock_count, 
+                        float latest_cost_per_stock, string last_Updated);
         Task DeleteHolding(int account_id, string symbol);
     }
 
@@ -45,7 +45,7 @@ namespace FantasyStockTradingApp.Services
             }
         }
 
-        public async Task UpdateHoldings(int account_id, string symbol, int stock_count,
+        public async Task UpdateHolding(int account_id, string symbol, int stock_count,
                         float latest_cost_per_stock, string last_Updated)
         {
             Console.WriteLine("account_id = " + account_id);

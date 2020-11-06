@@ -16,7 +16,7 @@ namespace FantasyStockTradingApp.Services
 
     public interface ITransactionService
     {
-        Task StockTransaction(int account_id, string type, string symbol, 
+        Task NewTransaction(int account_id, string type, string symbol, 
                 int stock_count, float cost_per_stock, float cost_per_transaction);
     }
     public class TransactionService : ITransactionService
@@ -29,7 +29,7 @@ namespace FantasyStockTradingApp.Services
             _session = session;
         }
 
-        public async Task StockTransaction(int account_id, string type, string symbol, 
+        public async Task NewTransaction(int account_id, string type, string symbol, 
                                     int stock_count, float cost_per_stock, float cost_per_transaction) { 
             Console.WriteLine("cost_per_stock = " + cost_per_stock);
             Console.WriteLine("cost_per_transaction = " + cost_per_transaction);
