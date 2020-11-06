@@ -76,12 +76,6 @@ namespace FantasyStockTradingApp.Services
                 var errorString = $"Error inserting user: { ex }";
                 throw new Exception(errorString);
             }
-            finally
-            {
-                
-            }
-
         }
-
     }
 }

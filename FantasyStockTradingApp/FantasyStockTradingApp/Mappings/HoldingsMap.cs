@@ -7,21 +7,17 @@ using System.Threading.Tasks;
 
 namespace FantasyStockTradingApp.Mappings
 {
-    public class TransactionMap : ClassMap<Transaction>
+    public class HoldingsMap : ClassMap<Holdings>
     {
-        public TransactionMap()
+        public HoldingsMap()
         {
             Id(x => x.Id).GeneratedBy.Increment();
-
             Map(x => x.Account_Id);
-            Map(x => x.Type);
             Map(x => x.Symbol);
             Map(x => x.Stock_Count);
-            Map(x => x.Cost_per_Stock);
-            Map(x => x.Cost_per_Transaction);
-            Map(x => x.Transaction_Date);
-
-            Table("transactions");
+            Map(x => x.Latest_Price);
+            Map(x => x.Last_Updated);
+            Table("holdings");
         }
     }
 }

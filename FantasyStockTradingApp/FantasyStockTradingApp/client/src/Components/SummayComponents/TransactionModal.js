@@ -49,7 +49,7 @@ function TransactionModal(props) {
 
     function stock_transaction() {
         try {
-            const response = api.post('/stock_transaction', {
+            const response = api.post('/new_transaction', {
                 type: transactionType,
                 stock_count: stockCount,
                 cost: props.stockData.latestPrice,

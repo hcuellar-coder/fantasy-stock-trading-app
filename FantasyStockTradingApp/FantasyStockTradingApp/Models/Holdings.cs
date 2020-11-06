@@ -5,16 +5,14 @@ using System.Threading.Tasks;
 
 namespace FantasyStockTradingApp.Models
 {
-    public class Transaction
+    public class Holdings
     {
         public virtual int Id { get; set; }
         public virtual int Account_Id { get; set; }
-        public virtual string Type { get; set; }
         public virtual string Symbol { get; set; }
         public virtual int Stock_Count { get; set; }
-        public virtual float Cost_per_Stock { get; set; }
-        public virtual float Cost_per_Transaction { get; set; }
-        public virtual DateTime Transaction_Date { get; set; }
+        public virtual float Latest_Price { get; set; }
+        public virtual DateTime Last_Updated { get; set; }
 
     }
 }

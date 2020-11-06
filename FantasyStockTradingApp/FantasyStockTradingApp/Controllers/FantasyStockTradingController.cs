@@ -67,24 +67,95 @@ namespace FantasyStockTradingApp.Controllers
             await _userService.AddNewUser(email, password, first_name, last_name);
         }
 
-        [HttpPost("stock_transaction")]
-        public async Task StockTransaction(JObject data)
+        [HttpPost("new_account")]
+        public async Task NewAccount(JObject data)
         {
-            var cost = float.Parse(data["cost"].ToString());
-            var stock_count = Int32.Parse(data["stock_count"].ToString());
-            var symbol = data["symbol"].ToString();
-            var type = data["type"].ToString();
-
+            var email = data["email"].ToString();
+            var password = data["password"].ToString();
+            var first_name = data["first_name"].ToString();
+            var last_name = data["last_name"].ToString();
             Console.WriteLine("in Post");
-            Console.WriteLine("cost = " + cost);
-            Console.WriteLine("stock_count = " + stock_count);
-            Console.WriteLine("symbol = " + symbol);
-            Console.WriteLine("type = " + type);
+            Console.WriteLine("email = " + email);
+            Console.WriteLine("password = " + password);
+            Console.WriteLine("first_name = " + first_name);
+            Console.WriteLine("last_name = " + last_name);
 
-            await _transactionService.StockTransaction(cost, stock_count, symbol, type);
+            await _userService.AddNewUser(email, password, first_name, last_name);
         }
 
-        // GET api/<FantasyStockTradingController>/5
+        [HttpPost("new_transaction")]
+        public async Task NewTransaction(JObject data)
+        {
+            var account_id = Int32.Parse(data["account_id"].ToString());
+            var type = data["type"].ToString();
+            var symbol = data["symbol"].ToString();
+            var stock_count = Int32.Parse(data["stock_count"].ToString());
+            var cost_per_stock = float.Parse(data["cost_per_stock"].ToString());
+            var cost_per_transaction = float.Parse(data["cost_per_transaction"].ToString());
+
+            Console.WriteLine("in Post");
+            Console.WriteLine("account_id = " + account_id);
+            Console.WriteLine("type = " + type);
+            Console.WriteLine("symbol = " + symbol);
+            Console.WriteLine("stock_count = " + stock_count);
+            Console.WriteLine("cost = " + cost_per_stock);
+            Console.WriteLine("cost = " + cost_per_transaction);
+
+            //1. Inserting into transaction table
+            await _transactionService.StockTransaction(account_id, type, symbol, 
+                                    stock_count, cost_per_stock, cost_per_transaction);
+        }
+
+
+        [HttpPost("update_holdings")]
+        public async Task UpdateHoldings(JObject data)
+        {
+            var account_id = Int32.Parse(data["account_id"].ToString());
+            var type = data["type"].ToString();
+            var symbol = data["symbol"].ToString();
+            var stock_count = Int32.Parse(data["stock_count"].ToString());
+            var cost_per_stock = float.Parse(data["cost_per_stock"].ToString());
+            var cost_per_transaction = float.Parse(data["cost_per_transaction"].ToString());
+
+            Console.WriteLine("in Post");
+            Console.WriteLine("account_id = " + account_id);
+            Console.WriteLine("type = " + type);
+            Console.WriteLine("symbol = " + symbol);
+            Console.WriteLine("stock_count = " + stock_count);
+            Console.WriteLine("cost = " + cost_per_stock);
+            Console.WriteLine("cost = " + cost_per_transaction);
+
+            //1. Inserting into transaction table
+            await _transactionService.StockTransaction(account_id, type, symbol,
+                                    stock_count, cost_per_stock, cost_per_transaction);
+        }
+
+        [HttpPost("update_account")]
+        public async Task UpdateAccount(JObject data)
+        {
+            var account_id = Int32.Parse(data["account_id"].ToString());
+            var type = data["type"].ToString();
+            var symbol = data["symbol"].ToString();
+            var stock_count = Int32.Parse(data["stock_count"].ToString());
+            var cost_per_stock = float.Parse(data["cost_per_stock"].ToString());
+            var cost_per_transaction = float.Parse(data["cost_per_transaction"].ToString());
+
+            Console.WriteLine("in Post");
+            Console.WriteLine("account_id = " + account_id);
+            Console.WriteLine("type = " + type);
+            Console.WriteLine("symbol = " + symbol);
+            Console.WriteLine("stock_count = " + stock_count);
+            Console.WriteLine("cost = " + cost_per_stock);
+            Console.WriteLine("cost = " + cost_per_transaction);
+
+            //1. Inserting into transaction table
+            await _transactionService.StockTransaction(account_id, type, symbol,
+                                    stock_count, cost_per_stock, cost_per_transaction);
+        }
+
+
+
+        /*// GET api/<FantasyStockTradingController>/5
         [HttpGet("{id}")]
         public string Get(int id)
         {
@@ -107,6 +178,6 @@ namespace FantasyStockTradingApp.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
-        }
+        }*/
     }
 }

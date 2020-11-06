@@ -16,7 +16,8 @@ namespace FantasyStockTradingApp.Services
 
     public interface ITransactionService
     {
-        Task StockTransaction(float cost, int stock_count, string symbol, string type);
+        Task StockTransaction(int account_id, string type, string symbol, 
+                int stock_count, float cost_per_stock, float cost_per_transaction);
     }
     public class TransactionService : ITransactionService
     {
@@ -28,9 +29,10 @@ namespace FantasyStockTradingApp.Services
             _session = session;
         }
 
-        public async Task StockTransaction(float cost, int stock_count, string symbol, string type)
-        {
-            Console.WriteLine("cost = " + cost);
+        public async Task StockTransaction(int account_id, string type, string symbol, 
+                                    int stock_count, float cost_per_stock, float cost_per_transaction) { 
+            Console.WriteLine("cost_per_stock = " + cost_per_stock);
+            Console.WriteLine("cost_per_transaction = " + cost_per_transaction);
             Console.WriteLine("stock_count = " + stock_count);
             Console.WriteLine("symbol = " + symbol);
             Console.WriteLine("type = " + type);
@@ -40,10 +42,13 @@ namespace FantasyStockTradingApp.Services
                 {
                     var stock_transaction = new Transaction
                     {
-                        Cost = cost,
-                        Stock_count = stock_count,
+                        Account_Id = account_id,
+                        Type = type,
                         Symbol = symbol,
-                        Type = type
+                        Stock_Count = stock_count,
+                        Cost_per_Stock = cost_per_stock,
+                        Cost_per_Transaction= cost_per_transaction,
+
                     };
                     await _session.SaveAsync(stock_transaction);
                     await transaction.CommitAsync();
