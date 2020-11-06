@@ -16,8 +16,8 @@ namespace FantasyStockTradingApp.Services
 
     public interface IUserService
     {
-        IQueryable<User> GetUserInformation(string email, string password);
-        Task AddNewUser(string email, string password, string first_name, string last_name);
+        IQueryable<User> GetUser(string email, string password);
+        Task NewUser(string email, string password, string first_name, string last_name);
     }
     public class UserService : IUserService
     {
@@ -30,7 +30,7 @@ namespace FantasyStockTradingApp.Services
         }
 
 
-        public IQueryable<User> GetUserInformation(string email, string password)
+        public IQueryable<User> GetUser(string email, string password)
         {
             Console.WriteLine("email = "+ email);
             Console.WriteLine("password = "+ password);
@@ -38,7 +38,8 @@ namespace FantasyStockTradingApp.Services
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
-                    var result = _session.Query<User>().Where(user => user.Email == email && user.Password == password);
+                    var result = _session.Query<User>()
+                        .Where(user => user.Email == email && user.Password == password);
                     return result;
                 }
             }
@@ -50,7 +51,7 @@ namespace FantasyStockTradingApp.Services
 
         }
 
-        public async Task AddNewUser(string email, string password, string first_name, string last_name)
+        public async Task NewUser(string email, string password, string first_name, string last_name)
         {
             Console.WriteLine("email = "+ email);
             Console.WriteLine("password = "+ password);

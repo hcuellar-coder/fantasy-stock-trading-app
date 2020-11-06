@@ -13,8 +13,9 @@ namespace FantasyStockTradingApp.Services
 {
     public interface IAccountService
     {
-        Task NewAccount(int user_id, float balance, float portfolio_balance);
-        Task UpdateBalance(int account_id, float balance, float portfolio_balance);
+        IQueryable<Account> GetAccount(int user_id);
+        Task NewAccount(int user_id);
+        Task UpdateAccount(int account_id, float balance, float portfolio_balance);
     }
 
     public class AccountService : IAccountService
@@ -26,11 +27,27 @@ namespace FantasyStockTradingApp.Services
             _session = session;
         }
 
-        public async Task NewAccount(int user_id, float balance, float portfolio_balance)
+        public IQueryable<Account> GetAccount(int user_id)
+        {
+            try
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    var result = _session.Query<Account>()
+                        .Where(account => account.User_Id == user_id);
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                var errorString = $"User does not exist: { ex }";
+                throw new Exception(errorString);
+            }
+        }
+
+        public async Task NewAccount(int user_id)
         {
             Console.WriteLine("account_id = " + user_id);
-            Console.WriteLine("balance = " + balance);
-            Console.WriteLine("portfolio_balance = " + portfolio_balance);
 
             try
             {
@@ -52,10 +69,9 @@ namespace FantasyStockTradingApp.Services
                 var errorString = $"Error inserting user: { ex }";
                 throw new Exception(errorString);
             }
-
         }
 
-        public async Task UpdateBalance(int account_id, float balance, float portfolio_balance)
+        public async Task UpdateAccount(int account_id, float balance, float portfolio_balance)
         {
             Console.WriteLine("account_id = " + account_id);
             Console.WriteLine("balance = " + balance);

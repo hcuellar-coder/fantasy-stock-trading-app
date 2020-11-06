@@ -42,7 +42,7 @@ namespace FantasyStockTradingApp.Controllers
             Console.WriteLine("email = " + email);
             Console.WriteLine("password = " + password);
 
-            return _userService.GetUserInformation(email, password);
+            return _userService.GetUser(email, password);
         }
 
         // GET: api/<FantasyStockTradingController>
@@ -68,23 +68,17 @@ namespace FantasyStockTradingApp.Controllers
             Console.WriteLine("first_name = " + first_name);
             Console.WriteLine("last_name = " + last_name);
 
-            await _userService.AddNewUser(email, password, first_name, last_name);
+            await _userService.NewUser(email, password, first_name, last_name);
         }
 
         [HttpPost("new_account")]
         public async Task NewAccount(JObject data)
         {
-            var email = data["email"].ToString();
-            var password = data["password"].ToString();
-            var first_name = data["first_name"].ToString();
-            var last_name = data["last_name"].ToString();
+            var user_id = Int32.Parse(data["user_id"].ToString());
             Console.WriteLine("in Post");
-            Console.WriteLine("email = " + email);
-            Console.WriteLine("password = " + password);
-            Console.WriteLine("first_name = " + first_name);
-            Console.WriteLine("last_name = " + last_name);
+            Console.WriteLine("user_id = " + user_id);
 
-            await _userService.AddNewUser(email, password, first_name, last_name);
+            await _accountService.NewAccount(user_id);
         }
 
         [HttpPost("new_transaction")]
