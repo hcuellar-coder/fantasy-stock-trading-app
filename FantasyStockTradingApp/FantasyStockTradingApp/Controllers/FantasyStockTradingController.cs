@@ -19,15 +19,19 @@ namespace FantasyStockTradingApp.Controllers
         private readonly IUserService _userService;
         private readonly IIexCloudService _iexCloudService;
         private readonly ITransactionService _transactionService;
+        private readonly IAccountService _accountService;
+        private readonly IHoldingsService _holdingsService;
 
         //This is were the problem isf
         public FantasyStockTradingController(IUserService userService,
-                                     IIexCloudService iexCloudService,
-                                     ITransactionService transactionService)
+            IIexCloudService iexCloudService, ITransactionService transactionService,
+            IAccountService accountService, IHoldingsService holdingsService)
         {
             _userService = userService;
             _iexCloudService = iexCloudService;
             _transactionService = transactionService;
+            _accountService = accountService;
+            _holdingsService = holdingsService;
         }
 
         // GET: api/<FantasyStockTradingController>
@@ -111,23 +115,21 @@ namespace FantasyStockTradingApp.Controllers
         public async Task UpdateHoldings(JObject data)
         {
             var account_id = Int32.Parse(data["account_id"].ToString());
-            var type = data["type"].ToString();
             var symbol = data["symbol"].ToString();
             var stock_count = Int32.Parse(data["stock_count"].ToString());
-            var cost_per_stock = float.Parse(data["cost_per_stock"].ToString());
-            var cost_per_transaction = float.Parse(data["cost_per_transaction"].ToString());
+            var latest_cost_per_stock = float.Parse(data["latest_cost_per_stock"].ToString());
+            var last_Updated = data["updated_time"].ToString();
 
             Console.WriteLine("in Post");
             Console.WriteLine("account_id = " + account_id);
-            Console.WriteLine("type = " + type);
             Console.WriteLine("symbol = " + symbol);
             Console.WriteLine("stock_count = " + stock_count);
-            Console.WriteLine("cost = " + cost_per_stock);
-            Console.WriteLine("cost = " + cost_per_transaction);
+            Console.WriteLine("cost = " + latest_cost_per_stock);
+            Console.WriteLine("updated time = " + last_Updated);
 
-            //1. Inserting into transaction table
-            await _transactionService.StockTransaction(account_id, type, symbol,
-                                    stock_count, cost_per_stock, cost_per_transaction);
+            //1. Updating Holdings
+            await _holdingsService.UpdateHoldings(account_id, symbol,
+                                    stock_count, latest_cost_per_stock, last_Updated);
         }
 
         [HttpPost("update_account")]
@@ -148,7 +150,7 @@ namespace FantasyStockTradingApp.Controllers
             Console.WriteLine("cost = " + cost_per_stock);
             Console.WriteLine("cost = " + cost_per_transaction);
 
-            //1. Inserting into transaction table
+            //1. Update Account Information
             await _transactionService.StockTransaction(account_id, type, symbol,
                                     stock_count, cost_per_stock, cost_per_transaction);
         }

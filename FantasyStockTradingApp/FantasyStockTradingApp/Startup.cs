@@ -33,15 +33,6 @@ namespace FantasyStockTradingApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            /*var TOKEN = "";
-            if (_hostingEnvironment.IsDevelopment())
-            {
-                TOKEN = ConfigurationManager.AppSettings["token"];
-            }
-            else
-            {
-                TOKEN = Environment.GetEnvironmentVariable("token");
-            }*/
 
             services.AddHttpClient("iexCloud", c =>
             {
@@ -59,9 +50,11 @@ namespace FantasyStockTradingApp
                 configuration.RootPath = "client/build";
             });
 
-            services.AddScoped<IUserService, UserService>();
             services.AddScoped<IIexCloudService, IexCloudService>();
+            services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITransactionService, TransactionService>();
+            services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<IHoldingsService, HoldingsService>();
 
             var _sessionFactory = Fluently.Configure()
                .Database(PostgreSQLConfiguration.Standard.ConnectionString(_configuration.GetConnectionString("DefaultConnection")))

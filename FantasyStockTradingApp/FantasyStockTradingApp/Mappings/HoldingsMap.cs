@@ -15,7 +15,7 @@ namespace FantasyStockTradingApp.Mappings
             Map(x => x.Account_Id);
             Map(x => x.Symbol);
             Map(x => x.Stock_Count);
-            Map(x => x.Latest_Price);
+            Map(x => x.Latest_cost_per_stock);
             Map(x => x.Last_Updated);
             Table("holdings");
         }
