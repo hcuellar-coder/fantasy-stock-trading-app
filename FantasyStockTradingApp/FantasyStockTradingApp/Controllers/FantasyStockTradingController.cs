@@ -52,7 +52,7 @@ namespace FantasyStockTradingApp.Controllers
             var password = data["password"].ToString();
             var first_name = data["first_name"].ToString();
             var last_name = data["last_name"].ToString();
-            Console.WriteLine("in Post");
+            Console.WriteLine("in new_user");
             Console.WriteLine("email = " + email);
             Console.WriteLine("password = " + password);
             Console.WriteLine("first_name = " + first_name);
@@ -65,6 +65,7 @@ namespace FantasyStockTradingApp.Controllers
         [HttpGet("get_account")]
         public IQueryable<Account> GetAccount(int user_id)
         {
+            Console.WriteLine("in get_account");
             Console.WriteLine("user_id = " + user_id);
             return _accountService.GetAccount(user_id);
         }
@@ -73,7 +74,7 @@ namespace FantasyStockTradingApp.Controllers
         public async Task NewAccount(JObject data)
         {
             var user_id = Int32.Parse(data["user_id"].ToString());
-            Console.WriteLine("in Post");
+            Console.WriteLine("in new_account");
             Console.WriteLine("user_id = " + user_id);
 
             await _accountService.NewAccount(user_id);
@@ -86,7 +87,7 @@ namespace FantasyStockTradingApp.Controllers
             var balance = float.Parse(data["balance"].ToString());
             var portfolio_balance = float.Parse(data["portfolio_balance"].ToString());
 
-            Console.WriteLine("in Post");
+            Console.WriteLine("in update_account");
             Console.WriteLine("account_id = " + account_id);
             Console.WriteLine("balance = " + balance);
             Console.WriteLine("portfolio_balance = " + portfolio_balance);
@@ -97,6 +98,7 @@ namespace FantasyStockTradingApp.Controllers
         [HttpGet("get_holdings")]
         public IQueryable<Holdings> GetHoldings(int account_id)
         {
+            Console.WriteLine("in get_holdings");
             Console.WriteLine("account_id = " + account_id);
             return _holdingsService.GetHoldings(account_id);
         }
@@ -110,7 +112,7 @@ namespace FantasyStockTradingApp.Controllers
             var latest_cost_per_stock = float.Parse(data["latest_cost_per_stock"].ToString());
             var last_Updated = data["updated_time"].ToString();
 
-            Console.WriteLine("in Post");
+            Console.WriteLine("in new_holding");
             Console.WriteLine("account_id = " + account_id);
             Console.WriteLine("symbol = " + symbol);
             Console.WriteLine("stock_count = " + stock_count);
@@ -130,7 +132,7 @@ namespace FantasyStockTradingApp.Controllers
             var latest_cost_per_stock = float.Parse(data["latest_cost_per_stock"].ToString());
             var last_Updated = data["updated_time"].ToString();
 
-            Console.WriteLine("in Post");
+            Console.WriteLine("in update_holding");
             Console.WriteLine("account_id = " + account_id);
             Console.WriteLine("symbol = " + symbol);
             Console.WriteLine("stock_count = " + stock_count);
@@ -141,13 +143,23 @@ namespace FantasyStockTradingApp.Controllers
                                     stock_count, latest_cost_per_stock, last_Updated);
         }
 
+        [HttpPost("update_holdings")]
+        public async Task UpdateHoldings(JObject data)
+        {
+           
+            Console.WriteLine("in update_holdings");
+            Console.WriteLine("data = " + data);
+            
+            await _holdingsService.UpdateHoldings(data);
+        }
+
         [HttpPost("delete_holding")]
         public async Task DeleteHolding(JObject data)
         {
             var account_id = Int32.Parse(data["account_id"].ToString());
             var symbol = data["symbol"].ToString();
 
-            Console.WriteLine("in Post");
+            Console.WriteLine("in delete_holding");
             Console.WriteLine("account_id = " + account_id);
             Console.WriteLine("symbol = " + symbol);
 
@@ -165,7 +177,7 @@ namespace FantasyStockTradingApp.Controllers
             var cost_per_stock = float.Parse(data["cost_per_stock"].ToString());
             var cost_per_transaction = float.Parse(data["cost_per_transaction"].ToString());
 
-            Console.WriteLine("in Post");
+            Console.WriteLine("in new_transaction");
             Console.WriteLine("account_id = " + account_id);
             Console.WriteLine("type = " + type);
             Console.WriteLine("symbol = " + symbol);
@@ -182,7 +194,7 @@ namespace FantasyStockTradingApp.Controllers
         [HttpGet("get_quote")]
         public Task<Quote> GetQuote(string symbol)
         {
-            Console.WriteLine("getting Quote");
+            Console.WriteLine("in get_quote");
             Console.WriteLine("symbol = " + symbol);
 
             return _iexCloudService.GetQuote(symbol);
