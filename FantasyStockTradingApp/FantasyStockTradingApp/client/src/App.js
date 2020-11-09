@@ -10,11 +10,11 @@ import './App.css';
 
 
 function App() {
-    const existingTokens = JSON.parse(localStorage.getItem('tokens'));
+    const existingTokens = JSON.parse(sessionStorage.getItem('tokens'));
     const [authTokens, setAuthTokens] = useState(existingTokens);
 
     const setTokens = (data) => {
-        localStorage.setItem('tokens', JSON.stringify(data));
+        sessionStorage.setItem('tokens', JSON.stringify(data));
         setAuthTokens(data);
     }
 

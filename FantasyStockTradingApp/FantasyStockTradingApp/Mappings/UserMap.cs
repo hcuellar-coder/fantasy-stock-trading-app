@@ -1,5 +1,6 @@
 ﻿using FantasyStockTradingApp.Models;
 using FluentNHibernate.Mapping;
+using NHibernate.Mapping;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,13 +12,13 @@ namespace FantasyStockTradingApp.Mappings
     {
         public UserMap()
         {
-            Id(x => x.Id).GeneratedBy.Increment();
+            Id(x => x.id).GeneratedBy.Increment();
 
-            Map(x => x.Email);
-            Map(x => x.Password);
-            Map(x => x.First_name);
-            Map(x => x.Last_name);
-            Table("userlogin");
+            Map(x => x.email);
+            Map(x => x.password);
+            Map(x => x.first_name);
+            Map(x => x.last_name);
+            Table("user_account");
         }
     }
 }

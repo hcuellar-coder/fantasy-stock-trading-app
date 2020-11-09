@@ -12,6 +12,7 @@ namespace FantasyStockTradingApp.Mappings
         public HoldingsMap()
         {
             Id(x => x.Id).GeneratedBy.Increment();
+
             Map(x => x.Account_Id);
             Map(x => x.Symbol);
             Map(x => x.Stock_Count);

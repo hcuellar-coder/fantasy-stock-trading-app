@@ -13,7 +13,7 @@ function Login(props) {
 
     function getUser() {
         try {
-            const response = api.get('/login?', {
+            const response = api.get('/get_user?', {
                 params: {
                     email: email,
                     password: password

@@ -12,10 +12,11 @@ namespace FantasyStockTradingApp.Mappings
         public AccountMap()
         {
             Id(x => x.Id).GeneratedBy.Increment();
+
             Map(x => x.User_Id);
             Map(x => x.Balance);
             Map(x => x.Portfolio_Balance);
-            Table("account");
+            Table("account_balance");
         }
     }
 }

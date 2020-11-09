@@ -6,6 +6,7 @@ import { useAuth } from '../Context/Auth';
 function NewUser(props) {
     const [validated, setValidated] = useState(false);
     const [isError, setIsError] = useState(false);
+    const [userID, setUserID] = useState(0);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setconfirmPassword] = useState('');
@@ -14,12 +15,6 @@ function NewUser(props) {
     const { setAuthTokens } = useAuth();
 
     function putUser() {
-        const formData = new FormData();
-        formData.append('email', email);
-        formData.append('password', password);
-        formData.append('firstName', firstName);
-        formData.append('lastName', lastName);
-
         /*
          Things to do: password needs checking
          check if email is correct
@@ -28,16 +23,41 @@ function NewUser(props) {
 
         try {
             const response = api.post('/new_user', {
-                    email: email,
-                    password: password,
-                    first_name: firstName,
-                    last_name: lastName
+                email: email,
+                password: password,
+                first_name: firstName,
+                last_name: lastName
             });
             return response;
         } catch (error) {
             console.error(error);
         }
     }
+
+    function doesUserExist() {
+        try {
+            const response = api.get('/get_user?', {
+                params: {
+                    email: email,
+                }
+            });
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    function newAccoutBalance(userID) {
+        try {
+            const response = api.post('/new_account', {
+                user_id: userID,
+            });
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
 
     function handleEmailChange(e) {
         e.preventDefault();
@@ -69,18 +89,28 @@ function NewUser(props) {
         const form = e.target;
         if (password === confirmPassword) {
             if (form.checkValidity() !== false) {
-                putUser().then((response) => {
-                    if (response.status === 200) {
-                        setAuthTokens(response.data);
+                doesUserExist().then((response) => {
+                    if (response.status === 200 && response.data.length !== 0) {
+                        console.log('user already exists! Login instead!');
                     } else {
-                        setIsError(true);
+                        putUser().then((response) => {
+                            if (response.status === 200) {
+                                setUserID(response.data.id);
+                                newAccoutBalance(response.data.id).then((response) => {
+                                    console.log(response);
+                                });
+                                setAuthTokens(response.data);
+                            } else {
+                                setIsError(true);
+                            }
+                            console.log(response);
+                        }).catch(e => {
+                            setIsError(true);
+                        });
                     }
-                    console.log(response);
-                }).catch(e => {
-                    setIsError(true);
-                });
-                console.log('data is valid');
-            }
+                })
+            }              
+            console.log('data is valid');
             setValidated(true);
         }
     }

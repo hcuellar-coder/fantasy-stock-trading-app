@@ -35,18 +35,27 @@ namespace FantasyStockTradingApp.Controllers
         }
 
         // GET: api/<FantasyStockTradingController>
-        [HttpGet("login")]
+        [HttpGet("get_user")]
         public IQueryable<User> GetUser(string email, string password)
         {
-            Console.WriteLine("in Login");
+            Console.WriteLine("in get_user");
             Console.WriteLine("email = " + email);
             Console.WriteLine("password = " + password);
 
             return _userService.GetUser(email, password);
         }
 
+        [HttpGet("check_user")]
+        public IQueryable<User> CheckUser(string email)
+        {
+            Console.WriteLine("in check_user");
+            Console.WriteLine("email = " + email);
+
+            return _userService.GetUser(email);
+        }
+
         [HttpPost("new_user")]
-        public async Task NewUser(JObject data)
+        public async Task<User> NewUser(JObject data)
         {
             var email = data["email"].ToString();
             var password = data["password"].ToString();
@@ -58,7 +67,7 @@ namespace FantasyStockTradingApp.Controllers
             Console.WriteLine("first_name = " + first_name);
             Console.WriteLine("last_name = " + last_name);
 
-            await _userService.NewUser(email, password, first_name, last_name);
+            return await _userService.NewUser(email, password, first_name, last_name);
         }
 
 
@@ -71,13 +80,13 @@ namespace FantasyStockTradingApp.Controllers
         }
 
         [HttpPost("new_account")]
-        public async Task NewAccount(JObject data)
+        public async Task<Account> NewAccount(JObject data)
         {
             var user_id = Int32.Parse(data["user_id"].ToString());
             Console.WriteLine("in new_account");
             Console.WriteLine("user_id = " + user_id);
 
-            await _accountService.NewAccount(user_id);
+            return await _accountService.NewAccount(user_id);
         }
 
         [HttpPost("update_account")]

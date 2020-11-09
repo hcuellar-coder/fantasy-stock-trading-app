@@ -114,17 +114,6 @@ namespace FantasyStockTradingApp.Services
 
         public async Task UpdateHoldings(JObject data)
         {
-            /*var account_id = Int32.Parse(data["account_id"].ToString());
-            var symbol = data["symbol"].ToString();
-            var stock_count = Int32.Parse(data["stock_count"].ToString());
-            var latest_cost_per_stock = float.Parse(data["latest_cost_per_stock"].ToString());
-            var last_Updated = data["updated_time"].ToString();*/
-
-            /*Console.WriteLine("account_id = " + account_id);
-            Console.WriteLine("symbol = " + symbol);
-            Console.WriteLine("latest_cost_per_stock = " + latest_cost_per_stock);
-            Console.WriteLine("last_Updated = " + last_Updated);*/
-            
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
@@ -132,10 +121,7 @@ namespace FantasyStockTradingApp.Services
                     dynamic holding_data = JsonConvert.DeserializeObject((string)data);
                     foreach (var holding in holding_data)
                     {
-                       /* var symbol = holding["symbol"].ToString();
-                        var stock_count = Int32.Parse(data["stock_count"].ToString());
-                        var latest_cost_per_stock = float.Parse(data["latest_cost_per_stock"].ToString());
-                        var last_Updated = data["updated_time"].ToString(); */
+                        Console.WriteLine("holding = " + holding);
 
                         var query = _session.CreateQuery("Update Holdings set latest_cost_per_stock =:latest_cost_per_stock, " +
                             "last_Updated =:last_Updated where account_id =:account_id and symbol =:symbol");

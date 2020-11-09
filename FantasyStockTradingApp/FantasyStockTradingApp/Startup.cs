@@ -1,5 +1,4 @@
 using FantasyStockTradingApp.Services;
-using FantasyStockTradingApp.SessionFactories;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using Microsoft.AspNetCore.Builder;
@@ -33,7 +32,6 @@ namespace FantasyStockTradingApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
             services.AddHttpClient("iexCloud", c =>
             {
                 c.BaseAddress = new Uri("https://cloud.iexapis.com/v1/");
@@ -66,6 +64,9 @@ namespace FantasyStockTradingApp
             {
                 return _sessionFactory.OpenSession();
             });
+
+
+            //.Mappings(m => m.FluentMappings.AddFromAssembly(GetType().Assembly))
 
         }
 

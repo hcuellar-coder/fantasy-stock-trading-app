@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FantasyStockTradingApp.Models;
+using FantasyStockTradingApp.Configuration;
 using NHibernate.Linq;
 using System.Security.AccessControl;
 using NHibernate.SqlCommand;
@@ -14,7 +15,7 @@ namespace FantasyStockTradingApp.Services
     public interface IAccountService
     {
         IQueryable<Account> GetAccount(int user_id);
-        Task NewAccount(int user_id);
+        Task<Account> NewAccount(int user_id);
         Task UpdateAccount(int account_id, float balance, float portfolio_balance);
     }
 
@@ -22,9 +23,9 @@ namespace FantasyStockTradingApp.Services
     {
         private readonly ISession _session;
 
-        public AccountService(ISession session)
+        public AccountService()
         {
-            _session = session;
+            _session = NHibernateHelper.GetCurrentSession();
         }
 
         public IQueryable<Account> GetAccount(int user_id)
@@ -43,9 +44,13 @@ namespace FantasyStockTradingApp.Services
                 var errorString = $"User does not exist: { ex }";
                 throw new Exception(errorString);
             }
+            finally
+            {
+                NHibernateHelper.CloseSession();
+            }
         }
 
-        public async Task NewAccount(int user_id)
+        public async Task<Account> NewAccount(int user_id)
         {
             Console.WriteLine("account_id = " + user_id);
 
@@ -62,12 +67,17 @@ namespace FantasyStockTradingApp.Services
 
                     await _session.SaveAsync(account);
                     await transaction.CommitAsync();
+                    return account;
                 }
             }
             catch (Exception ex)
             {
                 var errorString = $"Error inserting user: { ex }";
                 throw new Exception(errorString);
+            }
+            finally
+            {
+                NHibernateHelper.CloseSession();
             }
         }
 
@@ -94,6 +104,10 @@ namespace FantasyStockTradingApp.Services
             {
                 var errorString = $"Error inserting user: { ex }";
                 throw new Exception(errorString);
+            }
+            finally
+            {
+                NHibernateHelper.CloseSession();
             }
         }
 

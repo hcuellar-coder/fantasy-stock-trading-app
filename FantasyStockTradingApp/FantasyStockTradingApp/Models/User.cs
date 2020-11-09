@@ -7,10 +7,10 @@ namespace FantasyStockTradingApp.Models
 {
     public class User
     {
-        public virtual long Id { get; set; }
-        public virtual string Email { get; set; }
-        public virtual string Password { get; set; }
-        public virtual string First_name { get; set; }
-        public virtual string Last_name { get; set; }
+        public virtual int id { get; set; }
+        public virtual string email { get; set; }
+        public virtual string password { get; set; }
+        public virtual string first_name { get; set; }
+        public virtual string last_name { get; set; }
     }
 }
