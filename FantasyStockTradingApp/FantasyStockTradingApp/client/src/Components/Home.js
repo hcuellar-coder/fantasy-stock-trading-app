@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import Login from './Login';
 import NewUser from './NewUser';
-import { useAuth } from "../Context/Auth";
+import { useAuth } from "../Context/AuthContext";
 
 function Home() {
     const [login, setLogin] = useState(true);

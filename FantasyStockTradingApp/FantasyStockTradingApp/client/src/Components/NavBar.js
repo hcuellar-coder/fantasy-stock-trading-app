@@ -1,20 +1,27 @@
-﻿import React, { useState } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import { Nav, Navbar, NavItem } from 'react-bootstrap';
 import { NavLink, Redirect} from 'react-router-dom';
-import { useAuth } from "../Context/Auth";
+import { useAuth } from "../Context/AuthContext";
+import { useUser } from "../Context/UserContext";
 
 function NavBar(props) {
     const [expanded, setExpanded] = useState(false);
     const { authTokens, setAuthTokens } = useAuth();
+    const { userAccount } = useUser();
 
     function handleLogOut() {
         setAuthTokens('');
         return < Redirect to = '/' />;
     }
 
+    useEffect(() => {
+        console.log(userAccount);
+    }, [userAccount])
+
     return (
         <Navbar id="nav-bar" expanded={expanded} expand="sm" sticky="top">
             <Navbar.Brand href='/'>Fantasy Stock Trading Application</Navbar.Brand>
+            <Navbar.Brand >Hello FirstName</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setExpanded(expanded ? false : "expanded")} />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="ml-auto" onClick={() => { setExpanded(false) }}>

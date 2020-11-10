@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, NavLink } from 'react-bootstrap';
 import { api } from './API';
-import { useAuth } from '../Context/Auth';
+import { useAuth } from '../Context/AuthContext';
+import { useUser } from '../Context/UserContext';
 
 function NewUser(props) {
     const [validated, setValidated] = useState(false);
@@ -13,6 +14,7 @@ function NewUser(props) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const { setAuthTokens } = useAuth();
+    const { setUserAccount } = useUser();
 
     function putUser() {
         /*
@@ -94,12 +96,13 @@ function NewUser(props) {
                         console.log('user already exists! Login instead!');
                     } else {
                         putUser().then((response) => {
+                            setUserAccount(response.data);
+                            setAuthTokens(response.data);
                             if (response.status === 200) {
                                 setUserID(response.data.id);
                                 newAccoutBalance(response.data.id).then((response) => {
                                     console.log(response);
                                 });
-                                setAuthTokens(response.data);
                             } else {
                                 setIsError(true);
                             }

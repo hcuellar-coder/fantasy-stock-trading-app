@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Form, Button, Container, NavLink } from 'react-bootstrap';
 import { api } from './API';
-import { useAuth } from '../Context/Auth';
+import { useAuth } from '../Context/AuthContext';
+import { useUser } from '../Context/UserContext';
 
 function Login(props) {
     const [isError, setIsError] = useState(false);
@@ -10,6 +11,7 @@ function Login(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { setAuthTokens } = useAuth();
+    const { userAccount, setUserAccount } = useUser();
 
     function getUser() {
         try {
@@ -43,6 +45,7 @@ function Login(props) {
              getUser().then((response) => {
                 if (response.status === 200 && response.data.length !== 0) {
                     setAuthTokens(response.data);
+                    setUserAccount(response.data);
                 } else {
                     setIsError(true);
                 }
