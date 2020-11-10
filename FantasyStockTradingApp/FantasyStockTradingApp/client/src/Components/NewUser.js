@@ -7,7 +7,6 @@ import { useUser } from '../Context/UserContext';
 function NewUser(props) {
     const [validated, setValidated] = useState(false);
     const [isError, setIsError] = useState(false);
-    const [userID, setUserID] = useState(0);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setconfirmPassword] = useState('');
@@ -89,6 +88,8 @@ function NewUser(props) {
     function handleSubmit(e) {
         e.preventDefault();
         const form = e.target;
+        let userAccount = {};
+        let token = {};
         if (password === confirmPassword) {
             if (form.checkValidity() !== false) {
                 doesUserExist().then((response) => {
@@ -96,13 +97,16 @@ function NewUser(props) {
                         console.log('user already exists! Login instead!');
                     } else {
                         putUser().then((response) => {
-                            setUserAccount(response.data);
-                            setAuthTokens(response.data);
+                            userAccount = { ...userAccount, user : response.data };
+                            token = {...token , token : response.data };
                             if (response.status === 200) {
-                                setUserID(response.data.id);
                                 newAccoutBalance(response.data.id).then((response) => {
                                     console.log(response);
+                                    userAccount = { ...userAccount, account : response.data };
+                                    setUserAccount(userAccount);
+                                    setAuthTokens(token);
                                 });
+                                
                             } else {
                                 setIsError(true);
                             }

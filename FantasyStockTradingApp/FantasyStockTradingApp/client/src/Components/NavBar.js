@@ -7,10 +7,11 @@ import { useUser } from "../Context/UserContext";
 function NavBar(props) {
     const [expanded, setExpanded] = useState(false);
     const { authTokens, setAuthTokens } = useAuth();
-    const { userAccount } = useUser();
+    const { userAccount, setUserAccount } = useUser();
 
     function handleLogOut() {
         setAuthTokens('');
+        setUserAccount('');
         return < Redirect to = '/' />;
     }
 

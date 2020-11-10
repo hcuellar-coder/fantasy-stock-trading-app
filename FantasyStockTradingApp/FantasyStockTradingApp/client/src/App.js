@@ -22,7 +22,10 @@ function App() {
     }
 
     const setUser = (data) => {
-        sessionStorage.setItem('user', JSON.stringify(data));
+        let userData = JSON.stringify(data);
+        console.log('userData = ', userData);
+        console.log('in setUser, data =', data);
+        sessionStorage.setItem('userAccount', userData);
         setUserAccount(data);
     }
 
