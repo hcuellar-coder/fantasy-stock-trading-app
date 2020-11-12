@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, NavLink } from 'react-bootstrap';
-import { api } from './API';
+import { api, tokenApi } from './API';
 import { useAuth } from '../Context/AuthContext';
 import { useUser } from '../Context/UserContext';
 
@@ -59,6 +59,20 @@ function NewUser(props) {
         }
     }
 
+    function getToken() {
+        try {
+            const response = tokenApi.get('/get_token?', {
+                params: {
+                    email: email,
+                    password: password
+                }
+            });
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
 
     function handleEmailChange(e) {
         e.preventDefault();
@@ -89,7 +103,7 @@ function NewUser(props) {
         e.preventDefault();
         const form = e.target;
         let userAccount = {};
-        let token = {};
+/*        let token = {};*/
         if (password === confirmPassword) {
             if (form.checkValidity() !== false) {
                 doesUserExist().then((response) => {
@@ -98,13 +112,18 @@ function NewUser(props) {
                     } else {
                         newUser().then((response) => {
                             userAccount = { ...userAccount, user : response.data };
-                            token = {...token , token : response.data };
+/*                            token = {...token , token : response.data };*/
                             if (response.status === 200) {
                                 newAccoutBalance(response.data.id).then((response) => {
                                     console.log(response);
-                                    userAccount = { ...userAccount, account : response.data };
+                                    userAccount = { ...userAccount, account: response.data };
                                     setUserAccount(userAccount);
-                                    setAuthTokens(token);
+                                    if (response.status === 200) {
+                                        getToken().then((response) => {
+                                            setAuthTokens(response.data);
+                                        });
+                                    }
+                                    
                                 });
                                 
                             } else {

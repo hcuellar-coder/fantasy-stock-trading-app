@@ -10,6 +10,6 @@ namespace FantasyStockTradingApp.Models
         public string SecureKey { get; set; }
         public string Issuer { get; set; }
         public string Audience { get; set; }
-        public int ExpiresInMinutes { get; set; }
+        public int ExpiresInHours { get; set; }
     }
 }

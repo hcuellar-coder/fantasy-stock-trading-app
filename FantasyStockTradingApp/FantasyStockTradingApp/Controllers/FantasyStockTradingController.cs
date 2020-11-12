@@ -5,6 +5,7 @@ using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 using FantasyStockTradingApp.Models;
 using FantasyStockTradingApp.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
@@ -22,20 +23,17 @@ namespace FantasyStockTradingApp.Controllers
         private readonly ITransactionService _transactionService;
         private readonly IAccountService _accountService;
         private readonly IHoldingsService _holdingsService;
-        private readonly AuthOptions _authOptions;
 
         //This is were the problem isf
         public FantasyStockTradingController(IUserService userService,
             IIexCloudService iexCloudService, ITransactionService transactionService,
-            IAccountService accountService, IHoldingsService holdingsService,
-            IOptions<AuthOptions> authOptionsAccessor)
+            IAccountService accountService, IHoldingsService holdingsService)
         {
             _userService = userService;
             _iexCloudService = iexCloudService;
             _transactionService = transactionService;
             _accountService = accountService;
             _holdingsService = holdingsService;
-            _authOptions = authOptionsAccessor.Value;
         }
 
         // GET: api/<FantasyStockTradingController>

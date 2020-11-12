@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Web;
 using Microsoft.AspNetCore.Server.HttpSys;
 using System.Net;
+using FluentNHibernate.Conventions;
 
 namespace FantasyStockTradingApp.Services
 {
@@ -19,6 +20,7 @@ namespace FantasyStockTradingApp.Services
     {
         IQueryable<User> GetUser(string email, string? password = null);
         Task<User> NewUser(string email, string password, string first_name, string last_name);
+        bool isValidUser(string email, string password);
     }
     public class UserService : IUserService
     {
@@ -29,6 +31,28 @@ namespace FantasyStockTradingApp.Services
             _session = NHibernateHelper.GetCurrentSession();
         }
 
+        public bool isValidUser(string email, string password)
+        {
+            try
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    var result = _session.QueryOver<User>()
+                    .Where(user => user.email == email && user.password == password)
+                    .RowCount() > 0;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                var errorString = $"User does not exist: { ex }";
+                throw new Exception(errorString);
+            }
+            finally
+            {
+                NHibernateHelper.CloseSession();
+            }
+        }
 
         public IQueryable<User> GetUser(string email, string? password = null)
         {

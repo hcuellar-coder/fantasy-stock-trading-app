@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Form, Button, Container, NavLink } from 'react-bootstrap';
-import { api } from './API';
+import { api, tokenApi } from './API';
 import { useAuth } from '../Context/AuthContext';
 import { useUser } from '../Context/UserContext';
 
@@ -27,6 +27,20 @@ function Login(props) {
         }
     }
 
+    function getToken() {
+        try {
+            const response = tokenApi.get('/get_token?', {
+                params: {
+                    email: email,
+                    password: password
+                }
+            });
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     function handleEmailChange(e) {
         e.preventDefault();
         setEmail(e.target.value);
@@ -44,8 +58,10 @@ function Login(props) {
         if (form.checkValidity() !== false) {
              getUser().then((response) => {
                 if (response.status === 200 && response.data.length !== 0) {
-                    setAuthTokens(response.data);
                     setUserAccount(response.data);
+                    getToken().then((response) => {
+                        setAuthTokens(response.data);
+                    });
                 } else {
                     setIsError(true);
                 }
