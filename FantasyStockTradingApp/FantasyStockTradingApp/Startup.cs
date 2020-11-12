@@ -1,6 +1,8 @@
+using FantasyStockTradingApp.Models;
 using FantasyStockTradingApp.Services;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -9,11 +11,13 @@ using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.IdentityModel.Tokens;
 using NHibernate;
 using NHibernate.NetCore;
 using NHibernate.Tool.hbm2ddl;
 using System;
 using System.Configuration;
+using System.Text;
 
 namespace FantasyStockTradingApp
 {
@@ -38,6 +42,28 @@ namespace FantasyStockTradingApp
                 /*c.DefaultRequestHeaders.Add("Authorization", "token " + TOKEN);*/
             });
 
+            services.Configure<AuthOptions>(_configuration.GetSection("AuthOptions"));
+
+            var authOptions = _configuration.GetSection("AuthOptions").Get<AuthOptions>();
+
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateLifetime = true,
+                    RequireExpirationTime = true,
+                    ValidIssuer = authOptions.Issuer,
+                    ValidAudience = authOptions.Audience,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(authOptions.SecureKey))
+                };
+            });
+
             services.AddControllers();
             services.AddControllersWithViews();
             services.AddControllers().AddNewtonsoftJson();
@@ -47,6 +73,7 @@ namespace FantasyStockTradingApp
             {
                 configuration.RootPath = "client/build";
             });
+            
 
             services.AddScoped<IIexCloudService, IexCloudService>();
             services.AddScoped<IUserService, UserService>();
@@ -91,6 +118,10 @@ namespace FantasyStockTradingApp
             app.UseSpaStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
+
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

@@ -12,7 +12,7 @@ import './App.css';
 
 function App() {
     const existingTokens = JSON.parse(sessionStorage.getItem('tokens'));
-    const existingUser = JSON.parse(sessionStorage.getItem('user'));
+    const existingUser = JSON.parse(sessionStorage.getItem('userAccount'));
     const [authTokens, setAuthTokens] = useState(existingTokens);
     const [userAccount, setUserAccount] = useState(existingUser);
 
