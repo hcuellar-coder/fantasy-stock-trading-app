@@ -12,7 +12,7 @@ namespace FantasyStockTradingApp.Models
         public virtual string Symbol { get; set; }
         public virtual int Stock_Count { get; set; }
         public virtual float Latest_cost_per_stock { get; set; }
-        public virtual string Last_Updated { get; set; }
+        public virtual DateTime Last_Updated { get; set; }
 
     }
 }

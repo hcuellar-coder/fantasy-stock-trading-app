@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FantasyStockTradingApp.Models;
+using FantasyStockTradingApp.Configuration;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 
@@ -15,20 +16,45 @@ namespace FantasyStockTradingApp.Services
     {
         IQueryable<Holdings> GetHoldings(int account_id);
         Task NewHolding(int account_id, string symbol, int stock_count,
-                float latest_cost_per_stock, string last_Updated);
+                float latest_cost_per_stock, DateTime last_Updated);
         Task UpdateHolding(int account_id, string symbol, int stock_count, 
-                        float latest_cost_per_stock, string last_Updated);
+                        float latest_cost_per_stock, DateTime last_Updated);
         Task UpdateHoldings(JObject data);
         Task DeleteHolding(int account_id, string symbol);
+
+        bool holdingExists(int account_id, string symbol);
     }
 
     public class HoldingsService : IHoldingsService
     {
         private readonly ISession _session;
 
-        public HoldingsService(ISession session)
+        public HoldingsService()
         {
-            _session = session;
+            _session = NHibernateHelper.GetCurrentSession();
+        }
+
+        public bool holdingExists(int account_id, string symbol)
+        {
+            try
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    var result = _session.QueryOver<Holdings>()
+                    .Where(holding => holding.Account_Id == account_id && holding.Symbol == symbol)
+                    .RowCount() > 0;
+                    return result;
+                }
+            }
+            catch (Exception ex)
+            {
+                var errorString = $"User does not exist: { ex }";
+                throw new Exception(errorString);
+            }
+            finally
+            {
+                NHibernateHelper.CloseSession();
+            }
         }
 
         public IQueryable<Holdings> GetHoldings(int account_id)
@@ -47,10 +73,14 @@ namespace FantasyStockTradingApp.Services
                 var errorString = $"User does not exist: { ex }";
                 throw new Exception(errorString);
             }
+            finally
+            {
+                NHibernateHelper.CloseSession();
+            }
         }
 
         public async Task NewHolding(int account_id, string symbol, int stock_count,
-                        float latest_cost_per_stock, string last_Updated)
+                        float latest_cost_per_stock, DateTime last_Updated)
         {
             try
             {
@@ -65,7 +95,6 @@ namespace FantasyStockTradingApp.Services
                         Last_Updated = last_Updated,
                     };
 
-
                     await _session.SaveAsync(holdings);
                     await transaction.CommitAsync();
                 }
@@ -75,10 +104,14 @@ namespace FantasyStockTradingApp.Services
                 var errorString = $"Error inserting user: { ex }";
                 throw new Exception(errorString);
             }
+            finally
+            {
+                NHibernateHelper.CloseSession();
+            }
         }
 
         public async Task UpdateHolding(int account_id, string symbol, int stock_count,
-                        float latest_cost_per_stock, string last_Updated)
+                        float latest_cost_per_stock, DateTime last_Updated)
         {
             Console.WriteLine("account_id = " + account_id);
             Console.WriteLine("symbol = " + symbol);
@@ -109,6 +142,10 @@ namespace FantasyStockTradingApp.Services
             {
                 var errorString = $"Error inserting user: { ex }";
                 throw new Exception(errorString);
+            }
+            finally
+            {
+                NHibernateHelper.CloseSession();
             }
         }
 
@@ -141,6 +178,10 @@ namespace FantasyStockTradingApp.Services
                 var errorString = $"Error inserting user: { ex }";
                 throw new Exception(errorString);
             }
+            finally
+            {
+                NHibernateHelper.CloseSession();
+            }
         }
 
         public async Task DeleteHolding(int account_id, string symbol)
@@ -162,6 +203,10 @@ namespace FantasyStockTradingApp.Services
             {
                 var errorString = $"Error inserting user: { ex }";
                 throw new Exception(errorString);
+            }
+            finally
+            {
+                NHibernateHelper.CloseSession();
             }
         }
     }

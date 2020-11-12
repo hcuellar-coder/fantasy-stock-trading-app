@@ -8,21 +8,21 @@ function Summary() {
     const [key, setKey] = useState('search');
 
     return (
-        <Tabs
-            id="controlled-tab-example"
-            activeKey={key}
-            onSelect={(k) => setKey(k)}
-        >
-            <Tab eventKey="search" title="Search">
-                <Search />
-            </Tab>
-            <Tab eventKey="topholdings" title="Top Holdings">
-                <TopHoldings />
-            </Tab>
-            <Tab eventKey="myholdings" title="My Holdings">
-                <MyHoldings />
-            </Tab>
-        </Tabs>
+        <div>
+            <Tabs
+                id="controlled-tab-example"
+                activeKey={key}
+                onSelect={(k) => setKey(k)}
+            >
+                <Tab eventKey="search" title="Search">
+                    <Search />
+                </Tab>
+                <Tab eventKey="topholdings" title="Top Holdings">
+                    <TopHoldings />
+                </Tab>
+            </Tabs>
+            <MyHoldings />
+        </div>
     )
 }
 

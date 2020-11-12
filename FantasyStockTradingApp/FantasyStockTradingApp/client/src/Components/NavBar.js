@@ -15,10 +15,6 @@ function NavBar(props) {
         return < Redirect to = '/' />;
     }
 
-    useEffect(() => {
-        console.log(userAccount);
-    }, [userAccount])
-
     return (
         <Navbar id="nav-bar" expanded={expanded} expand="sm" sticky="top">
             <Navbar.Brand href='/'>Fantasy Stock Trading Application</Navbar.Brand>

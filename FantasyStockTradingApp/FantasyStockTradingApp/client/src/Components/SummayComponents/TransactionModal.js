@@ -1,12 +1,15 @@
 ﻿import React, { useState, useEffect } from 'react'
 import { Form, Button, Modal } from 'react-bootstrap';
 import { api } from '../API';
+import { useUser } from "../../Context/UserContext";
 
 function TransactionModal(props) {
     const [transactionType, setTransactionType] = useState('');
     const [isError, setIsError] = useState(false);
     const [modalDialog, setModalDialog] = useState('');
     const [stockCount, setStockCount] = useState(0);
+    const [account, setAccount] = useState([]);
+    const { userAccount } = useUser();
 
     useEffect(() => {
         handleModalDialog();
@@ -15,6 +18,9 @@ function TransactionModal(props) {
             setTransactionType('buy');
         } else {
             setTransactionType('sell');
+        }
+        if (userAccount !== null) {
+            setAccount(userAccount.account[0]);
         }
         
     }, [props.show])
@@ -32,9 +38,46 @@ function TransactionModal(props) {
         }
     }
 
+    function new_transaction() {
+        try {
+            const response = api.post('/new_transaction', {
+                account_id: account.id,
+                type: transactionType,
+                symbol: props.stockData.symbol,
+                stock_count: stockCount,
+                cost_per_stock: props.stockData.latestPrice,
+                cost_per_transaction: (props.stockData.latestPrice * stockCount)
+            });
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    function update_holding() {
+        try {
+            const response = api.post('/update_holding', {
+                account_id: account.id,
+                symbol: props.stockData.symbol,
+                stock_count: stockCount,
+                cost_per_stock: props.stockData.latestPrice,
+            });
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     function handleTransactionButtons() {
-        console.log(stockCount);
-        stock_transaction().then((response) => {
+        console.log("account id = ", account.id);
+        console.log("transaction type = ", transactionType);
+        console.log("symbol = ", props.stockData.symbol);
+        console.log("stock count = ", stockCount);
+        console.log("cost per stock = ", props.stockData.latestPrice);
+        console.log("cost per transaction = ", props.stockData.latestPrice * stockCount);
+        
+
+        new_transaction().then((response) => {
             if (response.status === 200) {
                 console.log(response.data);
             } else {
@@ -47,19 +90,7 @@ function TransactionModal(props) {
         props.handleClose();
     }
 
-    function stock_transaction() {
-        try {
-            const response = api.post('/new_transaction', {
-                type: transactionType,
-                stock_count: stockCount,
-                cost: props.stockData.latestPrice,
-                symbol: props.stockData.symbol
-            });
-            return response;
-        } catch (error) {
-            console.error(error);
-        }
-    }
+    
 
     return (
         <Modal show={props.show} onHide={props.handleClose} centered>

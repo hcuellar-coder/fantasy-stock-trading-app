@@ -114,14 +114,14 @@ namespace FantasyStockTradingApp.Controllers
             return _holdingsService.GetHoldings(account_id);
         }
 
-        [HttpPost("new_holding")]
+       /* [HttpPost("new_holding")]
         public async Task NewHolding(JObject data)
         {
             var account_id = Int32.Parse(data["account_id"].ToString());
             var symbol = data["symbol"].ToString();
             var stock_count = Int32.Parse(data["stock_count"].ToString());
             var latest_cost_per_stock = float.Parse(data["latest_cost_per_stock"].ToString());
-            var last_Updated = data["updated_time"].ToString();
+            var last_Updated = DateTime.Now;
 
             Console.WriteLine("in new_holding");
             Console.WriteLine("account_id = " + account_id);
@@ -132,7 +132,7 @@ namespace FantasyStockTradingApp.Controllers
 
             await _holdingsService.NewHolding(account_id, symbol,
                                     stock_count, latest_cost_per_stock, last_Updated);
-        }
+        }*/
 
         [HttpPost("update_holding")]
         public async Task UpdateHolding(JObject data)
@@ -141,7 +141,7 @@ namespace FantasyStockTradingApp.Controllers
             var symbol = data["symbol"].ToString();
             var stock_count = Int32.Parse(data["stock_count"].ToString());
             var latest_cost_per_stock = float.Parse(data["latest_cost_per_stock"].ToString());
-            var last_Updated = data["updated_time"].ToString();
+            var last_Updated = DateTime.Now;
 
             Console.WriteLine("in update_holding");
             Console.WriteLine("account_id = " + account_id);
@@ -149,9 +149,22 @@ namespace FantasyStockTradingApp.Controllers
             Console.WriteLine("stock_count = " + stock_count);
             Console.WriteLine("cost = " + latest_cost_per_stock);
             Console.WriteLine("updated time = " + last_Updated);
-
-            await _holdingsService.UpdateHolding(account_id, symbol,
+            
+            if (_holdingsService.holdingExists(account_id, symbol))
+            {
+                if (stock_count == 0)
+                {
+                    await _holdingsService.DeleteHolding(account_id, symbol);
+                } else
+                {
+                    await _holdingsService.UpdateHolding(account_id, symbol,
                                     stock_count, latest_cost_per_stock, last_Updated);
+                }
+            } else
+            {
+                await _holdingsService.NewHolding(account_id, symbol,
+                                   stock_count, latest_cost_per_stock, last_Updated);
+            }
         }
 
         [HttpPost("update_holdings")]
@@ -164,7 +177,7 @@ namespace FantasyStockTradingApp.Controllers
             await _holdingsService.UpdateHoldings(data);
         }
 
-        [HttpPost("delete_holding")]
+        /*[HttpPost("delete_holding")]
         public async Task DeleteHolding(JObject data)
         {
             var account_id = Int32.Parse(data["account_id"].ToString());
@@ -175,7 +188,7 @@ namespace FantasyStockTradingApp.Controllers
             Console.WriteLine("symbol = " + symbol);
 
             await _holdingsService.DeleteHolding(account_id, symbol);
-        }
+        }*/
 
 
         [HttpPost("new_transaction")]
@@ -187,6 +200,7 @@ namespace FantasyStockTradingApp.Controllers
             var stock_count = Int32.Parse(data["stock_count"].ToString());
             var cost_per_stock = float.Parse(data["cost_per_stock"].ToString());
             var cost_per_transaction = float.Parse(data["cost_per_transaction"].ToString());
+            var transaction_date = DateTime.Now;
 
             Console.WriteLine("in new_transaction");
             Console.WriteLine("account_id = " + account_id);
@@ -195,9 +209,10 @@ namespace FantasyStockTradingApp.Controllers
             Console.WriteLine("stock_count = " + stock_count);
             Console.WriteLine("cost = " + cost_per_stock);
             Console.WriteLine("cost = " + cost_per_transaction);
+            Console.WriteLine("transaction_date = " + transaction_date);
 
-            await _transactionService.NewTransaction(account_id, type, symbol,
-                                    stock_count, cost_per_stock, cost_per_transaction);
+            await _transactionService.NewTransaction(account_id, type, symbol, stock_count,
+                                    cost_per_stock, cost_per_transaction, transaction_date);
         }
 
 

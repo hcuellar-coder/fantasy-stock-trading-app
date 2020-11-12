@@ -2,7 +2,9 @@ import React from 'react'
 
 function MyHoldings() {
     return (
-        <div></div>
+        <div id="summary-myHoldings-div">
+            <h1>My Holdings</h1>
+        </div>
     )
 }
 
