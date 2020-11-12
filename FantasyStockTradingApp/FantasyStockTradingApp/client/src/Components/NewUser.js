@@ -103,7 +103,6 @@ function NewUser(props) {
         e.preventDefault();
         const form = e.target;
         let userAccount = {};
-/*        let token = {};*/
         if (password === confirmPassword) {
             if (form.checkValidity() !== false) {
                 doesUserExist().then((response) => {
@@ -112,18 +111,16 @@ function NewUser(props) {
                     } else {
                         newUser().then((response) => {
                             userAccount = { ...userAccount, user : response.data };
-/*                            token = {...token , token : response.data };*/
                             if (response.status === 200) {
                                 newAccoutBalance(response.data.id).then((response) => {
-                                    console.log(response);
-                                    userAccount = { ...userAccount, account: response.data };
-                                    setUserAccount(userAccount);
                                     if (response.status === 200) {
+                                        console.log(response);
+                                        userAccount = { ...userAccount, account: response.data };
+                                        setUserAccount(userAccount);
                                         getToken().then((response) => {
                                             setAuthTokens(response.data);
                                         });
                                     }
-                                    
                                 });
                                 
                             } else {
