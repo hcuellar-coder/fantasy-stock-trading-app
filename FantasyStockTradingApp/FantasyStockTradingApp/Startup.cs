@@ -39,11 +39,9 @@ namespace FantasyStockTradingApp
             services.AddHttpClient("iexCloud", c =>
             {
                 c.BaseAddress = new Uri("https://cloud.iexapis.com/v1/");
-                /*c.DefaultRequestHeaders.Add("Authorization", "token " + TOKEN);*/
             });
 
             services.Configure<AuthOptions>(_configuration.GetSection("AuthOptions"));
-
             var authOptions = _configuration.GetSection("AuthOptions").Get<AuthOptions>();
 
             services.AddAuthentication(options =>
@@ -91,9 +89,6 @@ namespace FantasyStockTradingApp
             {
                 return _sessionFactory.OpenSession();
             });
-
-
-            //.Mappings(m => m.FluentMappings.AddFromAssembly(GetType().Assembly))
 
         }
 

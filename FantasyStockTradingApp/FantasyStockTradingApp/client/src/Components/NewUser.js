@@ -15,7 +15,7 @@ function NewUser(props) {
     const { setAuthTokens } = useAuth();
     const { setUserAccount } = useUser();
 
-    function putUser() {
+    function newUser() {
         /*
          Things to do: password needs checking
          check if email is correct
@@ -96,7 +96,7 @@ function NewUser(props) {
                     if (response.status === 200 && response.data.length !== 0) {
                         console.log('user already exists! Login instead!');
                     } else {
-                        putUser().then((response) => {
+                        newUser().then((response) => {
                             userAccount = { ...userAccount, user : response.data };
                             token = {...token , token : response.data };
                             if (response.status === 200) {
