@@ -74,10 +74,10 @@ function Login(props) {
              getUser().then((getUserResponse) => {
                  if (getUserResponse.status === 200 && getUserResponse.data.length !== 0) {
                      console.log('login response = ', getUserResponse.data);
-                     userAccount = { ...userAccount, user: getUserResponse.data };
+                     userAccount = { ...userAccount, user: getUserResponse.data[0] };
                      getAccount(getUserResponse.data[0].id).then((getAccountResponse) => {
                          if (getAccountResponse.status === 200 && getAccountResponse.data.length !== 0) {
-                            userAccount = { ...userAccount, account: getAccountResponse.data };
+                            userAccount = { ...userAccount, account: getAccountResponse.data[0] };
                             setUserAccount(userAccount);
                             getToken().then((getTokenResponse) => {
                                 setAuthTokens(getTokenResponse.data);

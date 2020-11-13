@@ -15,6 +15,7 @@ namespace FantasyStockTradingApp.Services
     public interface IHoldingsService
     {
         IQueryable<Holdings> GetHoldings(int account_id);
+
         Task NewHolding(int account_id, string symbol, int stock_count,
                 float latest_cost_per_stock, DateTime last_Updated);
         Task UpdateHolding(int account_id, string symbol, int stock_count, 

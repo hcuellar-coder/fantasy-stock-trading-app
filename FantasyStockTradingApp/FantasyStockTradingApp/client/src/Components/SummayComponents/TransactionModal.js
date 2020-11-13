@@ -77,13 +77,15 @@ function TransactionModal(props) {
         console.log("cost per transaction = ", props.stockData.latestPrice * stockCount);
         
 
-        new_transaction().then((response) => {
-            if (response.status === 200) {
-                console.log(response.data);
+        new_transaction().then((transacitonResponse) => {
+            console.log(transacitonResponse.data);
+            if (transacitonResponse.status === 200) {
+                update_holding().then((updateHoldingResponse) => {
+                    console.log(updateHoldingResponse.data);
+                });
             } else {
                 setIsError(true);
             }
-            console.log(response);
         }).catch(e => {
             setIsError(true);
         });

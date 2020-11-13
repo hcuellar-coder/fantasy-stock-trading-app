@@ -116,6 +116,7 @@ function NewUser(props) {
                                     if (response.status === 200) {
                                         console.log(response);
                                         userAccount = { ...userAccount, account: response.data };
+                                        userAccount = { ...userAccount, holdings: {} };
                                         setUserAccount(userAccount);
                                         getToken().then((response) => {
                                             setAuthTokens(response.data);
@@ -126,7 +127,6 @@ function NewUser(props) {
                             } else {
                                 setIsError(true);
                             }
-                            console.log(response);
                         }).catch(e => {
                             setIsError(true);
                         });
