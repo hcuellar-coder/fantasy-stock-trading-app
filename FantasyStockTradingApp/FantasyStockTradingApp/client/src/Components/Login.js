@@ -41,6 +41,20 @@ function Login(props) {
         }
     }
 
+    function getHoldings(accountID) {
+        console.log('accountID', accountID);
+        try {
+            const response = api.get('/get_holdings?', {
+                params: {
+                    account_id: accountID
+                }
+            });
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     function getToken() {
         try {
             const response = tokenApi.get('/get_token?', {
@@ -78,10 +92,13 @@ function Login(props) {
                      getAccount(getUserResponse.data[0].id).then((getAccountResponse) => {
                          if (getAccountResponse.status === 200 && getAccountResponse.data.length !== 0) {
                             userAccount = { ...userAccount, account: getAccountResponse.data[0] };
-                            setUserAccount(userAccount);
-                            getToken().then((getTokenResponse) => {
-                                setAuthTokens(getTokenResponse.data);
-                            });
+                             getHoldings(getAccountResponse.data[0].id).then((getHoldingsResponse) => {
+                                 userAccount = { ...userAccount, holdings: getHoldingsResponse.data };
+                                 setUserAccount(userAccount);
+                                 getToken().then((getTokenResponse) => {
+                                     setAuthTokens(getTokenResponse.data);
+                                 });
+                             });
                         }
                     })
                     

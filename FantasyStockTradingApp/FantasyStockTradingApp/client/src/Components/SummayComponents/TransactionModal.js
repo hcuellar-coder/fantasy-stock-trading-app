@@ -2,6 +2,7 @@
 import { Form, Button, Modal } from 'react-bootstrap';
 import { api } from '../API';
 import { useUser } from "../../Context/UserContext";
+import RetrieveUserData from '../Services/RetrieveUserData';
 
 function TransactionModal(props) {
     const [transactionType, setTransactionType] = useState('');
@@ -9,7 +10,8 @@ function TransactionModal(props) {
     const [modalDialog, setModalDialog] = useState('');
     const [stockCount, setStockCount] = useState(0);
     const [account, setAccount] = useState([]);
-    const { userAccount } = useUser();
+    const [userAccountTemp, setUserAccountTemp] = useState([]);
+    const { userAccount, setUserAccount } = useUser();
 
     useEffect(() => {
         handleModalDialog();
@@ -20,7 +22,8 @@ function TransactionModal(props) {
             setTransactionType('sell');
         }
         if (userAccount !== null) {
-            setAccount(userAccount.account[0]);
+            setUserAccountTemp(userAccount);
+            setAccount(userAccount.account);
         }
         
     }, [props.show])
@@ -60,7 +63,21 @@ function TransactionModal(props) {
                 account_id: account.id,
                 symbol: props.stockData.symbol,
                 stock_count: stockCount,
-                cost_per_stock: props.stockData.latestPrice,
+                latest_cost_per_stock: props.stockData.latestPrice,
+            });
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    function getHoldings() {
+        console.log('accountID', account.id);
+        try {
+            const response = api.get('/get_holdings?', {
+                params: {
+                    account_id: account.id
+                }
             });
             return response;
         } catch (error) {
@@ -81,7 +98,15 @@ function TransactionModal(props) {
             console.log(transacitonResponse.data);
             if (transacitonResponse.status === 200) {
                 update_holding().then((updateHoldingResponse) => {
-                    console.log(updateHoldingResponse.data);
+                    if (updateHoldingResponse.status === 200) {
+                        getHoldings().then((getHoldingsResponse) => {
+                            console.log(userAccountTemp);
+                            setUserAccountTemp([ userAccountTemp.holdings, getHoldingsResponse.data ])
+                            console.log(userAccountTemp);
+                            console.log(getHoldingsResponse.data);
+                            console.log(userAccountTemp.holdings);
+                        })
+                    }                  
                 });
             } else {
                 setIsError(true);

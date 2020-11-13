@@ -20,8 +20,10 @@ function Summary() {
                 <Tab eventKey="topholdings" title="Top Holdings">
                     <TopHoldings />
                 </Tab>
+                <Tab eventKey="myholdings" title="My Holdings">
+                    <MyHoldings />
+                </Tab>
             </Tabs>
-            <MyHoldings />
         </div>
     )
 }
