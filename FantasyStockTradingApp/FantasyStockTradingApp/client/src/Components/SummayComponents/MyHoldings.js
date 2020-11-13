@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Button, Card, CardDeck } from 'react-bootstrap';
-import { useUser } from "../../Context/UserContext";
+import { useHoldings } from "../../Context/HoldingsContext";
 import TransactionModal from './TransactionModal';
 
 function MyHoldings() {
     const [showModal, setShowModal] = useState(false);
     const [isBuying, setIsBuying] = useState(true);
     const [stockData, setStockData] = useState([]);
-    const [holdings, setHoldings] = useState([]);
-    const { userAccount } = useUser();
+    /*const [holdings, setHoldings] = useState([]);*/
+    const { holdings } = useHoldings();
 
 
 
@@ -28,14 +28,13 @@ function MyHoldings() {
         setShowModal(false);
     }
 
-    useEffect(() => {
-        console.log('userAccount =', userAccount);
-        console.log('userAccount.holdings =', userAccount.holdings);
-        if (userAccount !== null && userAccount !== '')
+/*    useEffect(() => {
+        console.log('holdings =', holdings);
+        if (holdings !== null && holdings !== '')
         {
-            setHoldings(userAccount.holdings);
+            setHoldings(holdings);
         }
-    }, [userAccount])
+    }, [holdings])*/
 
     useEffect(() => {
         console.log(holdings);

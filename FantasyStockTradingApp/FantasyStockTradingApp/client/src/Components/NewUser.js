@@ -3,6 +3,8 @@ import { Form, Button, Container, NavLink } from 'react-bootstrap';
 import { api, tokenApi } from './API';
 import { useAuth } from '../Context/AuthContext';
 import { useUser } from '../Context/UserContext';
+import { useAccount } from '../Context/AccountContext';
+import { useHoldings } from '../Context/HoldingsContext';
 
 function NewUser(props) {
     const [validated, setValidated] = useState(false);
@@ -13,7 +15,9 @@ function NewUser(props) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const { setAuthTokens } = useAuth();
-    const { setUserAccount } = useUser();
+    const { setUser } = useUser();
+    const { setAccount} = useAccount();
+    const { setHoldings } = useHoldings();
 
     function newUser() {
         /*
@@ -48,7 +52,7 @@ function NewUser(props) {
         }
     }
 
-    function newAccoutBalance(userID) {
+    function newAccout(userID) {
         try {
             const response = api.post('/new_account', {
                 user_id: userID,
@@ -102,28 +106,27 @@ function NewUser(props) {
     function handleSubmit(e) {
         e.preventDefault();
         const form = e.target;
-        let userAccount = {};
         if (password === confirmPassword) {
             if (form.checkValidity() !== false) {
                 doesUserExist().then((response) => {
                     if (response.status === 200 && response.data.length !== 0) {
                         console.log('user already exists! Login instead!');
                     } else {
-                        newUser().then((response) => {
-                            userAccount = { ...userAccount, user : response.data };
-                            if (response.status === 200) {
-                                newAccoutBalance(response.data.id).then((response) => {
-                                    if (response.status === 200) {
-                                        console.log(response);
-                                        userAccount = { ...userAccount, account: response.data };
-                                        userAccount = { ...userAccount, holdings: {} };
-                                        setUserAccount(userAccount);
-                                        getToken().then((response) => {
-                                            setAuthTokens(response.data);
+                        newUser().then((newUserResponse) => {
+                            if (newUserResponse.status === 200) {
+                                setUser(newUserResponse.data);
+
+                                newAccout(newUserResponse.data.id).then((newAccountResponse) => {
+                                    if (newAccountResponse.status === 200) {
+                                        console.log(newAccountResponse);
+                                        setAccount(newAccountResponse.data);
+                                        setHoldings('');
+
+                                        getToken().then((getTokenResponse) => {
+                                            setAuthTokens(getTokenResponse.data);
                                         });
                                     }
                                 });
-                                
                             } else {
                                 setIsError(true);
                             }

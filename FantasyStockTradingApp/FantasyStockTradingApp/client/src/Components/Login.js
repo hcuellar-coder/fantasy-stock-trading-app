@@ -4,6 +4,8 @@ import { Form, Button, Container, NavLink } from 'react-bootstrap';
 import { api, tokenApi } from './API';
 import { useAuth } from '../Context/AuthContext';
 import { useUser } from '../Context/UserContext';
+import { useAccount } from '../Context/AccountContext';
+import { useHoldings } from '../Context/HoldingsContext';
 
 function Login(props) {
     const [isError, setIsError] = useState(false);
@@ -11,7 +13,9 @@ function Login(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const { setAuthTokens } = useAuth();
-    const { setUserAccount } = useUser();
+    const { setUser } = useUser();
+    const { setAccount } = useAccount();
+    const { setHoldings } = useHoldings();
 
     function getUser() {
         try {
@@ -81,20 +85,20 @@ function Login(props) {
 
     function handleSubmit(e) {
         e.preventDefault();
-       let userAccount = {};
        const form = e.target;
-       console.log('form =', form);
         if (form.checkValidity() !== false) {
+
              getUser().then((getUserResponse) => {
                  if (getUserResponse.status === 200 && getUserResponse.data.length !== 0) {
-                     console.log('login response = ', getUserResponse.data);
-                     userAccount = { ...userAccount, user: getUserResponse.data[0] };
+                     setUser(getUserResponse.data[0]);
+
                      getAccount(getUserResponse.data[0].id).then((getAccountResponse) => {
                          if (getAccountResponse.status === 200 && getAccountResponse.data.length !== 0) {
-                            userAccount = { ...userAccount, account: getAccountResponse.data[0] };
+                             setAccount(getAccountResponse.data[0]);
+
                              getHoldings(getAccountResponse.data[0].id).then((getHoldingsResponse) => {
-                                 userAccount = { ...userAccount, holdings: getHoldingsResponse.data };
-                                 setUserAccount(userAccount);
+                                 setHoldings(getHoldingsResponse.data);
+
                                  getToken().then((getTokenResponse) => {
                                      setAuthTokens(getTokenResponse.data);
                                  });

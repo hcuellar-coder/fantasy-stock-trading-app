@@ -3,20 +3,22 @@ import Login from './Login';
 import NewUser from './NewUser';
 import { useAuth } from "../Context/AuthContext";
 import { useUser } from "../Context/UserContext";
+import { useAccount } from "../Context/AccountContext";
 
 function Home() {
     const [login, setLogin] = useState(true);
     const { authTokens } = useAuth();
-    const { userAccount } = useUser();
-    const [user, setUser] = useState([]);
-    const [account, setAccount] = useState([]);
+    const { user } = useUser();
+    const { account } = useAccount();
+    /*const [user, setUser] = useState([]);
+    const [account, setAccount] = useState([]);*/
 
     function handleNewUserOrLogin(bool) {
         setLogin(bool);
     }
 
 
-    useEffect(() => {
+    /*useEffect(() => {
         console.log('userAccount =', userAccount);
         if (userAccount !== null && userAccount !== '') {
             console.log(userAccount);
@@ -25,7 +27,7 @@ function Home() {
         }
         console.log(user);
         console.log(account);
-    }, [userAccount]);
+    }, [userAccount]);*/
 
     return (
         <div>{!authTokens ? (

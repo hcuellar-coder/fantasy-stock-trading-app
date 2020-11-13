@@ -1,17 +1,16 @@
 ﻿import React, { useState, useEffect } from 'react'
 import { Form, Button, Modal } from 'react-bootstrap';
 import { api } from '../API';
-import { useUser } from "../../Context/UserContext";
-import RetrieveUserData from '../Services/RetrieveUserData';
+import { useAccount } from "../../Context/AccountContext";
+import { useHoldings } from "../../Context/HoldingsContext";
 
 function TransactionModal(props) {
     const [transactionType, setTransactionType] = useState('');
     const [isError, setIsError] = useState(false);
     const [modalDialog, setModalDialog] = useState('');
     const [stockCount, setStockCount] = useState(0);
-    const [account, setAccount] = useState([]);
-    const [userAccountTemp, setUserAccountTemp] = useState([]);
-    const { userAccount, setUserAccount } = useUser();
+    const { account } = useAccount();
+    const { setHoldings } = useHoldings();
 
     useEffect(() => {
         handleModalDialog();
@@ -20,12 +19,7 @@ function TransactionModal(props) {
             setTransactionType('buy');
         } else {
             setTransactionType('sell');
-        }
-        if (userAccount !== null) {
-            setUserAccountTemp(userAccount);
-            setAccount(userAccount.account);
-        }
-        
+        }        
     }, [props.show])
 
     function handleChange(e) {
@@ -97,14 +91,12 @@ function TransactionModal(props) {
         new_transaction().then((transacitonResponse) => {
             console.log(transacitonResponse.data);
             if (transacitonResponse.status === 200) {
+
                 update_holding().then((updateHoldingResponse) => {
                     if (updateHoldingResponse.status === 200) {
+
                         getHoldings().then((getHoldingsResponse) => {
-                            console.log(userAccountTemp);
-                            setUserAccountTemp([ userAccountTemp.holdings, getHoldingsResponse.data ])
-                            console.log(userAccountTemp);
-                            console.log(getHoldingsResponse.data);
-                            console.log(userAccountTemp.holdings);
+                            setHoldings(getHoldingsResponse.data);
                         })
                     }                  
                 });

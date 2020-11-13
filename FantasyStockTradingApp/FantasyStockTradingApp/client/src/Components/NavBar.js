@@ -3,15 +3,21 @@ import { Nav, Navbar, NavItem } from 'react-bootstrap';
 import { NavLink, Redirect} from 'react-router-dom';
 import { useAuth } from "../Context/AuthContext";
 import { useUser } from "../Context/UserContext";
+import { useAccount } from "../Context/AccountContext";
+import { useHoldings } from "../Context/HoldingsContext";
 
 function NavBar(props) {
     const [expanded, setExpanded] = useState(false);
     const { authTokens, setAuthTokens } = useAuth();
-    const { userAccount, setUserAccount } = useUser();
+    const { setUser } = useUser();
+    const { setAccount } = useAccount();
+    const { setHoldings} = useHoldings();
 
     function handleLogOut() {
         setAuthTokens('');
-        setUserAccount('');
+        setUser('');
+        setAccount('');
+        setHoldings('');
         return < Redirect to = '/' />;
     }
 
