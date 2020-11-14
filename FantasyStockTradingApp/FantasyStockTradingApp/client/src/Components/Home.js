@@ -10,24 +10,10 @@ function Home() {
     const { authTokens } = useAuth();
     const { user } = useUser();
     const { account } = useAccount();
-    /*const [user, setUser] = useState([]);
-    const [account, setAccount] = useState([]);*/
 
     function handleNewUserOrLogin(bool) {
         setLogin(bool);
     }
-
-
-    /*useEffect(() => {
-        console.log('userAccount =', userAccount);
-        if (userAccount !== null && userAccount !== '') {
-            console.log(userAccount);
-            setUser(userAccount.user);
-            setAccount(userAccount.account);
-        }
-        console.log(user);
-        console.log(account);
-    }, [userAccount]);*/
 
     return (
         <div>{!authTokens ? (

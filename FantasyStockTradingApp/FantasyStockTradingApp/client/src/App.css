@@ -4,6 +4,10 @@
 .card-buttons {
     float: right;
 }
+.cards-myholdings {
+    min-width: 20%;
+    flex: 0;
+}
 
 .login-form {
     width: 100%;

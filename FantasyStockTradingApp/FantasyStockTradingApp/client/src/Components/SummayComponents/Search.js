@@ -81,7 +81,7 @@ function Search() {
             <TransactionModal show={showModal} handleClose={handleClose} isBuying={isBuying} stockData={stockData}/>
             <Form className="search-form" noValidate validated={validated} onSubmit={handleSubmit}>
                 <Form.Group>
-                    <Form.Label className="search-label">Search Symbol</Form.Label>
+                    <Form.Label className="search-label">Search for Stock</Form.Label>
                     <Form.Control
                         className="search-form-control"
                         type="text"

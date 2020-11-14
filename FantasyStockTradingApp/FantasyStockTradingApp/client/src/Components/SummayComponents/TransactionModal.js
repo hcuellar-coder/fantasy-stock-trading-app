@@ -7,30 +7,58 @@ import { useHoldings } from "../../Context/HoldingsContext";
 function TransactionModal(props) {
     const [transactionType, setTransactionType] = useState('');
     const [isError, setIsError] = useState(false);
+    const [maxDialog, setMaxDialog] = useState('');
     const [modalDialog, setModalDialog] = useState('');
     const [stockCount, setStockCount] = useState(0);
+    const [transactionAmount, setTransactionAmount] = useState(0);
+    const [currentHoldingStock, setCurrentHoldingStock] = useState(0);
+    const [maxTransactionAmount, setMaxTransactionAmount] = useState(0);
     const { account } = useAccount();
-    const { setHoldings } = useHoldings();
+    const { holdings, setHoldings } = useHoldings();
 
     useEffect(() => {
-        handleModalDialog();
-        setStockCount(1);
+        if (props.show) {
+            handleModalDialog();
+            console.log('holdings = ', holdings);
+            console.log('account = ', account);
+            console.log('props.stockData = ', props.stockData);
+            searchHoldings();
+            transactionSetup();
+        }
+    }, [props.show])
+
+    function searchHoldings() {
+        for (let i = 0; i < holdings.length; i++) {
+            if (holdings[i].symbol === props.stockData.symbol) {
+                setCurrentHoldingStock(holdings[i].stock_Count);
+                console.log('holdings[i].stock_Count = ', holdings[i].stock_Count);
+            }
+        }
+    }
+
+    function transactionSetup() {
+        setTransactionAmount(1);
+        let max = Math.floor((account.balance / props.stockData.latestPrice));
         if (props.isBuying) {
             setTransactionType('buy');
+            setMaxTransactionAmount(max);
         } else {
             setTransactionType('sell');
-        }        
-    }, [props.show])
+            setMaxTransactionAmount(currentHoldingStock);
+        }     
+    }
 
     function handleChange(e) {
         e.preventDefault();
-        setStockCount(e.target.value);
+        setTransactionAmount(parseInt(e.target.value));
     }
 
     function handleModalDialog() {
         if (props.isBuying) {
+            setMaxDialog(`Maximum quantity purchasable: ${maxTransactionAmount}`);
             setModalDialog(`How many ${ props.stockData.companyName } stock would you like to buy:`);
         } else {
+            setMaxDialog(`Maximum quantity sellable: ${maxTransactionAmount}`);
             setModalDialog(`How many ${props.stockData.companyName} stock would you like to sell:`);
         }
     }
@@ -41,9 +69,9 @@ function TransactionModal(props) {
                 account_id: account.id,
                 type: transactionType,
                 symbol: props.stockData.symbol,
-                stock_count: stockCount,
+                stock_count: transactionAmount,
                 cost_per_stock: props.stockData.latestPrice,
-                cost_per_transaction: (props.stockData.latestPrice * stockCount)
+                cost_per_transaction: (props.stockData.latestPrice * transactionAmount)
             });
             return response;
         } catch (error) {
@@ -52,11 +80,17 @@ function TransactionModal(props) {
     }
 
     function update_holding() {
+        let newTransactionAmount = 0;
+        if (props.isBuying) {
+            newTransactionAmount = (currentHoldingStock + transactionAmount);
+        } else {
+            newTransactionAmount = (currentHoldingStock - transactionAmount);
+        } 
         try {
             const response = api.post('/update_holding', {
                 account_id: account.id,
                 symbol: props.stockData.symbol,
-                stock_count: stockCount,
+                stock_count: newTransactionAmount,
                 latest_cost_per_stock: props.stockData.latestPrice,
             });
             return response;
@@ -80,12 +114,14 @@ function TransactionModal(props) {
     }
 
     function handleTransactionButtons() {
+        
+
         console.log("account id = ", account.id);
         console.log("transaction type = ", transactionType);
         console.log("symbol = ", props.stockData.symbol);
-        console.log("stock count = ", stockCount);
+        console.log("transactionAmount = ", transactionAmount);
         console.log("cost per stock = ", props.stockData.latestPrice);
-        console.log("cost per transaction = ", props.stockData.latestPrice * stockCount);
+        console.log("cost per transaction = ", props.stockData.latestPrice * transactionAmount);
         
 
         new_transaction().then((transacitonResponse) => {
@@ -98,7 +134,7 @@ function TransactionModal(props) {
                         getHoldings().then((getHoldingsResponse) => {
                             setHoldings(getHoldingsResponse.data);
                         })
-                    }                  
+                    }          
                 });
             } else {
                 setIsError(true);
@@ -118,16 +154,19 @@ function TransactionModal(props) {
             </Modal.Header>
             <Modal.Body>
                 <div>
+                    <span>{maxDialog}</span>
+                    <br />
                     <span>{modalDialog}</span>
                     <Form.Control
                         required
                         id="transaction-modal-buy"
                         type="number"
                         step="1"
-                        min="0"
+                        min="1"
+                        max={maxTransactionAmount}
                         placeholder="0"
                         name="stock"
-                        value={stockCount}
+                        value={transactionAmount}
                         onChange={handleChange} />
                 </div>
             </Modal.Body>

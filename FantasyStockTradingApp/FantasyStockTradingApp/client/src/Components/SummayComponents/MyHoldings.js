@@ -7,10 +7,7 @@ function MyHoldings() {
     const [showModal, setShowModal] = useState(false);
     const [isBuying, setIsBuying] = useState(true);
     const [stockData, setStockData] = useState([]);
-    /*const [holdings, setHoldings] = useState([]);*/
     const { holdings } = useHoldings();
-
-
 
     function handleBuyButton() {
         console.log('Buying');
@@ -28,29 +25,15 @@ function MyHoldings() {
         setShowModal(false);
     }
 
-/*    useEffect(() => {
-        console.log('holdings =', holdings);
-        if (holdings !== null && holdings !== '')
-        {
-            setHoldings(holdings);
-        }
-    }, [holdings])*/
-
-    useEffect(() => {
-        console.log(holdings);
-    }, [holdings])
-
-
     return (
         <div id="summary-myHoldings-div">
             <TransactionModal show={showModal} handleClose={handleClose} isBuying={isBuying} stockData={stockData} />
-            <h1>My Holdings</h1>
             {holdings === undefined
                 ? <div></div>
                 : < CardDeck > {
                         holdings.map(
                         (holding, index) =>
-                        <Card key={index}>
+                        <Card className="cards-myholdings" key={index}>
                             <Card.Img variant="top" src="holder.js/100px160" />
                             <Card.Body>
                                 <Card.Title>{/*holding.companyName*/}</Card.Title>
