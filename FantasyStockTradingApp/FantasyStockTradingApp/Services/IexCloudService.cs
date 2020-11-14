@@ -64,6 +64,5 @@ namespace FantasyStockTradingApp.Services
             return JsonConvert.DeserializeObject<Quote>(responseStream);
 
         }
-
     }
 }

@@ -16,8 +16,8 @@ namespace FantasyStockTradingApp.Services
     {
         IQueryable<Holdings> GetHoldings(int account_id);
 
-        Task NewHolding(int account_id, string symbol, int stock_count,
-                float latest_cost_per_stock, DateTime last_Updated);
+        Task NewHolding(int account_id, string company_name, string symbol, int stock_count,
+             float change, float change_percentage, float latest_cost_per_stock, DateTime last_Updated);
         Task UpdateHolding(int account_id, string symbol, int stock_count, 
                         float latest_cost_per_stock, DateTime last_Updated);
         Task UpdateHoldings(JObject data); //this should take an account Id and updat
@@ -80,8 +80,8 @@ namespace FantasyStockTradingApp.Services
             }
         }
 
-        public async Task NewHolding(int account_id, string symbol, int stock_count,
-                        float latest_cost_per_stock, DateTime last_Updated)
+        public async Task NewHolding(int account_id, string company_name, string symbol, int stock_count,
+            float latest_cost_per_stock, float change, float change_percentage, DateTime last_Updated)
         {
             try
             {
@@ -90,9 +90,12 @@ namespace FantasyStockTradingApp.Services
                     var holdings = new Holdings
                     {
                         Account_Id = account_id,
+                        Company_Name = company_name,
                         Symbol = symbol,
                         Stock_Count = stock_count,
-                        Latest_cost_per_stock = latest_cost_per_stock,
+                        Latest_Cost_per_Stock = latest_cost_per_stock,
+                        Change = change,
+                        Change_Percentage = change_percentage,
                         Last_Updated = last_Updated,
                     };
 

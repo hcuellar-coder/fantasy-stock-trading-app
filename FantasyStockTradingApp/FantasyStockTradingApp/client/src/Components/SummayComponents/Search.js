@@ -35,16 +35,16 @@ function Search() {
     function handleSubmit(e) {
         e.preventDefault();
         const form = e.target;
+        let stockData = {};
         if (form.checkValidity() !== false) {
-            searchSymbol().then((response) => {
-                if (response.status === 200 && response.data.length !== 0) {
-                    console.log(response.data);
-                    setStockData(response.data);
+            searchSymbol().then((searchSymbolResponse) => {
+                if (searchSymbolResponse.status === 200 && searchSymbolResponse.data.length !== 0) {
+                    console.log(searchSymbolResponse.data);
+                    setStockData(searchSymbolResponse.data);
                     setSearchValid(true);
                 } else {
                     setIsError(true);
                 }
-                console.log(response);
             }).catch(e => {
                 setIsError(true);
             });
@@ -61,12 +61,12 @@ function Search() {
         setShowModal(true);
     }
 
-    function handleSellButton() {
+    /*function handleSellButton() {
         console.log('Selling');
         console.log("latestPrice = " + stockData.latestPrice);
         setIsBuying(false);
         setShowModal(true);
-    }
+    }*/
 
     function handleClose() {
         setShowModal(false);
@@ -101,7 +101,7 @@ function Search() {
             {searchValid ?
                 <CardDeck>
                     <Card>
-                        <Card.Img variant="top" src="holder.js/100px160" />
+                        <Card.Header>{stockData.symbol}</Card.Header>
                         <Card.Body>
                             <Card.Title>{stockData.companyName}</Card.Title>
                             <Card.Text>

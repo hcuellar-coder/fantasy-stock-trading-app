@@ -138,9 +138,12 @@ namespace FantasyStockTradingApp.Controllers
         public async Task UpdateHolding(JObject data)
         {
             var account_id = Int32.Parse(data["account_id"].ToString());
+            var company_name = data["company_name"].ToString();
             var symbol = data["symbol"].ToString();
             var stock_count = Int32.Parse(data["stock_count"].ToString());
             var latest_cost_per_stock = float.Parse(data["latest_cost_per_stock"].ToString());
+            var change = float.Parse(data["change"].ToString());
+            var change_percentage = float.Parse(data["change_percentage"].ToString());
             var last_Updated = DateTime.Now;
 
             Console.WriteLine("in update_holding");
@@ -162,8 +165,8 @@ namespace FantasyStockTradingApp.Controllers
                 }
             } else
             {
-                await _holdingsService.NewHolding(account_id, symbol,
-                                   stock_count, latest_cost_per_stock, last_Updated);
+                await _holdingsService.NewHolding(account_id, company_name, symbol, stock_count,
+                                   latest_cost_per_stock, change, change_percentage, last_Updated);
             }
         }
 
