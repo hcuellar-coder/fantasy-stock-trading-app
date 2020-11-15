@@ -11,7 +11,7 @@ const tokenApi = axios.create({
 });
 
 const iexApi = axios.create({
-    baseURL: '/api/token/',
+    baseURL: '/api/iexcloud/',
 });
 
 /*const iexCloudAPI = axios.create({

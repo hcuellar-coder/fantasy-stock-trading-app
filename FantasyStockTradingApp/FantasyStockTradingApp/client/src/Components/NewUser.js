@@ -20,12 +20,6 @@ function NewUser(props) {
     const { setHoldings } = useHoldings();
 
     function newUser() {
-        /*
-         Things to do: password needs checking
-         check if email is correct
-         check if user already exists
-         */
-
         try {
             const response = api.post('/new_user', {
                 email: email,
