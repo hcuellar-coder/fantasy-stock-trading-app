@@ -1,14 +1,20 @@
 import React, { useState } from 'react';
 import { Tabs, Tab} from 'react-bootstrap';
 import Search from './SummayComponents/Search';
-import TopHoldings from './SummayComponents/TopHoldings';
+import MostActiveStocks from './SummayComponents/MostActiveStocks';
 import MyHoldings from './SummayComponents/MyHoldings';
+import { useUser } from "../Context/UserContext";
+import { useAccount } from "../Context/AccountContext";
 
 function Summary() {
     const [key, setKey] = useState('search');
+    const { user } = useUser();
+    const { account } = useAccount();
 
     return (
         <div>
+            <span>Balance {account.balance}</span>
+            <span>Portfolio {account.portfolio_Balance}</span>
             <Tabs
                 id="controlled-tab-example"
                 activeKey={key}
@@ -17,8 +23,8 @@ function Summary() {
                 <Tab eventKey="search" title="Search">
                     <Search />
                 </Tab>
-                <Tab eventKey="topholdings" title="Top Holdings">
-                    <TopHoldings />
+                <Tab eventKey="mostactivestocks" title="Most Active">
+                    <MostActiveStocks />
                 </Tab>
                 <Tab eventKey="myholdings" title="My Holdings">
                     <MyHoldings />

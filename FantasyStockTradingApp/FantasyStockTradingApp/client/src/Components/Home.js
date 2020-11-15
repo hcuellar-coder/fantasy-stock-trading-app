@@ -29,9 +29,6 @@ function Home() {
                 (user !== undefined) ? (
                     <div>
                         <h1>Welcome {user.first_name}</h1>
-                        <span>Balance {account.balance}</span>
-                        <span>Portfolio {account.portfolio_Balance}</span>
-
                         <div>
                             <h3>Summary</h3>
                             <p>

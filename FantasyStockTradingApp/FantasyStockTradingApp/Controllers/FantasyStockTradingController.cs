@@ -19,24 +19,20 @@ namespace FantasyStockTradingApp.Controllers
     {
 
         private readonly IUserService _userService;
-        private readonly IIexCloudService _iexCloudService;
         private readonly ITransactionService _transactionService;
         private readonly IAccountService _accountService;
         private readonly IHoldingsService _holdingsService;
 
-        //This is were the problem isf
         public FantasyStockTradingController(IUserService userService,
-            IIexCloudService iexCloudService, ITransactionService transactionService,
-            IAccountService accountService, IHoldingsService holdingsService)
+            ITransactionService transactionService, IAccountService accountService, 
+            IHoldingsService holdingsService)
         {
             _userService = userService;
-            _iexCloudService = iexCloudService;
             _transactionService = transactionService;
             _accountService = accountService;
             _holdingsService = holdingsService;
         }
 
-        // GET: api/<FantasyStockTradingController>
         [HttpGet("get_user")]
         public IQueryable<User> GetUser(string email, string password)
         {
@@ -114,26 +110,6 @@ namespace FantasyStockTradingApp.Controllers
             return _holdingsService.GetHoldings(account_id);
         }
 
-       /* [HttpPost("new_holding")]
-        public async Task NewHolding(JObject data)
-        {
-            var account_id = Int32.Parse(data["account_id"].ToString());
-            var symbol = data["symbol"].ToString();
-            var stock_count = Int32.Parse(data["stock_count"].ToString());
-            var latest_cost_per_stock = float.Parse(data["latest_cost_per_stock"].ToString());
-            var last_Updated = DateTime.Now;
-
-            Console.WriteLine("in new_holding");
-            Console.WriteLine("account_id = " + account_id);
-            Console.WriteLine("symbol = " + symbol);
-            Console.WriteLine("stock_count = " + stock_count);
-            Console.WriteLine("cost = " + latest_cost_per_stock);
-            Console.WriteLine("updated time = " + last_Updated);
-
-            await _holdingsService.NewHolding(account_id, symbol,
-                                    stock_count, latest_cost_per_stock, last_Updated);
-        }*/
-
         [HttpPost("update_holding")]
         public async Task UpdateHolding(JObject data)
         {
@@ -180,20 +156,6 @@ namespace FantasyStockTradingApp.Controllers
             await _holdingsService.UpdateHoldings(data);
         }
 
-        /*[HttpPost("delete_holding")]
-        public async Task DeleteHolding(JObject data)
-        {
-            var account_id = Int32.Parse(data["account_id"].ToString());
-            var symbol = data["symbol"].ToString();
-
-            Console.WriteLine("in delete_holding");
-            Console.WriteLine("account_id = " + account_id);
-            Console.WriteLine("symbol = " + symbol);
-
-            await _holdingsService.DeleteHolding(account_id, symbol);
-        }*/
-
-
         [HttpPost("new_transaction")]
         public async Task NewTransaction(JObject data)
         {
@@ -217,42 +179,5 @@ namespace FantasyStockTradingApp.Controllers
             await _transactionService.NewTransaction(account_id, type, symbol, stock_count,
                                     cost_per_stock, cost_per_transaction, transaction_date);
         }
-
-
-        // GET: api/<FantasyStockTradingController>
-        [HttpGet("get_quote")]
-        public Task<Quote> GetQuote(string symbol)
-        {
-            Console.WriteLine("in get_quote");
-            Console.WriteLine("symbol = " + symbol);
-
-            return _iexCloudService.GetQuote(symbol);
-        }
-
-
-        /*// GET api/<FantasyStockTradingController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
-        {
-            return "value";
-        }
-
-        // POST api/<FantasyStockTradingController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<FantasyStockTradingController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<FantasyStockTradingController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-        }*/
     }
 }

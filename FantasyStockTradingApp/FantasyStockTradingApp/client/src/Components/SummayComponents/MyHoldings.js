@@ -42,21 +42,6 @@ function MyHoldings() {
         setShowModal(false);
     }
 
-    /*function searchHoldings() {
-        for (let i = 0; i < holdings.length; i++) {
-            if (holdings[i].symbol === props.stockData.symbol) {
-                setCurrentHoldingStock(holdings[i].stock_Count);
-            }
-        }
-    }*/
-
-    /*useEffect(() => {
-        if (stockData !== null && stockData.length !== 0) {
-            console.log(stockData);
-            *//*setShowModal(true);*//*
-        }
-    }, [stockData])*/
-
     return (
         <div id="summary-myHoldings-div">
             <TransactionModal show={showModal} handleClose={handleClose} isBuying={isBuying} stockData={stockData} />
@@ -73,7 +58,7 @@ function MyHoldings() {
                             <Card.Body>
                                 <Card.Title>{holding.companyName}</Card.Title>
                                 <Card.Text>
-                                            <span>Price {holding.latest_cost_per_stock} | Change {holding.change}  | % Changes {holding.change_Percentage}</span>
+                                            <span>Price {holding.latest_Cost_per_Stock} | Change {holding.change}  | % Changes {holding.change_Percentage}</span>
                                 </Card.Text>
                                 <div className="card-buttons">
                                             <Button className="card-button" onClick={() => { handleBuyButton(holding) }}>Buy</Button>

@@ -97,7 +97,7 @@ function TransactionModal(props) {
         }
     }
 
-    function getAccount() {
+    function get_Account() {
         console.log('userID', user.id);
         try {
             const response = api.get('/get_account?', {
@@ -135,7 +135,7 @@ function TransactionModal(props) {
         }
     }
 
-    function getHoldings() {
+    function get_Holdings() {
         console.log('accountID', account.id);
         try {
             const response = api.get('/get_holdings?', {
@@ -169,11 +169,11 @@ function TransactionModal(props) {
                         update_Account().then((updateAccountResponse) => {
                             if (updateAccountResponse.status === 200) {
 
-                                getHoldings().then((getHoldingsResponse) => {
+                                get_Holdings().then((getHoldingsResponse) => {
                                     if (getHoldingsResponse.status === 200) {
                                         setHoldings(getHoldingsResponse.data);
 
-                                        getAccount().then((getAccountResponse) => {
+                                        get_Account().then((getAccountResponse) => {
                                             if (getAccountResponse.status === 200) {
                                                 setAccount(getAccountResponse.data[0]);
                                             }
