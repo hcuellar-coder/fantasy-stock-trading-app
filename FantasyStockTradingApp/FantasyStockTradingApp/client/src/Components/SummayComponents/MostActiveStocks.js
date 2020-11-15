@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Button, Card, CardDeck } from 'react-bootstrap';
-import { api } from '../API';
+import { api, iexApi } from '../API';
 import TransactionModal from './TransactionModal';
 
 function MostActiveStocks() {
@@ -27,7 +27,7 @@ function MostActiveStocks() {
 
     function get_mostActive() {
         try {
-            const response = api.get('/get_mostactive?');
+            const response = iexApi.get('/get_mostactive?');
             return response;
         } catch (error) {
             console.error(error);

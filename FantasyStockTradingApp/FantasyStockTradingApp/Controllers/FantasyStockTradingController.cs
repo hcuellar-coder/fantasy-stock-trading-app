@@ -68,7 +68,6 @@ namespace FantasyStockTradingApp.Controllers
             return await _userService.NewUser(email, password, first_name, last_name);
         }
 
-
         [HttpGet("get_account")]
         public IQueryable<Account> GetAccount(int user_id)
         {
@@ -149,7 +148,6 @@ namespace FantasyStockTradingApp.Controllers
         [HttpPost("update_holdings")]
         public async Task UpdateHoldings(JObject data)
         {
-           
             Console.WriteLine("in update_holdings");
             Console.WriteLine("data = " + data);
             

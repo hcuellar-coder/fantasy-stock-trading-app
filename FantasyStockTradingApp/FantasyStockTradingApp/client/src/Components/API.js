@@ -10,11 +10,16 @@ const tokenApi = axios.create({
     baseURL: '/api/token/',
 });
 
+const iexApi = axios.create({
+    baseURL: '/api/token/',
+});
+
 /*const iexCloudAPI = axios.create({
     baseURL: '/api/fantasystocktrading/',
 });*/
 
 export {
     api,
-    tokenApi
+    tokenApi,
+    iexApi
 };

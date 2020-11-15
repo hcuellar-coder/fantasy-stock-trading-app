@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Button, Card, CardDeck } from 'react-bootstrap';
-import { api } from '../API';
+import { api, iexApi } from '../API';
 import TransactionModal from './TransactionModal';
 
 function Search() {
@@ -12,11 +12,9 @@ function Search() {
     const [validated, setValidated] = useState(false);
     const [stockData, setStockData] = useState([]);
 
-
-
     function searchSymbol() {
         try {
-            const response = api.get('/get_quote', {
+            const response = iexApi.get('/get_quote', {
                 params: {
                     symbol: search
                 }
@@ -53,7 +51,6 @@ function Search() {
         setValidated(true);
     }
 
-
     function handleBuyButton() {
         console.log('Buying');
         console.log("latestPrice = " + stockData.latestPrice);
@@ -61,20 +58,9 @@ function Search() {
         setShowModal(true);
     }
 
-    /*function handleSellButton() {
-        console.log('Selling');
-        console.log("latestPrice = " + stockData.latestPrice);
-        setIsBuying(false);
-        setShowModal(true);
-    }*/
-
     function handleClose() {
         setShowModal(false);
     }
-
-    useEffect(() => {
-        console.log(stockData);
-    },[stockData])
 
     return (
         <div>
@@ -109,7 +95,6 @@ function Search() {
                             </Card.Text>
                             <div className="card-buttons">
                                 <Button className="card-button" onClick={ handleBuyButton }>Buy</Button>
-                                {/* <Button className="card-button" onClick={ handleSellButton }>Sell</Button> */}
                             </div>
                         </Card.Body>
                     </Card>

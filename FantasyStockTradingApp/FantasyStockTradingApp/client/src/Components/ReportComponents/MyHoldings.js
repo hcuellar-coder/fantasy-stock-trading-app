@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Form, Button, Card, CardDeck } from 'react-bootstrap';
-import { api } from '../API';
+import { api, iexApi } from '../API';
 import { useHoldings } from "../../Context/HoldingsContext";
 
 function MyHoldings(props) {
@@ -18,7 +18,7 @@ function MyHoldings(props) {
 
     function get_history(symbol) {
         try {
-            const response = api.get('/get_history', {
+            const response = iexApi.get('/get_history', {
                 params: {
                     symbol: symbol
                 }

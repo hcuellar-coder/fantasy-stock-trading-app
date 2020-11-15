@@ -71,6 +71,20 @@ function Login(props) {
         } catch (error) {
             console.error(error);
         }
+    } 
+
+    function update_holding(holding) {
+        try {
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    function updateHoldings(holdings) {
+        for (let holding of holdings) {
+            console.log('holding =', holding);
+        }
     }
 
     function handleEmailChange(e) {
@@ -98,6 +112,8 @@ function Login(props) {
 
                              getHoldings(getAccountResponse.data[0].id).then((getHoldingsResponse) => {
                                  setHoldings(getHoldingsResponse.data);
+
+                                 updateHoldings(getHoldingsResponse.data);
 
                                  getToken().then((getTokenResponse) => {
                                      setAuthTokens(getTokenResponse.data);
@@ -128,7 +144,7 @@ function Login(props) {
             setPassword('');
             setIsError(false);
         }
-    },[isError])
+    }, [isError])
 
     return (
         <Container id="login-container">
