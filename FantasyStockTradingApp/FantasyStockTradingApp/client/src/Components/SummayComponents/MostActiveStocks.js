@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button, Card, CardDeck } from 'react-bootstrap';
+import { Form, Button, Card, CardDeck  } from 'react-bootstrap';
 import { api, iexApi } from '../API';
 import TransactionModal from './TransactionModal';
 
