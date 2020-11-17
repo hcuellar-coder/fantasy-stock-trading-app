@@ -28,10 +28,10 @@ function Home() {
         ) : (
                 (user !== undefined) ? (
                     <div>
-                        <h1>Welcome {user.first_name}</h1>
+                        <h1 className="home-header">Welcome {user.first_name}</h1>
                         <div>
-                            <h3>Summary</h3>
-                            <p>
+                            <h3 className="home-sub-header">Summary</h3>
+                            <p className="home-paragraph">
                                 In the summary you can buy and sell stocks, you are given
                                 a total of 100,000 dollars to buy and sell stocks with. Lets
                                 see if you got what it takes to become a wall street tycoon.
@@ -39,8 +39,8 @@ function Home() {
                         </div>
 
                         <div>
-                            <h3>Report</h3>
-                            <p>
+                            <h3 className="home-sub-header">Report</h3>
+                            <p className="home-paragraph">
                                 To view how your stocks are doing on a graphical interface,
                                 take a look at the report page. It also has options to Search stocks,
                                 or view the most active stocks as well.

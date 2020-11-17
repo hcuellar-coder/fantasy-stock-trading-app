@@ -80,13 +80,13 @@ function Search() {
                         Example: AAPL = apple | GE = General Electric | F = Ford 
                     </Form.Text>
                 </Form.Group>
-                    <Button variant="primary" type="submit">
+                    <Button id="search-submit-button" variant="primary" type="submit">
                         Submit
                     </Button>
             </Form >
             {searchValid ?
                 <CardDeck>
-                    <Card>
+                    <Card className="search-card">
                         <Card.Header>{stockData.symbol}</Card.Header>
                         <Card.Body>
                             <Card.Title>{stockData.companyName}</Card.Title>

@@ -1,3 +1,16 @@
+html, body {
+    height: 100%
+}
+
+body {
+    background-color: #264653;
+    background-image: url("./Images/stock_market_graph.png");
+    background-repeat: no-repeat;
+    background-size: 100%;
+    background-position: bottom left;
+    background-attachment: fixed;
+}
+
 .card-button {
     margin-right:10px;
 }
@@ -11,6 +24,18 @@
     flex: 0 1 !important;
 }
 
+.home-header {
+    color: #e76f51;
+}
+
+.home-sub-header {
+    color: #e9c46a;
+}
+
+.home-paragraph {
+    color: white;
+}
+
 .login-form {
     width: 100%;
 }
@@ -18,6 +43,15 @@
 .login-row {
     width: 100%;
     display: block;
+}
+
+.navbar-light .navbar-brand {
+    color: white;
+}
+
+.navbar-light .navbar-brand:hover {
+        color: white;
+        cursor: default;
 }
 
 .navbar-nav {
@@ -30,21 +64,26 @@
 }
 
 .Navlink {
-    color: black;
+    color: white;
     margin-right: 20px;
     cursor: pointer;
 }
 
 .Navlink:hover {
-    color: rgb(0, 81, 255);
+    color: #e76f51;
     text-decoration: none;
     margin-right: 20px;
 }
 
 .Navlink.active {
-    color: rgb(0, 81, 255);
+    color: #e76f51;
     text-decoration: underline;
     margin-right: 20px;
+}
+
+.search-card {
+    background-color: #25897E;
+    color: #e9c46a;
 }
 
 .search-form {
@@ -53,19 +92,33 @@
 
 .search-label {
     font-size: 2.5rem;
+    color: white;
 }
 
 .search-form-control {
-    text-transform:uppercase;
+    text-transform: uppercase;
+    color: #2a9d8f !important;
+    font-weight: bold;
+}
+
+.text-muted {
+    color: #e9c46a !important;
+    font-size: 1.85vh;
 }
 
 #already-existing-user-button {
     margin-left: -10px;
     margin-bottom: 10px;
+    color: #e76f51;
 }
 
 #chart-div {
 
+}
+
+#join-user-button {
+    background-color: #e76f51;
+    border-color: #e76f51;
 }
 
 #login-buttons-div {
@@ -83,19 +136,23 @@
     flex-direction: row;
     align-items: baseline;
     align-self: center;
+    color: white;
 }
 
 #login-user-button {
     width: 100%;
+    background-color: #e76f51;
+    border-color: #e76f51;
 }
 
 #nav-bar {
-    background-color: rgb(255, 255, 255);
+    background-color: #264653;
 }
 
 #new-user-button {
-    margin-left:-10px;
+    margin-left: -10px;
     margin-bottom: 10px;
+    color: #e76f51;
 }
 
 #new-user-login-div {
@@ -103,9 +160,44 @@
     flex-direction: row;
     align-items: baseline;
     align-self: center;
+    color: white;
+}
+
+#search-submit-button {
+    background-color: #e76f51;
+    border: #e76f51;
+}
+
+#summary-balance-div {
+    text-align: center;
+    font-size: 1.20rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+    color: #e76f51;
+}
+
+#summary-balance {
+    margin-right: 15px;
+}
+
+#summary-portfolio-balance {
+
 }
 
 #summary-myHoldings-div {
     margin: 10px;
+}
+
+#summary-tabs-tab-search {
+    background-color: transparent;
+    color: #f4a261;
+}
+#summary-tabs-tab-mostactivestocks {
+    background-color: transparent;
+    color: #f4a261;
+}
+#summary-tabs-tab-myholdings {
+    background-color: transparent;
+    color: #f4a261;
 }
 

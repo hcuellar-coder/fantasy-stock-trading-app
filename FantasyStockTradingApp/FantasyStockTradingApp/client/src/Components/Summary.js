@@ -13,10 +13,12 @@ function Summary() {
 
     return (
         <div>
-            <span>Balance {account.balance}</span>
-            <span>Portfolio {account.portfolio_Balance}</span>
+            <div id="summary-balance-div">
+                <span id="summary-balance">Balance {account.balance}</span>
+                <span id="summary-portfolio-balance">Portfolio {account.portfolio_Balance}</span>
+            </div>
             <Tabs
-                id="controlled-tab-example"
+                id="summary-tabs"
                 activeKey={key}
                 onSelect={(k) => setKey(k)}
             >

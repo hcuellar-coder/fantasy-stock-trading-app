@@ -23,7 +23,7 @@ function NavBar(props) {
 
     return (
         <Navbar id="nav-bar" expanded={expanded} expand="sm" sticky="top">
-            <Navbar.Brand href='/'>Stock Trading Application</Navbar.Brand>
+            <Navbar.Brand>Stock Trading Application</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setExpanded(expanded ? false : "expanded")} />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="ml-auto" onClick={() => { setExpanded(false) }}>
@@ -37,7 +37,7 @@ function NavBar(props) {
                         <NavLink className='Navlink' to='/report' >Report</NavLink>
                     </NavItem>
                     <NavItem>
-                        <a className='Navlink' onClick={handleLogOut} hidden={!authTokens} >Log Out</a>
+                        <a className='Navlink' onClick={handleLogOut} hidden={!authTokens} >Logout</a>
                     </NavItem>
                 </Nav>
             </Navbar.Collapse>
