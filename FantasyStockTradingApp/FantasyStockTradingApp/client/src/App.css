@@ -11,17 +11,45 @@ body {
     background-attachment: fixed;
 }
 
+.card {
+    border:0;
+}
+
+.card-body {
+    background-color: #366375;
+    color: white;
+}
+
 .card-button {
-    margin-right:10px;
+    margin-right: 10px;
+    background-color: #e76f51;
+    border-color: #e76f51;
 }
 .card-buttons {
     float: right;
+}
+
+.card-header {
+    font-size: 3vh;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-weight: bold;
+    color: #366375;
+    background-color: white;
 }
 
 .cards-myholdings {
     min-width: 20%;
     margin: 10px;
     flex: 0 1 !important;
+}
+
+.card-text {
+    font-size: 2.2vh;
+}
+
+.card-title {
+    font-size: 2.5vh;
 }
 
 .home-header {
@@ -79,11 +107,6 @@ body {
     color: #e76f51;
     text-decoration: underline;
     margin-right: 20px;
-}
-
-.search-card {
-    background-color: #25897E;
-    color: #e9c46a;
 }
 
 .search-form {

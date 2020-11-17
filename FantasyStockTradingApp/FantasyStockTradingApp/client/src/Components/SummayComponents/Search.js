@@ -86,11 +86,11 @@ function Search() {
             </Form >
             {searchValid ?
                 <CardDeck>
-                    <Card className="search-card">
-                        <Card.Header>{stockData.symbol}</Card.Header>
-                        <Card.Body>
-                            <Card.Title>{stockData.companyName}</Card.Title>
-                            <Card.Text>
+                    <Card>
+                        <Card.Header className="card-header">{stockData.symbol}</Card.Header>
+                        <Card.Body className="card-body">
+                            <Card.Title className="card-title">{stockData.companyName}</Card.Title>
+                            <Card.Text className="card-text">
                                 <span>Price ${stockData.latestPrice} | Change {stockData.change} | % Changes {stockData.changePercent*100}</span>
                             </Card.Text>
                             <div className="card-buttons">
