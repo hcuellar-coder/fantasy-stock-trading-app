@@ -29,6 +29,10 @@ body {
     float: right;
 }
 
+.card-deck {
+    justify-content: space-evenly;
+}
+
 .card-header {
     font-size: 3vh;
     padding-top: 0;
@@ -78,8 +82,8 @@ body {
 }
 
 .navbar-light .navbar-brand:hover {
-        color: white;
-        cursor: default;
+    color: white;
+    cursor: default;
 }
 
 .navbar-nav {
@@ -109,12 +113,17 @@ body {
     margin-right: 20px;
 }
 
+.search-card-deck{
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
 .search-form {
     margin: 10px;
 }
 
 .search-label {
-    font-size: 2.5rem;
+    font-size: 4vh;
     color: white;
 }
 

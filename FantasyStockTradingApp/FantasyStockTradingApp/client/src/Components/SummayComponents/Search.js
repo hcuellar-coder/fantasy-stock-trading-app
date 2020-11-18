@@ -85,7 +85,7 @@ function Search() {
                     </Button>
             </Form >
             {searchValid ?
-                <CardDeck>
+                <CardDeck className="search-card-deck">
                     <Card>
                         <Card.Header className="card-header">{stockData.symbol}</Card.Header>
                         <Card.Body className="card-body">
