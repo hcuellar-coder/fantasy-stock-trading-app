@@ -53,7 +53,7 @@ function MostActiveStocks() {
                 : < CardDeck > {
                     mostActiveHoldings.map(
                         (stock, index) =>
-                            <Card className="cards-myholdings" key={index}>
+                            <Card className="cards-responsive" key={index}>
                                 <Card.Header>
                                     <h3>{stock.symbol}</h3>
                                 </Card.Header>

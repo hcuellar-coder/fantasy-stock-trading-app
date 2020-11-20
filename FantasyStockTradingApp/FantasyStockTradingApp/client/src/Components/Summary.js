@@ -18,7 +18,7 @@ function Summary() {
                 <span id="summary-portfolio-balance">Portfolio {account.portfolio_Balance}</span>
             </div>
             <Tabs
-                id="summary-tabs"
+                id="summary-report-tabs"
                 activeKey={key}
                 onSelect={(k) => setKey(k)}
             >

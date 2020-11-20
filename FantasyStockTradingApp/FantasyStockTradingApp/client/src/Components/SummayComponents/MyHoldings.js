@@ -50,7 +50,7 @@ function MyHoldings() {
                 : < CardDeck > {
                         holdings.map(
                         (holding, index) =>
-                        <Card className="cards-myholdings" key={index}>
+                        <Card className="cards-responsive" key={index}>
                             <Card.Header>
                                         <h3>{holding.symbol}</h3> 
                                         <span>Quantity: {holding.stock_Count}</span>

@@ -29,7 +29,7 @@ function Report() {
                     }
             </div>
             <Tabs
-                id="controlled-tab-example"
+                id="summary-report-tabs"
                 activeKey={key}
                 onSelect={(k) => setKey(k)}
             >

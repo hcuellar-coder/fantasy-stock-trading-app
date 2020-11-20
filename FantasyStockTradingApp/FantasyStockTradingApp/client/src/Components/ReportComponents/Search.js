@@ -87,7 +87,7 @@ function Search(props) {
                         Example: AAPL = apple | GE = General Electric | F = Ford 
                     </Form.Text>
                 </Form.Group>
-                    <Button variant="primary" type="submit">
+                <Button id="search-submit-button" variant="primary" type="submit">
                         Submit
                     </Button>
             </Form >

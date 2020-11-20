@@ -25,6 +25,14 @@ body {
     background-color: #e76f51;
     border-color: #e76f51;
 }
+
+.card-button:hover {
+    margin-right: 10px;
+    background-color: #366375;
+    border-color: #e76f51;
+    color: #e76f51;
+}
+
 .card-buttons {
     float: right;
 }
@@ -42,7 +50,7 @@ body {
     background-color: white;
 }
 
-.cards-myholdings {
+.cards-responsive {
     min-width: 20%;
     margin: 10px;
     flex: 0 1 !important;
@@ -220,15 +228,15 @@ body {
     margin: 10px;
 }
 
-#summary-tabs-tab-search {
+#summary-report-tabs-tab-search {
     background-color: transparent;
     color: #f4a261;
 }
-#summary-tabs-tab-mostactivestocks {
+#summary-report-tabs-tab-mostactivestocks {
     background-color: transparent;
     color: #f4a261;
 }
-#summary-tabs-tab-myholdings {
+#summary-report-tabs-tab-myholdings {
     background-color: transparent;
     color: #f4a261;
 }
