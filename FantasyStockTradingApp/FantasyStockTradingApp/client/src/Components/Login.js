@@ -194,7 +194,9 @@ function Login(props) {
     }, [isError])
 
     useEffect(() => {
-        updateHoldings();
+        if (holdings) {
+            updateHoldings();
+        }
     },[holdings])
 
     return (
