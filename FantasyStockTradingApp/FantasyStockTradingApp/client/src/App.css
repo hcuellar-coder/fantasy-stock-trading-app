@@ -21,12 +21,14 @@ body {
 }
 
 .card-button {
+    outline: none;
     margin-right: 10px;
     background-color: #e76f51;
     border-color: #e76f51;
 }
 
 .card-button:hover {
+    outline: none;
     margin-right: 10px;
     background-color: #366375;
     border-color: #e76f51;
@@ -153,7 +155,7 @@ body {
 }
 
 #chart-div {
-
+    margin-bottom: 10px;
 }
 
 #join-user-button {
@@ -210,10 +212,10 @@ body {
 
 #summary-balance-div {
     text-align: center;
-    font-size: 1.20rem;
+    font-size: 3vh;
     font-weight: bold;
     margin-bottom: 10px;
-    color: #e76f51;
+    color: white;
 }
 
 #summary-balance {

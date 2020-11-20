@@ -17,7 +17,10 @@ function ReportChart(props) {
                 options={{
                     title: `${props.symbol} - 1 Month History`,
                     titleTextStyle: { fontSize: 18 },
-                    chartArea: { width: '70%' },
+                    colors: ['#e76f51'],
+                    chartArea: {
+                        width: '70%',
+                    },
                     hAxis: {
                         title: 'Dates',
                         titleTextStyle: {
