@@ -1,4 +1,5 @@
 ﻿using FantasyStockTradingApp.Models;
+using FantasyStockTradingApp.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
 using NHibernate.Linq;
@@ -24,9 +25,9 @@ namespace FantasyStockTradingApp.Services
 
         private readonly ISession _session;
 
-        public TransactionService(ISession session)
+        public TransactionService()
         {
-            _session = session;
+            _session = NHibernateHelper.GetCurrentSession();
         }
 
         public async Task NewTransaction(int account_id, string type, string symbol, int stock_count,
@@ -63,7 +64,7 @@ namespace FantasyStockTradingApp.Services
             }
             finally
             {
-                
+                NHibernateHelper.CloseSession();
             }
         }
 
