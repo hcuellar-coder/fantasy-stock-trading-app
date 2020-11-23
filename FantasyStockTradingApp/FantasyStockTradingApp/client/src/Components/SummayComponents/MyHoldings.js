@@ -48,7 +48,9 @@ function MyHoldings() {
             {holdings === undefined
                 ? <div></div>
                 : < CardDeck > {
-                        holdings.map(
+                    holdings
+                        .sort((a ,b ) => a.id - b.id)
+                        .map(
                         (holding, index) =>
                         <Card className="cards-responsive" key={index}>
                             <Card.Header>
@@ -56,7 +58,7 @@ function MyHoldings() {
                                         <span>Quantity: {holding.stock_Count}</span>
                             </Card.Header>
                             <Card.Body>
-                                <Card.Title>{holding.companyName}</Card.Title>
+                                <Card.Title>{holding.company_Name}</Card.Title>
                                 <Card.Text>
                                             <span>Price {holding.latest_Cost_per_Stock} | Change {holding.change}  | % Changes {holding.change_Percentage}</span>
                                 </Card.Text>

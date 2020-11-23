@@ -38,7 +38,9 @@ function MyHoldings(props) {
             {holdings === undefined
                 ? <div></div>
                 : < CardDeck > {
-                        holdings.map(
+                    holdings
+                        .sort((a, b) => a.id - b.id)
+                        .map(
                         (holding, index) =>
                         <Card className="cards-responsive" key={index}>
                             <Card.Header>

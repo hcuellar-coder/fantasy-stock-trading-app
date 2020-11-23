@@ -10,7 +10,7 @@ using System.Reflection;
 using System.Threading.Tasks;
 
 namespace FantasyStockTradingApp.Configuration
-{
+{                                                                                                                                                 
     public class NHibernateHelper
     {
         public IConfiguration _configuration;

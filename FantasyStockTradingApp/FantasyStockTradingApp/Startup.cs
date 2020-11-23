@@ -75,7 +75,7 @@ namespace FantasyStockTradingApp
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IHoldingsService, HoldingsService>();
 
-            var _sessionFactory = Fluently.Configure()
+           /* var _sessionFactory = Fluently.Configure()
                .Database(PostgreSQLConfiguration.Standard.ConnectionString(_configuration.GetConnectionString("DefaultConnection")))
                .Mappings(m => m.FluentMappings.AddFromAssembly(GetType().Assembly))
                .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
@@ -85,7 +85,7 @@ namespace FantasyStockTradingApp
             {
                 return _sessionFactory.OpenSession();
             });
-
+*/
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
