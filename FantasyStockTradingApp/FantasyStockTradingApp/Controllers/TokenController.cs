@@ -18,19 +18,19 @@ namespace FantasyStockTradingApp.Controllers
     [ApiController]
     public class TokenController : ControllerBase
     {
-        private readonly IUserService _userService;
+        private readonly IUserLoginService _userLoginService;
         private readonly AuthOptions _authOptions;
 
-        public TokenController(IUserService userService, IOptions<AuthOptions> authOptionAccessor)
+        public TokenController(IUserLoginService userLoginService, IOptions<AuthOptions> authOptionAccessor)
         {
-            _userService = userService;
             _authOptions = authOptionAccessor.Value;
+            _userLoginService = userLoginService;
         }
 
         [HttpGet("get_token")]
         public IActionResult GetToken(string email, string password)
         {
-            if (_userService.isValidUser(email, password))
+            if (_userLoginService.isValidUser(email, password))
             {
                 var authClaims = new[]
                 {

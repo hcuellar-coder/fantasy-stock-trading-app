@@ -17,12 +17,25 @@ function Login(props) {
     const { account, setAccount } = useAccount();
     const { holdings, setHoldings } = useHoldings();
 
+    function isValidUser() {
+        try {
+            const response = api.get('/is_valid_user?', {
+                params: {
+                    email: email,
+                    password: password
+                }
+            });
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     function getUser() {
         try {
             const response = api.get('/get_user?', {
                 params: {
-                    email: email,
-                    password: password
+                    email: email
                 }
             });
             return response;
@@ -147,28 +160,32 @@ function Login(props) {
         e.preventDefault();
        const form = e.target;
         if (form.checkValidity() !== false) {
+            isValidUser().then((isValidUserResponse) => {
+                console.log('isValidUser =', isValidUserResponse);
+                if (isValidUserResponse.data) {
+                    getUser().then((getUserResponse) => {
+                        if (getUserResponse.status === 200 && getUserResponse.data.length !== 0) {
+                            setUser(getUserResponse.data[0]);
 
-             getUser().then((getUserResponse) => {
-                 if (getUserResponse.status === 200 && getUserResponse.data.length !== 0) {
-                     setUser(getUserResponse.data[0]);
+                            getAccount(getUserResponse.data[0].id).then((getAccountResponse) => {
+                                if (getAccountResponse.status === 200 && getAccountResponse.data.length !== 0) {
+                                    setAccount(getAccountResponse.data[0]);
 
-                     getAccount(getUserResponse.data[0].id).then((getAccountResponse) => {
-                         if (getAccountResponse.status === 200 && getAccountResponse.data.length !== 0) {
-                             setAccount(getAccountResponse.data[0]);
+                                    getHoldings(getAccountResponse.data[0].id).then((getHoldingsResponse) => {
+                                        if (getHoldingsResponse.status === 200) {
+                                            setHoldings(getHoldingsResponse.data);
 
-                             getHoldings(getAccountResponse.data[0].id).then((getHoldingsResponse) => {
-                                 if (getHoldingsResponse.status === 200) {
-                                     setHoldings(getHoldingsResponse.data);
-                                     
-                                     getToken().then((getTokenResponse) => {
-                                         if (getTokenResponse.status === 200) {
-                                             setAuthTokens(getTokenResponse.data);
-                                         }
-                                     });
-                                 }
-                             });
-                         }
-                     });
+                                            getToken().then((getTokenResponse) => {
+                                                if (getTokenResponse.status === 200) {
+                                                    setAuthTokens(getTokenResponse.data);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
                 } else {
                     setIsError(true);
                 }

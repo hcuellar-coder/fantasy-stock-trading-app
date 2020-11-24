@@ -22,25 +22,36 @@ namespace FantasyStockTradingApp.Controllers
         private readonly ITransactionService _transactionService;
         private readonly IAccountService _accountService;
         private readonly IHoldingsService _holdingsService;
+        private readonly IUserLoginService _userLoginService;
 
         public FantasyStockTradingController(IUserService userService,
             ITransactionService transactionService, IAccountService accountService, 
-            IHoldingsService holdingsService)
+            IHoldingsService holdingsService, IUserLoginService userLoginService)
         {
             _userService = userService;
             _transactionService = transactionService;
             _accountService = accountService;
             _holdingsService = holdingsService;
+            _userLoginService = userLoginService;
         }
 
         [HttpGet("get_user")]
-        public IQueryable<User> GetUser(string email, string password)
+        public IQueryable<User> GetUser(string email)
         {
             Console.WriteLine("in get_user");
             Console.WriteLine("email = " + email);
+
+            return _userService.GetUser(email);
+        }
+
+        [HttpGet("is_valid_user")]
+        public bool isValidUser(string email, string password)
+        {
+            Console.WriteLine("in check_user");
+            Console.WriteLine("email = " + email);
             Console.WriteLine("password = " + password);
 
-            return _userService.GetUser(email, password);
+            return _userLoginService.isValidUser(email, password);
         }
 
         [HttpGet("check_user")]
@@ -56,16 +67,28 @@ namespace FantasyStockTradingApp.Controllers
         public async Task<User> NewUser(JObject data)
         {
             var email = data["email"].ToString();
-            var password = data["password"].ToString();
             var first_name = data["first_name"].ToString();
             var last_name = data["last_name"].ToString();
             Console.WriteLine("in new_user");
             Console.WriteLine("email = " + email);
-            Console.WriteLine("password = " + password);
             Console.WriteLine("first_name = " + first_name);
             Console.WriteLine("last_name = " + last_name);
 
-            return await _userService.NewUser(email, password, first_name, last_name);
+            return await _userService.NewUser(email, first_name, last_name);
+        }
+
+        [HttpPost("new_user_login")]
+        public async Task NewUserLogin(JObject data)
+        {
+            var email = data["email"].ToString();
+            var password = data["password"].ToString();
+            var user_id = Int32.Parse(data["user_id"].ToString());
+            Console.WriteLine("in new_user");
+            Console.WriteLine("email = " + email);
+            Console.WriteLine("password = " + password);
+            Console.WriteLine("user_id = " + user_id);
+
+            await _userLoginService.NewUserLogin(email, password, user_id);
         }
 
         [HttpGet("get_account")]

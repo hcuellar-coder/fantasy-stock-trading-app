@@ -23,7 +23,6 @@ function NewUser(props) {
         try {
             const response = api.post('/new_user', {
                 email: email,
-                password: password,
                 first_name: firstName,
                 last_name: lastName
             });
@@ -33,11 +32,24 @@ function NewUser(props) {
         }
     }
 
-    function doesUserExist() {
+    function newUserLogin(userId) {
         try {
-            const response = api.get('/get_user?', {
+            const response = api.post('/new_user_login', {
+                email: email,
+                password: password,
+                user_id: userId,
+            });
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    function isValidUser() {
+        try {
+            const response = api.get('/is_valid_user?', {
                 params: {
-                    email: email,
+                    email: email.toLowerCase(),
                 }
             });
             return response;
@@ -102,22 +114,27 @@ function NewUser(props) {
         const form = e.target;
         if (password === confirmPassword) {
             if (form.checkValidity() !== false) {
-                doesUserExist().then((response) => {
-                    if (response.status === 200 && response.data.length !== 0) {
-                        console.log('user already exists! Login instead!');
+                isValidUser().then((isValidUserResponse) => {
+                    if (isValidUserResponse.data) {
+                        alert('User already exists! Login instead!');
                     } else {
                         newUser().then((newUserResponse) => {
                             if (newUserResponse.status === 200) {
                                 setUser(newUserResponse.data);
 
-                                newAccout(newUserResponse.data.id).then((newAccountResponse) => {
-                                    if (newAccountResponse.status === 200) {
-                                        console.log(newAccountResponse);
-                                        setAccount(newAccountResponse.data);
-                                        setHoldings('');
+                                newUserLogin(newUserResponse.data.id).then((newUserLoginResponse) => {
+                                    if (newUserLoginResponse.status === 200) {
 
-                                        getToken().then((getTokenResponse) => {
-                                            setAuthTokens(getTokenResponse.data);
+                                        newAccout(newUserResponse.data.id).then((newAccountResponse) => {
+                                            if (newAccountResponse.status === 200) {
+                                                console.log(newAccountResponse);
+                                                setAccount(newAccountResponse.data);
+                                                setHoldings('');
+
+                                                getToken().then((getTokenResponse) => {
+                                                    setAuthTokens(getTokenResponse.data);
+                                                });
+                                            }
                                         });
                                     }
                                 });

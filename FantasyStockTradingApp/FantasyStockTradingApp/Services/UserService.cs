@@ -18,63 +18,31 @@ namespace FantasyStockTradingApp.Services
 
     public interface IUserService
     {
-        IQueryable<User> GetUser(string email, string? password = null);
-        Task<User> NewUser(string email, string password, string first_name, string last_name);
-        bool isValidUser(string email, string password);
+        IQueryable<User> GetUser(string email);
+        Task<User> NewUser(string email, string first_name, string last_name);
     }
     public class UserService : IUserService
     {
         private readonly ISession _session;
+        
 
         public UserService()
         {
             _session = NHibernateHelper.GetCurrentSession();
+            
         }
 
-        public bool isValidUser(string email, string password)
-        {
-            try
-            {
-                using (ITransaction transaction = _session.BeginTransaction())
-                {
-                    var result = _session.QueryOver<User>()
-                    .Where(user => user.email == email && user.password == password)
-                    .RowCount() > 0;
-                    return result;
-                }
-            }
-            catch (Exception ex)
-            {
-                var errorString = $"User does not exist: { ex }";
-                throw new Exception(errorString);
-            }
-            finally
-            {
-                NHibernateHelper.CloseSession();
-            }
-        }
-
-        public IQueryable<User> GetUser(string email, string? password = null)
+        public IQueryable<User> GetUser(string email)
         {
             Console.WriteLine("email = "+ email);
-            Console.WriteLine("password = "+ password);
 
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
-                    if (password != null)
-                    {
-                        var result = _session.Query<User>()
-                        .Where(user => user.email == email && user.password == password);
-                        return result;
-                    } else
-                    {
-                        var result = _session.Query<User>()
-                        .Where(user => user.email == email);
-                        return result;
-                    }
-                    
+                    var result = _session.Query<User>()
+                    .Where(user => user.email == email);
+                    return result;
                 }
             }
             catch ( Exception ex)
@@ -89,10 +57,9 @@ namespace FantasyStockTradingApp.Services
 
         }
        
-        public async Task<User> NewUser(string email, string password, string first_name, string last_name)
+        public async Task<User> NewUser(string email, string first_name, string last_name)
         {
             Console.WriteLine("email = "+ email);
-            Console.WriteLine("password = "+ password);
             Console.WriteLine("first_name = "+ first_name);
             Console.WriteLine("last_name = "+ last_name);
             try
@@ -102,7 +69,6 @@ namespace FantasyStockTradingApp.Services
                     var user = new User
                     {
                         email = email,
-                        password = password,
                         first_name = first_name,
                         last_name = last_name
                     };

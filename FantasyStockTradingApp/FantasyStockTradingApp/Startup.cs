@@ -70,6 +70,7 @@ namespace FantasyStockTradingApp
             
 
             services.AddScoped<IIexCloudService, IexCloudService>();
+            services.AddScoped<IUserLoginService, UserLoginService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IAccountService, AccountService>();

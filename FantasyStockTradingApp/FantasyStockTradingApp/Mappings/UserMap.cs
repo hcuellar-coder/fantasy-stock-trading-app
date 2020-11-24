@@ -15,7 +15,6 @@ namespace FantasyStockTradingApp.Mappings
             Id(x => x.id).GeneratedBy.Increment();
 
             Map(x => x.email);
-            Map(x => x.password);
             Map(x => x.first_name);
             Map(x => x.last_name);
             Table("user_account");
