@@ -48,9 +48,9 @@ function MyHoldings(props) {
                                         <span>Quantity: {holding.stock_Count}</span>
                             </Card.Header>
                             <Card.Body>
-                                <Card.Title>{holding.companyName}</Card.Title>
+                                <Card.Title>{holding.company_Name}</Card.Title>
                                 <Card.Text>
-                                            <span>Price {holding.latest_Cost_per_Stock} | Change {holding.change}  | % Changes {holding.change_Percentage}</span>
+                                            {/*<span>Price {holding.latest_Cost_per_Stock} | Change {holding.change}  | % Changes {holding.change_Percentage}</span>*/}
                                 </Card.Text>
                                 <div className="card-buttons">
                                         <Button className="card-button" onClick={() => { handleViewButton(holding.symbol) }}>View</Button>

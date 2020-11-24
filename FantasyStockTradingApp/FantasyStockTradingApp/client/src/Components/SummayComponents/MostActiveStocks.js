@@ -59,12 +59,14 @@ function MostActiveStocks() {
                                 </Card.Header>
                                 <Card.Body>
                                     <Card.Title>{stock.companyName}</Card.Title>
-                                    <Card.Text>
-                                        <span>Price {stock.latestPrice} | Change {stock.change}  | % Changes {stock.changePercent}</span>
+                                    <Card.Text className="card-details">
+                                            <span> Price: {stock.latestPrice} </span>
+                                            <span> Change: {stock.change} </span>
+                                        {/*<span> % Changes: {stock.changePercent} </span>*/}
                                     </Card.Text>
                                     <div className="card-buttons">
                                         <Button className="card-button" onClick={() => { handleBuyButton(stock) }}>Buy</Button>
-                                        <Button className="card-button" onClick={() => { handleSellButton(stock) }}>Sell</Button>
+                                        {/*<Button className="card-button" onClick={() => { handleSellButton(stock) }}>Sell</Button>*/}
                                     </div>
                                 </Card.Body>
                             </Card>
