@@ -5,7 +5,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FantasyStockTradingApp.Models;
-using FantasyStockTradingApp.Configuration;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 

@@ -1,5 +1,4 @@
 ﻿using FantasyStockTradingApp.Models;
-using FantasyStockTradingApp.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
 using NHibernate.Linq;

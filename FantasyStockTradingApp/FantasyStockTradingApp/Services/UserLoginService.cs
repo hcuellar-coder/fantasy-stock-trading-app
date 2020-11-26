@@ -4,7 +4,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using NHibernate;
 using FantasyStockTradingApp.Models;
-using FantasyStockTradingApp.Configuration;
 
 namespace FantasyStockTradingApp.Services
 {

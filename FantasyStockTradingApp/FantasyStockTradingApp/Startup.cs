@@ -1,6 +1,5 @@
 using FantasyStockTradingApp.Models;
 using FantasyStockTradingApp.Services;
-using FantasyStockTradingApp.Configuration;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

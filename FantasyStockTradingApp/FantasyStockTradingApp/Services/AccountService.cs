@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FantasyStockTradingApp.Models;
-using FantasyStockTradingApp.Configuration;
 using NHibernate.Linq;
 using System.Security.AccessControl;
 using NHibernate.SqlCommand;

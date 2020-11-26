@@ -9,7 +9,7 @@ using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
-namespace FantasyStockTradingApp.Configuration
+namespace FantasyStockTradingApp.Services
 {                                           
     public interface INHibernateService
     {
