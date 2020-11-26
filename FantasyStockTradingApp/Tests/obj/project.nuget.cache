@@ -1,7 +1,7 @@
 {
   "version": 2,
-  "dgSpecHash": "0qZd0j9pHnIIbpO3cZlYeI6pFWEh40IilkW6JoOGczUwiBSEKnmCBY7LqxULeu5hk74t38L9urZaIiRZzBSyBA==",
-  "success": false,
+  "dgSpecHash": "ctVn2kLGV3JqQXZikv5yMPzyEDH226A5oNe1x24SzJ2xlS7AgtEXOAbJX+sWo174EAONdmiNOezCuQ88I++txg==",
+  "success": true,
   "projectFilePath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\herib\\.nuget\\packages\\antlr3.runtime\\3.5.1\\antlr3.runtime.3.5.1.nupkg.sha512",
@@ -61,7 +61,7 @@
     "C:\\Users\\herib\\.nuget\\packages\\nunit.extension.nunitv2resultwriter\\3.6.0\\nunit.extension.nunitv2resultwriter.3.6.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\nunit.extension.teamcityeventlistener\\1.0.7\\nunit.extension.teamcityeventlistener.1.0.7.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\nunit.extension.vsprojectloader\\3.8.0\\nunit.extension.vsprojectloader.3.8.0.nupkg.sha512",
-    "C:\\Users\\herib\\.nuget\\packages\\nunit3testadapter\\3.15.1\\nunit3testadapter.3.15.1.nupkg.sha512",
+    "C:\\Users\\herib\\.nuget\\packages\\nunit3testadapter\\3.17.0\\nunit3testadapter.3.17.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\remotion.linq\\2.2.0\\remotion.linq.2.2.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\remotion.linq.eagerfetching\\2.2.0\\remotion.linq.eagerfetching.2.2.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\runtime.native.system\\4.3.0\\runtime.native.system.4.3.0.nupkg.sha512",
@@ -119,15 +119,5 @@
     "C:\\Users\\herib\\.nuget\\packages\\system.xml.xpath\\4.3.0\\system.xml.xpath.4.3.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\system.xml.xpath.xmldocument\\4.3.0\\system.xml.xpath.xmldocument.4.3.0.nupkg.sha512"
   ],
-  "logs": [
-    {
-      "code": "NU1605",
-      "level": "Error",
-      "message": "Detected package downgrade: NUnit3TestAdapter from 3.17.0 to 3.15.1. Reference the package directly from the project to select a different version. \r\n Tests -> FantasyStockTradingApp -> NUnit3TestAdapter (>= 3.17.0) \r\n Tests -> NUnit3TestAdapter (>= 3.15.1)",
-      "libraryId": "NUnit3TestAdapter",
-      "targetGraphs": [
-        ".NETCoreApp,Version=v3.1"
-      ]
-    }
-  ]
+  "logs": []
 }
