@@ -29,10 +29,12 @@ namespace FantasyStockTradingApp.Services
     public class HoldingsService : IHoldingsService
     {
         private readonly ISession _session;
+        private readonly INHibernateService _nHibernateService;
 
-        public HoldingsService()
+        public HoldingsService(INHibernateService nHibernateService)
         {
-            _session = NHibernateHelper.GetCurrentSession();
+            _nHibernateService = nHibernateService;
+            _session = _nHibernateService.OpenSession();
         }
 
         public bool holdingExists(int account_id, string symbol)
@@ -54,7 +56,7 @@ namespace FantasyStockTradingApp.Services
             }
             finally
             {
-                NHibernateHelper.CloseSession();
+                _nHibernateService.CloseSession();
             }
         }
 
@@ -76,7 +78,7 @@ namespace FantasyStockTradingApp.Services
             }
             finally
             {
-                NHibernateHelper.CloseSession();
+                _nHibernateService.CloseSession();
             }
         }
 
@@ -110,7 +112,7 @@ namespace FantasyStockTradingApp.Services
             }
             finally
             {
-                NHibernateHelper.CloseSession();
+                _nHibernateService.CloseSession();
             }
         }
 
@@ -149,7 +151,7 @@ namespace FantasyStockTradingApp.Services
             }
             finally
             {
-                NHibernateHelper.CloseSession();
+                _nHibernateService.CloseSession();
             }
         }
 
@@ -184,7 +186,7 @@ namespace FantasyStockTradingApp.Services
             }
             finally
             {
-                NHibernateHelper.CloseSession();
+                _nHibernateService.CloseSession();
             }
         }
 
@@ -210,7 +212,7 @@ namespace FantasyStockTradingApp.Services
             }
             finally
             {
-                NHibernateHelper.CloseSession();
+                _nHibernateService.CloseSession();
             }
         }
     }

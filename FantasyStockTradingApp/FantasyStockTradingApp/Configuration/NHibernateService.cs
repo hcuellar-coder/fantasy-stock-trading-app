@@ -10,26 +10,31 @@ using System.Reflection;
 using System.Threading.Tasks;
 
 namespace FantasyStockTradingApp.Configuration
-{                                                                                                                                                 
-    public class NHibernateHelper
+{                                           
+    public interface INHibernateService
+    {
+        ISession OpenSession();
+        void CloseSession();
+    }
+    public class NHibernateService : INHibernateService
     {
         public IConfiguration _configuration;
         private const string CurrentSessionKey = "nhibernate.current_session";
-        private static readonly ISessionFactory _sessionFactory;
+        private readonly ISessionFactory _sessionFactory;
 
-        static NHibernateHelper()
+        public NHibernateService()
         {
             _sessionFactory = FluentConfigure();
         }
-        public static ISession GetCurrentSession()
+        public ISession OpenSession()
         {
             return _sessionFactory.OpenSession();
         }
-        public static void CloseSession()
+        public void CloseSession()
         {
             _sessionFactory.Close();
         }
-        public static void CloseSessionFactory()
+        public void CloseSessionFactory()
         {
             if (_sessionFactory != null)
             {

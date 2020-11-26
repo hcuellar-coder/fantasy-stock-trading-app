@@ -214,6 +214,11 @@ body {
     color: white;
 }
 
+#myPortfolio-div {
+    margin: 10px;
+    height: 50vh;
+}
+
 #search-submit-button {
     background-color: #e76f51;
     border: #e76f51;
@@ -248,6 +253,10 @@ body {
     color: #f4a261;
 }
 #summary-report-tabs-tab-myholdings {
+    background-color: transparent;
+    color: #f4a261;
+}
+#summary-report-tabs-tab-myportfolio {
     background-color: transparent;
     color: #f4a261;
 }

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 import MyHoldings from './ReportComponents/MyHoldings';
+import MyPortfolio from './ReportComponents/MyPortfolio';
 import Search from './ReportComponents/Search';
 import MostActiveStocks from './ReportComponents/MostActiveStocks';
 import ReportChart from './ReportComponents/ReportChart';
@@ -23,7 +24,7 @@ function Report() {
         <div>
             <div id="chart-div">
                 {chartData.length !== 0  ?
-                    <ReportChart chartData={chartData} symbol={symbol} />
+                    <ReportChart chartData={chartData} symbol={symbol} /> 
                     :
                     <div></div>
                     }
@@ -41,6 +42,9 @@ function Report() {
                 </Tab>
                 <Tab eventKey="myholdings" title="My Holdings">
                     <MyHoldings handleChartData={handleChartData}/>
+                </Tab>
+                <Tab eventKey="myportfolio" title="My Portfolio">
+                    <MyPortfolio  />
                 </Tab>
             </Tabs>
         </div>

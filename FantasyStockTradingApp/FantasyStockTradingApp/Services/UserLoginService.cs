@@ -16,10 +16,12 @@ namespace FantasyStockTradingApp.Services
     public class UserLoginService : IUserLoginService
     {
         private readonly ISession _session;
+        private readonly INHibernateService _nHibernateService;
 
-        public UserLoginService()
+        public UserLoginService(INHibernateService nHibernateService)
         {
-            _session = NHibernateHelper.GetCurrentSession();
+            _nHibernateService = nHibernateService;
+            _session = _nHibernateService.OpenSession();
         }
 
         public bool isValidUser(string email, string? password = null)
@@ -51,7 +53,7 @@ namespace FantasyStockTradingApp.Services
             }
             finally
             {
-                NHibernateHelper.CloseSession();
+                _nHibernateService.CloseSession();
             }
         }
 
@@ -81,7 +83,7 @@ namespace FantasyStockTradingApp.Services
             }
             finally
             {
-                NHibernateHelper.CloseSession();
+                _nHibernateService.CloseSession();
             }
         }
     }

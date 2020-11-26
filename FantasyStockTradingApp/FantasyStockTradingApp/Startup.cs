@@ -1,5 +1,6 @@
 using FantasyStockTradingApp.Models;
 using FantasyStockTradingApp.Services;
+using FantasyStockTradingApp.Configuration;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -75,18 +76,19 @@ namespace FantasyStockTradingApp
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IAccountService, AccountService>();
             services.AddScoped<IHoldingsService, HoldingsService>();
+            services.AddScoped<INHibernateService, NHibernateService>();
 
-           /* var _sessionFactory = Fluently.Configure()
-               .Database(PostgreSQLConfiguration.Standard.ConnectionString(_configuration.GetConnectionString("DefaultConnection")))
-               .Mappings(m => m.FluentMappings.AddFromAssembly(GetType().Assembly))
-               .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
-               .BuildSessionFactory();
+            /* var _sessionFactory = Fluently.Configure()
+                .Database(PostgreSQLConfiguration.Standard.ConnectionString(_configuration.GetConnectionString("DefaultConnection")))
+                .Mappings(m => m.FluentMappings.AddFromAssembly(GetType().Assembly))
+                .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
+                .BuildSessionFactory();
 
-            services.AddScoped(f =>
-            {
-                return _sessionFactory.OpenSession();
-            });
-*/
+             services.AddScoped(f =>
+             {
+                 return _sessionFactory.OpenSession();
+             });
+ */
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

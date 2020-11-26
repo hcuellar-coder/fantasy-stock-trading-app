@@ -57,9 +57,6 @@ function MostActiveStocks(props) {
                                 </Card.Header>
                                 <Card.Body>
                                     <Card.Title>{stock.companyName}</Card.Title>
-                                    <Card.Text>
-                                        {/*<span>Price {stock.latestPrice} | Change {stock.change}  | % Changes {stock.changePercent}</span>*/}
-                                    </Card.Text>
                                     <div className="card-buttons">
                                         <Button className="card-button" onClick={() => { handleViewButton(stock.symbol) }}>View</Button>
                                     </div>

@@ -22,10 +22,12 @@ namespace FantasyStockTradingApp.Services
     public class AccountService : IAccountService
     {
         private readonly ISession _session;
+        private readonly INHibernateService _nHibernateService;
 
-        public AccountService()
+        public AccountService(INHibernateService nHibernateService)
         {
-            _session = NHibernateHelper.GetCurrentSession();
+            _nHibernateService = nHibernateService;
+            _session = _nHibernateService.OpenSession();
         }
 
         public IQueryable<Account> GetAccount(int user_id)
@@ -46,7 +48,7 @@ namespace FantasyStockTradingApp.Services
             }
             finally
             {
-                NHibernateHelper.CloseSession();
+                _nHibernateService.CloseSession();
             }
         }
 
@@ -77,7 +79,7 @@ namespace FantasyStockTradingApp.Services
             }
             finally
             {
-                NHibernateHelper.CloseSession();
+                _nHibernateService.CloseSession();
             }
         }
 
@@ -107,7 +109,7 @@ namespace FantasyStockTradingApp.Services
             }
             finally
             {
-                NHibernateHelper.CloseSession();
+                _nHibernateService.CloseSession();
             }
         }
 

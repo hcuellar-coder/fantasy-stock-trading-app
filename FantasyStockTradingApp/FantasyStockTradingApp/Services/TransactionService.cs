@@ -24,10 +24,12 @@ namespace FantasyStockTradingApp.Services
     {
 
         private readonly ISession _session;
+        private readonly INHibernateService _nHibernateService;
 
-        public TransactionService()
+        public TransactionService(INHibernateService nHibernateService)
         {
-            _session = NHibernateHelper.GetCurrentSession();
+            _nHibernateService = nHibernateService;
+            _session = _nHibernateService.OpenSession();
         }
 
         public async Task NewTransaction(int account_id, string type, string symbol, int stock_count,
@@ -64,7 +66,7 @@ namespace FantasyStockTradingApp.Services
             }
             finally
             {
-                NHibernateHelper.CloseSession();
+                _nHibernateService.CloseSession();
             }
         }
 
