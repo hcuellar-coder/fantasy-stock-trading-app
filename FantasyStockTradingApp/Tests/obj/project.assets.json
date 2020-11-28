@@ -1812,7 +1812,7 @@
           "lib/netstandard1.3/System.Xml.XPath.XmlDocument.dll": {}
         }
       },
-      "FantasyStockTradingApp/1.0.0": {
+      "FantasyStockTradingApp.API/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
@@ -1830,10 +1830,10 @@
           "Npgsql": "4.1.5"
         },
         "compile": {
-          "bin/placeholder/FantasyStockTradingApp.dll": {}
+          "bin/placeholder/FantasyStockTradingApp.API.dll": {}
         },
         "runtime": {
-          "bin/placeholder/FantasyStockTradingApp.dll": {}
+          "bin/placeholder/FantasyStockTradingApp.API.dll": {}
         },
         "frameworkReferences": [
           "Microsoft.AspNetCore.App"
@@ -6253,15 +6253,15 @@
         "system.xml.xpath.xmldocument.nuspec"
       ]
     },
-    "FantasyStockTradingApp/1.0.0": {
+    "FantasyStockTradingApp.API/1.0.0": {
       "type": "project",
-      "path": "../FantasyStockTradingApp/FantasyStockTradingApp.csproj",
-      "msbuildProject": "../FantasyStockTradingApp/FantasyStockTradingApp.csproj"
+      "path": "../FantasyStockTradingApp/FantasyStockTradingApp.API.csproj",
+      "msbuildProject": "../FantasyStockTradingApp/FantasyStockTradingApp.API.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
-      "FantasyStockTradingApp >= 1.0.0",
+      "FantasyStockTradingApp.API >= 1.0.0",
       "Microsoft.NET.Test.Sdk >= 16.4.0",
       "NUnit3TestAdapter >= 3.17.0",
       "nunit >= 3.12.0"
@@ -6273,9 +6273,9 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\Tests.csproj",
-      "projectName": "Tests",
-      "projectPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\Tests.csproj",
+      "projectUniqueName": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\FantasyStockTradingApp.Tests.csproj",
+      "projectName": "FantasyStockTradingApp.Tests",
+      "projectPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\FantasyStockTradingApp.Tests.csproj",
       "packagesPath": "C:\\Users\\herib\\.nuget\\packages\\",
       "outputPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\obj\\",
       "projectStyle": "PackageReference",
@@ -6293,8 +6293,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp\\FantasyStockTradingApp.csproj": {
-              "projectPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp\\FantasyStockTradingApp.csproj"
+            "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp\\FantasyStockTradingApp.API.csproj": {
+              "projectPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp\\FantasyStockTradingApp.API.csproj"
             }
           }
         }

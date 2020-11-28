@@ -18,8 +18,6 @@ namespace FantasyStockTradingApp.Services
     }
     public class NHibernateService : INHibernateService
     {
-        public IConfiguration _configuration;
-        private const string CurrentSessionKey = "nhibernate.current_session";
         private readonly ISessionFactory _sessionFactory;
 
         public NHibernateService()
@@ -41,7 +39,6 @@ namespace FantasyStockTradingApp.Services
                 _sessionFactory.Close();
             }
         }
-
         public static ISessionFactory FluentConfigure()
         {
             return Fluently.Configure()

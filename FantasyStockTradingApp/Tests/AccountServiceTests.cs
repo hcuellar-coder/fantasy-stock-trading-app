@@ -1,7 +1,6 @@
 using NUnit.Framework;
 using NHibernate;
 using FantasyStockTradingApp.Services;
-using FantasyStockTradingApp.Configuration;
 
 namespace Tests
 {

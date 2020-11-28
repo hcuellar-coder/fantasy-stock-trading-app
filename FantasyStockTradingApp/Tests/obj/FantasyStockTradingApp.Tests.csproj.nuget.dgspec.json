@@ -1,7 +1,7 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\Tests.csproj": {}
+    "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\FantasyStockTradingApp.Tests.csproj": {}
   },
   "projects": {
     "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp\\FantasyStockTradingApp.API.csproj": {
@@ -109,12 +109,12 @@
         }
       }
     },
-    "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\Tests.csproj": {
+    "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\FantasyStockTradingApp.Tests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\Tests.csproj",
-        "projectName": "Tests",
-        "projectPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\Tests.csproj",
+        "projectUniqueName": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\FantasyStockTradingApp.Tests.csproj",
+        "projectName": "FantasyStockTradingApp.Tests",
+        "projectPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\FantasyStockTradingApp.Tests.csproj",
         "packagesPath": "C:\\Users\\herib\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\obj\\",
         "projectStyle": "PackageReference",

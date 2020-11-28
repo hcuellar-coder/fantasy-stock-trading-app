@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ctVn2kLGV3JqQXZikv5yMPzyEDH226A5oNe1x24SzJ2xlS7AgtEXOAbJX+sWo174EAONdmiNOezCuQ88I++txg==",
+  "dgSpecHash": "rTfmBzmBU4L4DCpwWeZDfNbYiwR4M6SVAdstejiRClw9tWJK38BtM3e7H6t6+rsWcOtMcN2js+aN2J1lwBbiyQ==",
   "success": true,
-  "projectFilePath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\Tests.csproj",
+  "projectFilePath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\FantasyStockTradingApp.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\herib\\.nuget\\packages\\antlr3.runtime\\3.5.1\\antlr3.runtime.3.5.1.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",
