@@ -13,7 +13,7 @@ namespace FantasyStockTradingApp.Services
 {
     public interface IHoldingsService
     {
-        IQueryable<Holdings> GetHoldings(int account_id);
+        IQueryable<HoldingsModel> GetHoldings(int account_id);
 
         Task NewHolding(int account_id, string company_name, string symbol, int stock_count,
              float change, float change_percentage, float latest_cost_per_stock, DateTime last_Updated);
@@ -42,7 +42,7 @@ namespace FantasyStockTradingApp.Services
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
-                    var result = _session.QueryOver<Holdings>()
+                    var result = _session.QueryOver<HoldingsModel>()
                     .Where(holding => holding.Account_Id == account_id && holding.Symbol == symbol)
                     .RowCount() > 0;
                     return result;
@@ -59,13 +59,13 @@ namespace FantasyStockTradingApp.Services
             }
         }
 
-        public IQueryable<Holdings> GetHoldings(int account_id)
+        public IQueryable<HoldingsModel> GetHoldings(int account_id)
         {
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
-                    var result = _session.Query<Holdings>()
+                    var result = _session.Query<HoldingsModel>()
                         .Where(holdings => holdings.Account_Id == account_id);
                     return result;
                 }
@@ -88,7 +88,7 @@ namespace FantasyStockTradingApp.Services
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
-                    var holdings = new Holdings
+                    var holdings = new HoldingsModel
                     {
                         Account_Id = account_id,
                         Company_Name = company_name,

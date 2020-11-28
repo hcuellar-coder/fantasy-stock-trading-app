@@ -4,12 +4,12 @@
     "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\FantasyStockTradingApp.Tests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp\\FantasyStockTradingApp.API.csproj": {
+    "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp\\FantasyStockTradingApp.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp\\FantasyStockTradingApp.API.csproj",
-        "projectName": "FantasyStockTradingApp.API",
-        "projectPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp\\FantasyStockTradingApp.API.csproj",
+        "projectUniqueName": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp\\FantasyStockTradingApp.Api.csproj",
+        "projectName": "FantasyStockTradingApp.Api",
+        "projectPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp\\FantasyStockTradingApp.Api.csproj",
         "packagesPath": "C:\\Users\\herib\\.nuget\\packages\\",
         "outputPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp\\obj\\",
         "projectStyle": "PackageReference",
@@ -132,8 +132,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp\\FantasyStockTradingApp.API.csproj": {
-                "projectPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp\\FantasyStockTradingApp.API.csproj"
+              "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp\\FantasyStockTradingApp.Api.csproj": {
+                "projectPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp\\FantasyStockTradingApp.Api.csproj"
               }
             }
           }

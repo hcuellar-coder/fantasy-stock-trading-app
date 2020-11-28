@@ -21,7 +21,7 @@ namespace FantasyStockTradingApp.Controllers
         }
 
         [HttpGet("get_quote")]
-        public Task<Quote> GetQuote(string symbol)
+        public Task<QuoteModel> GetQuote(string symbol)
         {
             Console.WriteLine("in get_quote");
             Console.WriteLine("symbol = " + symbol);
@@ -30,7 +30,7 @@ namespace FantasyStockTradingApp.Controllers
         }
 
         [HttpGet("get_mostactive")]
-        public Task<List<Quote>> GetMostActive()
+        public Task<List<QuoteModel>> GetMostActive()
         {
             Console.WriteLine("in get_mostactive");
 

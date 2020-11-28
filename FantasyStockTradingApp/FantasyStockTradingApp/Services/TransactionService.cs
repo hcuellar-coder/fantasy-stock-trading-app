@@ -43,7 +43,7 @@ namespace FantasyStockTradingApp.Services
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
-                    var stock_transaction = new Transaction
+                    var stock_transaction = new TransactionModel
                     {
                         Account_Id = account_id,
                         Type = type,

@@ -36,12 +36,12 @@ namespace FantasyStockTradingApp.Controllers
         }
 
         [HttpGet("get_user")]
-        public IQueryable<User> GetUser(string email)
+        public IQueryable<UserModel> GetUser(string email)
         {
             Console.WriteLine("in get_user");
             Console.WriteLine("email = " + email);
 
-            return _userService.GetUser(email);
+            return _userService.GetUser(email).Select(user => new UserModel { id = user.id, email = user.email, first_name = user.first_name, last_name = user.last_name });
         }
 
         [HttpGet("is_valid_user")]
@@ -55,7 +55,7 @@ namespace FantasyStockTradingApp.Controllers
         }
 
         [HttpGet("check_user")]
-        public IQueryable<User> CheckUser(string email)
+        public IQueryable<UserModel> CheckUser(string email)
         {
             Console.WriteLine("in check_user");
             Console.WriteLine("email = " + email);
@@ -64,7 +64,7 @@ namespace FantasyStockTradingApp.Controllers
         }
 
         [HttpPost("new_user")]
-        public async Task<User> NewUser(JObject data)
+        public async Task<UserModel> NewUser(JObject data)
         {
             var email = data["email"].ToString();
             var first_name = data["first_name"].ToString();
@@ -92,7 +92,7 @@ namespace FantasyStockTradingApp.Controllers
         }
 
         [HttpGet("get_account")]
-        public IQueryable<Account> GetAccount(int user_id)
+        public IQueryable<AccountModel> GetAccount(int user_id)
         {
             Console.WriteLine("in get_account");
             Console.WriteLine("user_id = " + user_id);
@@ -100,7 +100,7 @@ namespace FantasyStockTradingApp.Controllers
         }
 
         [HttpPost("new_account")]
-        public async Task<Account> NewAccount(JObject data)
+        public async Task<AccountModel> NewAccount(JObject data)
         {
             var user_id = Int32.Parse(data["user_id"].ToString());
             Console.WriteLine("in new_account");
@@ -125,7 +125,7 @@ namespace FantasyStockTradingApp.Controllers
         }
 
         [HttpGet("get_holdings")]
-        public IQueryable<Holdings> GetHoldings(int account_id)
+        public IQueryable<HoldingsModel> GetHoldings(int account_id)
         {
             Console.WriteLine("in get_holdings");
             Console.WriteLine("account_id = " + account_id);

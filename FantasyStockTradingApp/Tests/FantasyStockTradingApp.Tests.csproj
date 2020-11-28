@@ -6,7 +6,7 @@
     <IsPackable>false</IsPackable>
   </PropertyGroup>
 	<ItemGroup>
-		<ProjectReference Include="..\FantasyStockTradingApp\FantasyStockTradingApp.API.csproj" />
+		<ProjectReference Include="..\FantasyStockTradingApp\FantasyStockTradingApp.Api.csproj" />
 	</ItemGroup>
 
   <ItemGroup>

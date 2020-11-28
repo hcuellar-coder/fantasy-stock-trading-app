@@ -13,8 +13,8 @@ namespace FantasyStockTradingApp.Services
 {
     public interface IAccountService
     {
-        IQueryable<Account> GetAccount(int user_id);
-        Task<Account> NewAccount(int user_id);
+        IQueryable<AccountModel> GetAccount(int user_id);
+        Task<AccountModel> NewAccount(int user_id);
         Task UpdateAccount(int account_id, float balance, float portfolio_balance);
     }
 
@@ -29,13 +29,13 @@ namespace FantasyStockTradingApp.Services
             _session = _nHibernateService.OpenSession();
         }
 
-        public IQueryable<Account> GetAccount(int user_id)
+        public IQueryable<AccountModel> GetAccount(int user_id)
         {
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
-                    var result = _session.Query<Account>()
+                    var result = _session.Query<AccountModel>()
                         .Where(account => account.User_Id == user_id);
                     return result;
                 }
@@ -51,7 +51,7 @@ namespace FantasyStockTradingApp.Services
             }
         }
 
-        public async Task<Account> NewAccount(int user_id)
+        public async Task<AccountModel> NewAccount(int user_id)
         {
             Console.WriteLine("account_id = " + user_id);
 
@@ -59,7 +59,7 @@ namespace FantasyStockTradingApp.Services
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
-                    var account = new Account
+                    var account = new AccountModel
                     {
                         User_Id = user_id,
                         Balance = 100000,

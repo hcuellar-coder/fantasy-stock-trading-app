@@ -19,8 +19,8 @@ namespace FantasyStockTradingApp.Services
 
     public interface IIexCloudService
     {
-        Task<Quote> GetQuote(string symbol);
-        Task<List<Quote>> GetMostActive();
+        Task<QuoteModel> GetQuote(string symbol);
+        Task<List<QuoteModel>> GetMostActive();
         Task<List<History>> GetHistory(string symbol);
 
     }
@@ -37,7 +37,7 @@ namespace FantasyStockTradingApp.Services
         }
 
 
-        public async Task<Quote> GetQuote(string symbol)
+        public async Task<QuoteModel> GetQuote(string symbol)
         {
             var token = _configuration["Token_Key:token"];
             Console.WriteLine("symbol = " + symbol);
@@ -63,12 +63,12 @@ namespace FantasyStockTradingApp.Services
 
             var responseStream = await response.Content.ReadAsStringAsync();
             Console.WriteLine("responseStream = " + responseStream);
-            return JsonConvert.DeserializeObject<Quote>(responseStream);
+            return JsonConvert.DeserializeObject<QuoteModel>(responseStream);
 
         }
 
 
-        public async Task<List<Quote>> GetMostActive()
+        public async Task<List<QuoteModel>> GetMostActive()
         {
             var token = _configuration["Token_Key:token"];
 
@@ -93,7 +93,7 @@ namespace FantasyStockTradingApp.Services
 
             var responseStream = await response.Content.ReadAsStringAsync();
             Console.WriteLine("responseStream = " + responseStream);
-            return JsonConvert.DeserializeObject<List<Quote>>(responseStream);
+            return JsonConvert.DeserializeObject<List<QuoteModel>>(responseStream);
 
         }
 

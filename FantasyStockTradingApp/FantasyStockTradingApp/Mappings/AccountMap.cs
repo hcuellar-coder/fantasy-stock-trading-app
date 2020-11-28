@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace FantasyStockTradingApp.Mappings
 {
-    public class AccountMap : ClassMap<Account>
+    public class AccountMap : ClassMap<AccountModel>
     {
         public AccountMap()
         {
