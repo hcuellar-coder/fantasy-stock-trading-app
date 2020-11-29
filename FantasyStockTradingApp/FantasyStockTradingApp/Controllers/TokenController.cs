@@ -6,7 +6,7 @@ using System.Security.Claims;
 using System.Text;
 using System.Threading.Tasks;
 using FantasyStockTradingApp.Models;
-using FantasyStockTradingApp.Services;
+using FantasyStockTradingApp.Core.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -18,19 +18,19 @@ namespace FantasyStockTradingApp.Controllers
     [ApiController]
     public class TokenController : ControllerBase
     {
-        private readonly IUserLoginService _userLoginService;
+        private readonly IUserService _userService;
         private readonly AuthOptions _authOptions;
 
-        public TokenController(IUserLoginService userLoginService, IOptions<AuthOptions> authOptionAccessor)
+        public TokenController(IUserService userService, IOptions<AuthOptions> authOptionAccessor)
         {
             _authOptions = authOptionAccessor.Value;
-            _userLoginService = userLoginService;
+            _userService = userService;
         }
 
         [HttpGet("get_token")]
         public IActionResult GetToken(string email, string password)
         {
-            if (_userLoginService.isValidUser(email, password))
+            if (_userService.isValidUser(email, password))
             {
                 var authClaims = new[]
                 {

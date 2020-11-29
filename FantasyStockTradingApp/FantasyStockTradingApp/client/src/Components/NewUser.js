@@ -22,9 +22,10 @@ function NewUser(props) {
     function newUser() {
         try {
             const response = api.post('/new_user', {
-                email: email,
-                first_name: firstName,
-                last_name: lastName
+                Email: email.toLowerCase(),
+                Password: password,
+                FirstName: firstName,
+                LastName: lastName
             });
             return response;
         } catch (error) {
@@ -32,12 +33,12 @@ function NewUser(props) {
         }
     }
 
-    function newUserLogin(userId) {
+    function getUser() {
         try {
-            const response = api.post('/new_user_login', {
-                email: email,
-                password: password,
-                user_id: userId,
+            const response = api.get('/get_user?', {
+                params: {
+                    Email: email.toLowerCase(),
+                }
             });
             return response;
         } catch (error) {
@@ -49,7 +50,7 @@ function NewUser(props) {
         try {
             const response = api.get('/is_valid_user?', {
                 params: {
-                    email: email.toLowerCase(),
+                    Email: email.toLowerCase(),
                 }
             });
             return response;
@@ -58,10 +59,25 @@ function NewUser(props) {
         }
     }
 
-    function newAccout(userID) {
+    function newAccout(userId) {
+        console.log('UserID =', userId);
         try {
             const response = api.post('/new_account', {
-                user_id: userID,
+                UserId: userId,
+            });
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    function getAccount(userID) {
+        console.log('userId', userID);
+        try {
+            const response = api.get('/get_account?', {
+                params: {
+                    UserId: userID
+                }
             });
             return response;
         } catch (error) {
@@ -73,8 +89,8 @@ function NewUser(props) {
         try {
             const response = tokenApi.get('/get_token?', {
                 params: {
-                    email: email,
-                    password: password
+                    Email: email.toLowerCase(),
+                    Password: password
                 }
             });
             return response;
@@ -120,20 +136,27 @@ function NewUser(props) {
                     } else {
                         newUser().then((newUserResponse) => {
                             if (newUserResponse.status === 200) {
-                                setUser(newUserResponse.data);
 
-                                newUserLogin(newUserResponse.data.id).then((newUserLoginResponse) => {
-                                    if (newUserLoginResponse.status === 200) {
+                                getUser().then((getUserResponse) => {
+                                    if (getUserResponse.status === 200) {
+                                        setUser(getUserResponse.data[0]);
+                                        console.log('getUserResponse.data[0].id = ', getUserResponse.data[0].id);
 
-                                        newAccout(newUserResponse.data.id).then((newAccountResponse) => {
+
+                                        newAccout(getUserResponse.data[0].id).then((newAccountResponse) => {
                                             if (newAccountResponse.status === 200) {
                                                 console.log(newAccountResponse);
-                                                setAccount(newAccountResponse.data);
-                                                setHoldings('');
 
-                                                getToken().then((getTokenResponse) => {
-                                                    setAuthTokens(getTokenResponse.data);
-                                                });
+                                                getAccount(getUserResponse.data[0].id).then((getAccountResponse) => {
+                                                    if (getAccountResponse.status === 200) {
+                                                        setAccount(getAccountResponse.data);
+                                                    }
+
+                                                    setHoldings('');
+                                                    getToken().then((getTokenResponse) => {
+                                                        setAuthTokens(getTokenResponse.data);
+                                                    });
+                                                })
                                             }
                                         });
                                     }

@@ -13,9 +13,9 @@ namespace FantasyStockTradingApp.Core.Services
 {
     public interface IAccountService
     {
-        IQueryable<Account> GetAccount(int user_id);
-        Task<Account> NewAccount(int user_id);
-        Task UpdateAccount(int account_id, float balance, float portfolio_balance);
+        IQueryable<Account> GetAccount(int UserId);
+        Task NewAccount(int UserId);
+        Task UpdateAccount(int AccountId, float Balance, float PortfolioBalance);
     }
 
     public class AccountService : IAccountService
@@ -29,14 +29,14 @@ namespace FantasyStockTradingApp.Core.Services
             _session = _nHibernateService.OpenSession();
         }
 
-        public IQueryable<Account> GetAccount(int user_id)
+        public IQueryable<Account> GetAccount(int UserId)
         {
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     var result = _session.Query<Account>()
-                        .Where(account => account.User_Id == user_id);
+                        .Where(account => account.UserId == UserId);
                     return result;
                 }
             }
@@ -51,9 +51,9 @@ namespace FantasyStockTradingApp.Core.Services
             }
         }
 
-        public async Task<Account> NewAccount(int user_id)
+        public async Task NewAccount(int UserId)
         {
-            Console.WriteLine("account_id = " + user_id);
+            Console.WriteLine("account_id = " + UserId);
 
             try
             {
@@ -61,14 +61,13 @@ namespace FantasyStockTradingApp.Core.Services
                 {
                     var account = new Account
                     {
-                        User_Id = user_id,
+                        UserId = UserId,
                         Balance = 100000,
-                        Portfolio_Balance = 0
+                        PortfolioBalance = 0
                     };
 
                     await _session.SaveAsync(account);
                     await transaction.CommitAsync();
-                    return account;
                 }
             }
             catch (Exception ex)
@@ -82,11 +81,11 @@ namespace FantasyStockTradingApp.Core.Services
             }
         }
 
-        public async Task UpdateAccount(int account_id, float balance, float portfolio_balance)
+        public async Task UpdateAccount(int AccountId, float Balance, float PortfolioBalance)
         {
-            Console.WriteLine("account_id = " + account_id);
-            Console.WriteLine("balance = " + balance);
-            Console.WriteLine("portfolio_balance = " + portfolio_balance);
+            Console.WriteLine("account_id = " + AccountId);
+            Console.WriteLine("balance = " + Balance);
+            Console.WriteLine("portfolio_balance = " + PortfolioBalance);
 
             try
             {
@@ -94,9 +93,9 @@ namespace FantasyStockTradingApp.Core.Services
                 { 
                     var query =  _session.CreateQuery("Update Account set balance =:balance, " +
                         "portfolio_balance =:portfolio_balance where id =:id");
-                    query.SetParameter("balance", balance);
-                    query.SetParameter("portfolio_balance", portfolio_balance);
-                    query.SetParameter("id", account_id);
+                    query.SetParameter("balance", Balance);
+                    query.SetParameter("portfolio_balance", PortfolioBalance);
+                    query.SetParameter("id", AccountId);
                     await query.ExecuteUpdateAsync();
                     await transaction.CommitAsync();
                 }

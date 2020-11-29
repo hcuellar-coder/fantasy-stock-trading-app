@@ -35,7 +35,7 @@ function MyHoldings(props) {
 
     return (
         <div id="summary-myHoldings-div">
-            {holdings === undefined
+            {(holdings === undefined || holdings.length === 0)
                 ? <div></div>
                 : < CardDeck > {
                     holdings

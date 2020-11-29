@@ -45,7 +45,7 @@ function MyHoldings() {
     return (
         <div id="summary-myHoldings-div">
             <TransactionModal show={showModal} handleClose={handleClose} isBuying={isBuying} stockData={stockData} />
-            {holdings === undefined
+            {(holdings === undefined || holdings.length === 0)
                 ? <div></div>
                 : < CardDeck > {
                     holdings

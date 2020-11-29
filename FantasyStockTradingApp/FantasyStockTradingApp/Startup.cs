@@ -1,5 +1,5 @@
 using FantasyStockTradingApp.Models;
-using FantasyStockTradingApp.Services;
+using FantasyStockTradingApp.Core.Services;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -70,7 +70,6 @@ namespace FantasyStockTradingApp
             
 
             services.AddScoped<IIexCloudService, IexCloudService>();
-            services.AddScoped<IUserLoginService, UserLoginService>();
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<ITransactionService, TransactionService>();
             services.AddScoped<IAccountService, AccountService>();

@@ -1,12 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "XTsc3FnFtutzhrbKxpswc3ubpbppa6aOaUTaE6kKiGPAbDeoODhgR+2wiFBvyBiNmiI3pP6Bs+Y/QNgnWdQXTw==",
+  "dgSpecHash": "9LsgTtY1KMhGJe7ZSZbLRNbtJNpp0IsJnYn9o5EQ1noTmWFRqTv07rkX+FzJx9B+I9t6XR2k4qlBrtffRmXhgg==",
   "success": true,
   "projectFilePath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\FantasyStockTradingApp.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\herib\\.nuget\\packages\\antlr3.runtime\\3.5.1\\antlr3.runtime.3.5.1.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",
-    "C:\\Users\\herib\\.nuget\\packages\\fluentnhibernate\\3.0.1\\fluentnhibernate.3.0.1.nupkg.sha512",
+    "C:\\Users\\herib\\.nuget\\packages\\fluentnhibernate\\3.1.0\\fluentnhibernate.3.1.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\iesi.collections\\4.0.4\\iesi.collections.4.0.4.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\3.1.0\\microsoft.aspnetcore.authentication.jwtbearer.3.1.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.9\\microsoft.aspnetcore.jsonpatch.3.1.9.nupkg.sha512",
@@ -48,7 +48,7 @@
     "C:\\Users\\herib\\.nuget\\packages\\netstandard.library\\2.0.0\\netstandard.library.2.0.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\newtonsoft.json\\12.0.2\\newtonsoft.json.12.0.2.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512",
-    "C:\\Users\\herib\\.nuget\\packages\\nhibernate\\5.3.3\\nhibernate.5.3.3.nupkg.sha512",
+    "C:\\Users\\herib\\.nuget\\packages\\nhibernate\\5.3.5\\nhibernate.5.3.5.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\nhibernate.extensions.npgsql\\3.1.8\\nhibernate.extensions.npgsql.3.1.8.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\nhibernate.netcore\\3.1.7\\nhibernate.netcore.3.1.7.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\npgsql\\4.1.5\\npgsql.4.1.5.nupkg.sha512",

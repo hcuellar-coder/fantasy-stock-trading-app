@@ -7,11 +7,11 @@ namespace FantasyStockTradingApp.Core.Entities
 {
     public class Quote
     {
-        public string symbol { get; set; }
-        public string companyName { get; set; }
-        public float latestPrice { get; set; }
-        public float change { get; set; }
-        public float changePercent { get; set; }
+        public string Symbol { get; set; }
+        public string CompanyName { get; set; }
+        public float LatestPrice { get; set; }
+        public float Change { get; set; }
+        public float ChangePercent { get; set; }
     }
 }
 

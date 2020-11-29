@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using FantasyStockTradingApp.Models;
-using FantasyStockTradingApp.Services;
+using FantasyStockTradingApp.Core.Services;
 
 namespace FantasyStockTradingApp.Controllers
 {
@@ -21,29 +21,45 @@ namespace FantasyStockTradingApp.Controllers
         }
 
         [HttpGet("get_quote")]
-        public Task<QuoteModel> GetQuote(string symbol)
+        public IQueryable<QuoteModel> GetQuote(string symbol)
         {
             Console.WriteLine("in get_quote");
             Console.WriteLine("symbol = " + symbol);
 
-            return _iexCloudService.GetQuote(symbol);
+            return (IQueryable<QuoteModel>)_iexCloudService.GetQuote(symbol);
         }
 
         [HttpGet("get_mostactive")]
-        public Task<List<QuoteModel>> GetMostActive()
+        public IQueryable<List<QuoteModel>> GetMostActive()
         {
             Console.WriteLine("in get_mostactive");
-
-            return _iexCloudService.GetMostActive();
+            //var MostActive = await _iexCloudService.GetMostActive();
+            return (IQueryable<List<QuoteModel>>)_iexCloudService.GetMostActive();
+            /*return (Task<List<QuoteModel>>)_iexCloudService.GetMostActive().Result.Select(quote => new QuoteModel {
+                Symbol = quote.Symbol,
+                CompanyName = quote.CompanyName,
+                LatestPrice = quote.LatestPrice,
+                Change = quote.Change,
+                ChangePercent = quote.ChangePercent
+            });*/
         }
 
+        /*
+         public string Symbol { get; set; }
+        public string CompanyName { get; set; }
+        public float LatestPrice { get; set; }
+        public float Change { get; set; }
+        public float ChangePercent { get; set; } 
+         * */
+
+
         [HttpGet("get_history")]
-        public Task<List<History>> GetHistory(string symbol)
+        public IQueryable<List<History>> GetHistory(string symbol)
         {
             Console.WriteLine("in get_quote");
             Console.WriteLine("symbol = " + symbol);
 
-            return _iexCloudService.GetHistory(symbol);
+            return (IQueryable<List<History>>)_iexCloudService.GetHistory(symbol);
         }
     }
 }

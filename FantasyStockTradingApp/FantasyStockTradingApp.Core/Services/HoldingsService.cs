@@ -13,16 +13,16 @@ namespace FantasyStockTradingApp.Core.Services
 {
     public interface IHoldingsService
     {
-        IQueryable<Holdings> GetHoldings(int account_id);
+        IQueryable<Holdings> GetHoldings(int AccountId);
 
-        Task NewHolding(int account_id, string company_name, string symbol, int stock_count,
-             float change, float change_percentage, float latest_cost_per_stock, DateTime last_Updated);
-        Task UpdateHolding(int account_id, string symbol, int stock_count, 
-                        float latest_cost_per_stock, DateTime last_Updated);
-        Task UpdateHoldings(JObject data); //this should take an account Id and updat
-        Task DeleteHolding(int account_id, string symbol);
+        Task NewHolding(int AccountId, string CompanyName, string Symbol, int StockCount,
+                        float LatestCostPerStock, float Change, float ChangePercentage, DateTime LastUpdated);
+        Task UpdateHolding(int AccountId, string Symbol, int StockCount,
+                        float LatestCostPerStock, DateTime LastUpdated);
+        Task UpdateHoldings(JObject Data); //this should take an account Id and updat
+        Task DeleteHolding(int AccountId, string Symbol);
 
-        bool holdingExists(int account_id, string symbol);
+        bool HoldingExists(int AccountId, string Symbol);
     }
 
     public class HoldingsService : IHoldingsService
@@ -36,14 +36,14 @@ namespace FantasyStockTradingApp.Core.Services
             _session = _nHibernateService.OpenSession();
         }
 
-        public bool holdingExists(int account_id, string symbol)
+        public bool HoldingExists(int AccountId, string Symbol)
         {
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     var result = _session.QueryOver<Holdings>()
-                    .Where(holding => holding.Account_Id == account_id && holding.Symbol == symbol)
+                    .Where(holding => holding.AccountId == AccountId && holding.Symbol == Symbol)
                     .RowCount() > 0;
                     return result;
                 }
@@ -59,14 +59,14 @@ namespace FantasyStockTradingApp.Core.Services
             }
         }
 
-        public IQueryable<Holdings> GetHoldings(int account_id)
+        public IQueryable<Holdings> GetHoldings(int AccountId)
         {
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     var result = _session.Query<Holdings>()
-                        .Where(holdings => holdings.Account_Id == account_id);
+                        .Where(holdings => holdings.AccountId == AccountId);
                     return result;
                 }
             }
@@ -81,8 +81,8 @@ namespace FantasyStockTradingApp.Core.Services
             }
         }
 
-        public async Task NewHolding(int account_id, string company_name, string symbol, int stock_count,
-            float latest_cost_per_stock, float change, float change_percentage, DateTime last_Updated)
+        public async Task NewHolding(int AccountId, string CompanyName, string Symbol, int StockCount,
+            float LatestCostPerStock, float Change, float ChangePercentage, DateTime LastUpdated)
         {
             try
             {
@@ -90,14 +90,14 @@ namespace FantasyStockTradingApp.Core.Services
                 {
                     var holdings = new Holdings
                     {
-                        Account_Id = account_id,
-                        Company_Name = company_name,
-                        Symbol = symbol,
-                        Stock_Count = stock_count,
-                        Latest_Cost_per_Stock = latest_cost_per_stock,
-                        Change = change,
-                        Change_Percentage = change_percentage,
-                        Last_Updated = last_Updated,
+                        AccountId = AccountId,
+                        CompanyName = CompanyName,
+                        Symbol = Symbol,
+                        StockCount = StockCount,
+                        LatestCostPerStock = LatestCostPerStock,
+                        Change = Change,
+                        ChangePercentage = ChangePercentage,
+                        LastUpdated = LastUpdated,
                     };
 
                     await _session.SaveAsync(holdings);
@@ -115,28 +115,28 @@ namespace FantasyStockTradingApp.Core.Services
             }
         }
 
-        public async Task UpdateHolding(int account_id, string symbol, int stock_count,
-                        float latest_cost_per_stock, DateTime last_Updated)
+        public async Task UpdateHolding(int AccountId, string Symbol, int StockCount,
+                        float LatestCostPerStock, DateTime LastUpdated)
         {
-            Console.WriteLine("account_id = " + account_id);
-            Console.WriteLine("symbol = " + symbol);
-            Console.WriteLine("stock_count = " + stock_count);
-            Console.WriteLine("latest_cost_per_stock = " + latest_cost_per_stock);
-            Console.WriteLine("last_Updated = " + last_Updated);
+            Console.WriteLine("account_id = " + AccountId);
+            Console.WriteLine("symbol = " + Symbol);
+            Console.WriteLine("stock_count = " + StockCount);
+            Console.WriteLine("latest_cost_per_stock = " + LatestCostPerStock);
+            Console.WriteLine("last_Updated = " + LastUpdated);
 
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                    
-                    var query = _session.CreateQuery("Update Holdings set stock_count =:stock_count, " +
-                    "latest_cost_per_stock =:latest_cost_per_stock, last_Updated =:last_Updated " +
-                    "where account_id =:account_id and symbol =:symbol");
-                    query.SetParameter("stock_count", stock_count);
-                    query.SetParameter("latest_cost_per_stock", latest_cost_per_stock);
-                    query.SetParameter("last_Updated", last_Updated);
-                    query.SetParameter("account_id", account_id);
-                    query.SetParameter("symbol", symbol);
+                    var query = _session.CreateQuery("Update Holdings set stock_count =:StockCount, " +
+                    "latest_cost_per_stock =:LatestCostPerStock, last_Updated =:LastUpdated " +
+                    "where account_id =:AccountId and symbol =:Symbol");
+                    query.SetParameter("StockCount", StockCount);
+                    query.SetParameter("LatestCostPerStock", LatestCostPerStock);
+                    query.SetParameter("last_Updated", LastUpdated);
+                    query.SetParameter("account_id", AccountId);
+                    query.SetParameter("symbol", Symbol);
 
                     await query.ExecuteUpdateAsync();
                     await transaction.CommitAsync();
@@ -154,23 +154,23 @@ namespace FantasyStockTradingApp.Core.Services
             }
         }
 
-        public async Task UpdateHoldings(JObject data)
+        public async Task UpdateHoldings(JObject Data)
         {
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
-                    dynamic holding_data = JsonConvert.DeserializeObject((string)data);
+                    dynamic holding_data = JsonConvert.DeserializeObject((string)Data);
                     foreach (var holding in holding_data)
                     {
                         Console.WriteLine("holding = " + holding);
 
-                        var query = _session.CreateQuery("Update Holdings set latest_cost_per_stock =:latest_cost_per_stock, " +
-                            "last_Updated =:last_Updated where account_id =:account_id and symbol =:symbol");
-                        query.SetParameter("latest_cost_per_stock", holding_data.latest_cost_per_stock);
-                        query.SetParameter("last_Updated", holding_data.last_Updated);
-                        query.SetParameter("account_id", holding_data.account_id);
-                        query.SetParameter("symbol", holding_data.symbol);
+                        var query = _session.CreateQuery("Update Holdings set latest_cost_per_stock =:LatestCostPerStock, " +
+                            "last_Updated =:LastUpdated where account_id =:AccountId and symbol =:Symbol");
+                        query.SetParameter("LatestCostPerStock", holding_data.LatestCostPerStock);
+                        query.SetParameter("LastUpdated", holding_data.LastUpdated);
+                        query.SetParameter("AccountId", holding_data.AccountId);
+                        query.SetParameter("Symbol", holding_data.Symbol);
 
                         await query.ExecuteUpdateAsync();
                         await transaction.CommitAsync();
@@ -189,16 +189,16 @@ namespace FantasyStockTradingApp.Core.Services
             }
         }
 
-        public async Task DeleteHolding(int account_id, string symbol)
+        public async Task DeleteHolding(int AccountId, string Symbol)
         {
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     var query = _session.CreateQuery("Delete from Holdings " +
-                        "where account_id =:account_id and symbol =:symbol");
-                    query.SetParameter("account_id", account_id);
-                    query.SetParameter("symbol", symbol);
+                        "where account_id =:AccountId and symbol =:Symbol");
+                    query.SetParameter("AccountId", AccountId);
+                    query.SetParameter("Symbol", Symbol);
 
                     await query.ExecuteUpdateAsync();
                     await transaction.CommitAsync();

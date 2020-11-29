@@ -22,3 +22,8 @@ C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTra
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\FantasyStockTradingApp.Core\bin\Debug\netcoreapp3.1\FluentNHibernate.dll
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\FantasyStockTradingApp.Core\bin\Debug\netcoreapp3.1\NHibernate.Extensions.NpgSql.dll
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\FantasyStockTradingApp.Core\bin\Debug\netcoreapp3.1\Npgsql.dll
+C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\FantasyStockTradingApp.Core\obj\Debug\netcoreapp3.1\FantasyStockTradingApp.Core.csproj.CoreCompileInputs.cache
+C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\FantasyStockTradingApp.Core\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\FantasyStockTradingApp.Core\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
+C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\FantasyStockTradingApp.Core\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\FantasyStockTradingApp.Core\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll

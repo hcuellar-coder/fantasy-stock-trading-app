@@ -21,8 +21,8 @@ function Login(props) {
         try {
             const response = api.get('/is_valid_user?', {
                 params: {
-                    email: email,
-                    password: password
+                    Email: email.toLowerCase(),
+                    Password: password
                 }
             });
             return response;
@@ -35,7 +35,7 @@ function Login(props) {
         try {
             const response = api.get('/get_user?', {
                 params: {
-                    email: email
+                    Email: email.toLowerCase(),
                 }
             });
             return response;
@@ -49,7 +49,7 @@ function Login(props) {
         try {
             const response = api.get('/get_account?', {
                 params: {
-                    user_id: userID
+                    UserId: userID
                 }
             });
             return response;
@@ -63,7 +63,7 @@ function Login(props) {
         try {
             const response = api.get('/get_holdings?', {
                 params: {
-                    account_id: accountID
+                    AccountId: accountID
                 }
             });
             return response;
@@ -76,8 +76,8 @@ function Login(props) {
         try {
             const response = tokenApi.get('/get_token?', {
                 params: {
-                    email: email,
-                    password: password
+                    Email: email.toLowerCase(),
+                    Password: password
                 }
             });
             return response;
@@ -90,7 +90,7 @@ function Login(props) {
         try {
             const response = iexApi.get('/get_quote', {
                 params: {
-                    symbol: symbol
+                    Symbol: symbol
                 }
             });
             return response;
@@ -105,13 +105,13 @@ function Login(props) {
         console.log('stockCount = ', stockCount);
         try {
             const response = api.post('/update_holding', {
-                account_id: account.id,
-                company_name: holding.companyName,
-                symbol: holding.symbol,
-                stock_count: stockCount,
-                latest_cost_per_stock: holding.latestPrice,
-                change: holding.change,
-                change_percentage: holding.changePercent,
+                AccountId: account.id,
+                CompanyName: holding.companyName,
+                Symbol: holding.symbol,
+                StockCount: stockCount,
+                LatestCostPerStock: holding.latestPrice,
+                Change: holding.change,
+                ChangePercentage: holding.changePercent,
             });
             return response;
         } catch (error) {
@@ -166,9 +166,13 @@ function Login(props) {
                     getUser().then((getUserResponse) => {
                         if (getUserResponse.status === 200 && getUserResponse.data.length !== 0) {
                             setUser(getUserResponse.data[0]);
+                            console.log('getUserResponse.data =', getUserResponse.data);
+                            console.log('getUserResponse.data[0] =', getUserResponse.data[0]);
 
                             getAccount(getUserResponse.data[0].id).then((getAccountResponse) => {
                                 if (getAccountResponse.status === 200 && getAccountResponse.data.length !== 0) {
+                                    console.log('getAccountResponse = ', getAccountResponse);
+                                    console.log('getAccountResponse[0] = ',getAccountResponse[0]);
                                     setAccount(getAccountResponse.data[0]);
 
                                     getHoldings(getAccountResponse.data[0].id).then((getHoldingsResponse) => {

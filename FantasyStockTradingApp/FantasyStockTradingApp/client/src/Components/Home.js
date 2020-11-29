@@ -28,7 +28,7 @@ function Home() {
         ) : (
                 (user !== undefined) ? (
                     <div>
-                        <h1 className="home-header">Welcome {user.first_name}</h1>
+                        <h1 className="home-header">Welcome {user.firstName}</h1>
                         <div>
                             <h3 className="home-sub-header">Summary</h3>
                             <p className="home-paragraph">

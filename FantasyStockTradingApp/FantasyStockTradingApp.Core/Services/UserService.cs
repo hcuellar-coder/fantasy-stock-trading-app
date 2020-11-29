@@ -17,8 +17,9 @@ namespace FantasyStockTradingApp.Core.Services
 
     public interface IUserService
     {
-        IQueryable<User> GetUser(string email);
-        Task<User> NewUser(string email, string first_name, string last_name);
+        bool isValidUser(string Email, string? Password = null);
+        IQueryable<User> GetUser(string Email);
+        Task NewUser(string Email, string Password, string FirstName, string LastName);
     }
     public class UserService : IUserService
     {
@@ -33,16 +34,49 @@ namespace FantasyStockTradingApp.Core.Services
 
         }
 
-        public IQueryable<User> GetUser(string email)
+        public bool isValidUser(string Email, string? Password = null)
         {
-            Console.WriteLine("email = "+ email);
+            try
+            {
+                using (ITransaction transaction = _session.BeginTransaction())
+                {
+                    if (Password == null)
+                    {
+                        var result = _session.QueryOver<User>()
+                        .Where(user_login => user_login.Email == Email)
+                        .RowCount() > 0;
+                        return result;
+                    }
+                    else
+                    {
+                        var result = _session.QueryOver<User>()
+                        .Where(user_login => user_login.Email == Email && user_login.Password == Password)
+                        .RowCount() > 0;
+                        return result;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                var errorString = $"User does not exist: { ex }";
+                throw new Exception(errorString);
+            }
+            finally
+            {
+                _nHibernateService.CloseSession();
+            }
+        }
+
+        public IQueryable<User> GetUser(string Email)
+        {
+            Console.WriteLine("email = "+ Email);
 
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     var result = _session.Query<User>()
-                    .Where(user => user.email == email);
+                    .Where(user => user.Email == Email);
                     return result;
                 }
             }
@@ -58,24 +92,26 @@ namespace FantasyStockTradingApp.Core.Services
 
         }
        
-        public async Task<User> NewUser(string email, string first_name, string last_name)
+        public async Task NewUser(string Email, string Password, string FirstName, string LastName)
         {
-            Console.WriteLine("email = "+ email);
-            Console.WriteLine("first_name = "+ first_name);
-            Console.WriteLine("last_name = "+ last_name);
+            Console.WriteLine("In second NewUser ");
+            Console.WriteLine("email = "+ Email);
+            Console.WriteLine("password = " + Password);
+            Console.WriteLine("first_name = "+ FirstName);
+            Console.WriteLine("last_name = "+ LastName);
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     var user = new User
                     {
-                        email = email,
-                        first_name = first_name,
-                        last_name = last_name
+                        Email = Email,
+                        Password = Password,
+                        FirstName = FirstName,
+                        LastName = LastName
                     };
                     await _session.SaveAsync(user);
                     await transaction.CommitAsync();
-                    return user;
                 }
             }
             catch (Exception ex)

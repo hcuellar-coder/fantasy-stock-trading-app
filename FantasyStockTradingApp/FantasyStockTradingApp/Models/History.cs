@@ -7,7 +7,7 @@ namespace FantasyStockTradingApp.Models
 {
     public class History
     {
-        public string date { get; set; }
-        public float close { get; set; }
+        public string Date { get; set; }
+        public float Close { get; set; }
     }
 }

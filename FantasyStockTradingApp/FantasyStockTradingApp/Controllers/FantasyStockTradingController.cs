@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Threading.Tasks;
 using FantasyStockTradingApp.Models;
-using FantasyStockTradingApp.Services;
+using FantasyStockTradingApp.Core.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
@@ -22,149 +22,166 @@ namespace FantasyStockTradingApp.Controllers
         private readonly ITransactionService _transactionService;
         private readonly IAccountService _accountService;
         private readonly IHoldingsService _holdingsService;
-        private readonly IUserLoginService _userLoginService;
 
         public FantasyStockTradingController(IUserService userService,
             ITransactionService transactionService, IAccountService accountService, 
-            IHoldingsService holdingsService, IUserLoginService userLoginService)
+            IHoldingsService holdingsService)
         {
             _userService = userService;
             _transactionService = transactionService;
             _accountService = accountService;
             _holdingsService = holdingsService;
-            _userLoginService = userLoginService;
         }
 
         [HttpGet("get_user")]
-        public IQueryable<UserModel> GetUser(string email)
+        public IQueryable<UserModel> GetUser(string Email)
         {
             Console.WriteLine("in get_user");
-            Console.WriteLine("email = " + email);
+            Console.WriteLine("email = " + Email);
 
-            return _userService.GetUser(email).Select(user => new UserModel { id = user.id, email = user.email, first_name = user.first_name, last_name = user.last_name });
+            return _userService.GetUser(Email).Select(user => new UserModel 
+            { 
+                Id = user.Id, 
+                Email = user.Email, 
+                FirstName = user.FirstName, 
+                LastName = user.LastName 
+            });
         }
 
         [HttpGet("is_valid_user")]
-        public bool isValidUser(string email, string password)
+        public bool isValidUser(string Email, string Password)
         {
             Console.WriteLine("in check_user");
-            Console.WriteLine("email = " + email);
-            Console.WriteLine("password = " + password);
+            Console.WriteLine("email = " + Email);
+            Console.WriteLine("password = " + Password);
 
-            return _userLoginService.isValidUser(email, password);
+            return _userService.isValidUser(Email, Password);
         }
 
         [HttpGet("check_user")]
-        public IQueryable<UserModel> CheckUser(string email)
+        public IQueryable<UserModel> CheckUser(string Email)
         {
             Console.WriteLine("in check_user");
-            Console.WriteLine("email = " + email);
+            Console.WriteLine("email = " + Email);
 
-            return _userService.GetUser(email);
+            return _userService.GetUser(Email).Select(user => new UserModel 
+            { 
+                Id = user.Id, 
+                Email = user.Email, 
+                FirstName = user.FirstName, 
+                LastName = user.LastName 
+            });
         }
 
         [HttpPost("new_user")]
-        public async Task<UserModel> NewUser(JObject data)
+        public async Task NewUser(JObject data)
         {
-            var email = data["email"].ToString();
-            var first_name = data["first_name"].ToString();
-            var last_name = data["last_name"].ToString();
+            var Email = data["Email"].ToString();
+            var Password = data["Password"].ToString();
+            var FirstName = data["FirstName"].ToString();
+            var LastName = data["LastName"].ToString();
             Console.WriteLine("in new_user");
-            Console.WriteLine("email = " + email);
-            Console.WriteLine("first_name = " + first_name);
-            Console.WriteLine("last_name = " + last_name);
+            Console.WriteLine("mail = " + Email);
+            Console.WriteLine("password = " + Password);
+            Console.WriteLine("first_name = " + FirstName);
+            Console.WriteLine("last_name = " + LastName);
 
-            return await _userService.NewUser(email, first_name, last_name);
-        }
-
-        [HttpPost("new_user_login")]
-        public async Task NewUserLogin(JObject data)
-        {
-            var email = data["email"].ToString();
-            var password = data["password"].ToString();
-            var user_id = Int32.Parse(data["user_id"].ToString());
-            Console.WriteLine("in new_user");
-            Console.WriteLine("email = " + email);
-            Console.WriteLine("password = " + password);
-            Console.WriteLine("user_id = " + user_id);
-
-            await _userLoginService.NewUserLogin(email, password, user_id);
+            await _userService.NewUser(Email, Password, FirstName, LastName);
         }
 
         [HttpGet("get_account")]
-        public IQueryable<AccountModel> GetAccount(int user_id)
+        public IQueryable<AccountModel> GetAccount(int UserId)
         {
             Console.WriteLine("in get_account");
-            Console.WriteLine("user_id = " + user_id);
-            return _accountService.GetAccount(user_id);
+            Console.WriteLine("user_id = " + UserId);
+            return _accountService.GetAccount(UserId)
+                .Select(account => new AccountModel 
+                { 
+                    Id = account.Id,
+                    UserId = account.UserId, 
+                    Balance = account.Balance, 
+                    PortfolioBalance = account.PortfolioBalance 
+                });
         }
 
         [HttpPost("new_account")]
-        public async Task<AccountModel> NewAccount(JObject data)
+        public async Task NewAccount(JObject data)
         {
-            var user_id = Int32.Parse(data["user_id"].ToString());
+            var UserId = Int32.Parse(data["UserId"].ToString());
             Console.WriteLine("in new_account");
-            Console.WriteLine("user_id = " + user_id);
-
-            return await _accountService.NewAccount(user_id);
+            Console.WriteLine("UserId = " + UserId);
+            
+            await _accountService.NewAccount(UserId);
         }
 
         [HttpPost("update_account")]
         public async Task UpdateAccount(JObject data)
         {
-            var account_id = Int32.Parse(data["account_id"].ToString());
-            var balance = float.Parse(data["balance"].ToString());
-            var portfolio_balance = float.Parse(data["portfolio_balance"].ToString());
+            var AccountId = Int32.Parse(data["AccountId"].ToString());
+            var Balance = float.Parse(data["Balance"].ToString());
+            var PortfolioBalance = float.Parse(data["PortfolioBalance"].ToString());
 
             Console.WriteLine("in update_account");
-            Console.WriteLine("account_id = " + account_id);
-            Console.WriteLine("balance = " + balance);
-            Console.WriteLine("portfolio_balance = " + portfolio_balance);
+            Console.WriteLine("AccountId = " + AccountId);
+            Console.WriteLine("Balance = " + Balance);
+            Console.WriteLine("PortfolioBalance = " + PortfolioBalance);
 
-            await _accountService.UpdateAccount(account_id, balance, portfolio_balance);
+            await _accountService.UpdateAccount(AccountId, Balance, PortfolioBalance);
         }
 
         [HttpGet("get_holdings")]
-        public IQueryable<HoldingsModel> GetHoldings(int account_id)
+        public IQueryable<HoldingsModel> GetHoldings(int AccountId)
         {
             Console.WriteLine("in get_holdings");
-            Console.WriteLine("account_id = " + account_id);
-            return _holdingsService.GetHoldings(account_id);
+            Console.WriteLine("account_id = " + AccountId);
+            return _holdingsService.GetHoldings(AccountId)
+                .Select(holdings => new HoldingsModel
+                {
+                    Id = holdings.Id,
+                    AccountId = holdings.AccountId,
+                    CompanyName = holdings.CompanyName,
+                    Symbol = holdings.Symbol,
+                    StockCount = holdings.StockCount,
+                    LatestCostPerStock = holdings.LatestCostPerStock,
+                    Change = holdings.Change,
+                    ChangePercentage = holdings.ChangePercentage,
+                    LastUpdated = holdings.LastUpdated
+                });
         }
 
         [HttpPost("update_holding")]
         public async Task UpdateHolding(JObject data)
         {
-            var account_id = Int32.Parse(data["account_id"].ToString());
-            var company_name = data["company_name"].ToString();
-            var symbol = data["symbol"].ToString();
-            var stock_count = Int32.Parse(data["stock_count"].ToString());
-            var latest_cost_per_stock = float.Parse(data["latest_cost_per_stock"].ToString());
-            var change = float.Parse(data["change"].ToString());
-            var change_percentage = float.Parse(data["change_percentage"].ToString());
-            var last_Updated = DateTime.Now;
+            var AccountId = Int32.Parse(data["AccountId"].ToString());
+            var CompanyName = data["CompanyName"].ToString();
+            var Symbol = data["Symbol"].ToString();
+            var StockCount = Int32.Parse(data["StockCount"].ToString());
+            var LatestCostPerStock = float.Parse(data["LatestCostPerStock"].ToString());
+            var Change = float.Parse(data["Change"].ToString());
+            var ChangePercentage = float.Parse(data["ChangePercentage"].ToString());
+            var LastUpdated = DateTime.Now;
 
             Console.WriteLine("in update_holding");
-            Console.WriteLine("account_id = " + account_id);
-            Console.WriteLine("symbol = " + symbol);
-            Console.WriteLine("stock_count = " + stock_count);
-            Console.WriteLine("cost = " + latest_cost_per_stock);
-            Console.WriteLine("updated time = " + last_Updated);
+            Console.WriteLine("AccountId = " + AccountId);
+            Console.WriteLine("Symbol = " + Symbol);
+            Console.WriteLine("stock_count = " + StockCount);
+            Console.WriteLine("cost = " + LatestCostPerStock);
+            Console.WriteLine("updated time = " + LastUpdated);
             
-            if (_holdingsService.holdingExists(account_id, symbol))
+            if (_holdingsService.HoldingExists(AccountId, Symbol))
             {
-                if (stock_count == 0)
+                if (StockCount == 0)
                 {
-                    await _holdingsService.DeleteHolding(account_id, symbol);
+                    await _holdingsService.DeleteHolding(AccountId, Symbol);
                 } else
                 {
-                    await _holdingsService.UpdateHolding(account_id, symbol,
-                                    stock_count, latest_cost_per_stock, last_Updated);
+                    await _holdingsService.UpdateHolding(AccountId, Symbol,
+                                    StockCount, LatestCostPerStock, LastUpdated);
                 }
             } else
             {
-                await _holdingsService.NewHolding(account_id, company_name, symbol, stock_count,
-                                   latest_cost_per_stock, change, change_percentage, last_Updated);
+                await _holdingsService.NewHolding(AccountId, CompanyName, Symbol, StockCount,
+                                   LatestCostPerStock, Change, ChangePercentage, LastUpdated);
             }
         }
 
@@ -180,25 +197,25 @@ namespace FantasyStockTradingApp.Controllers
         [HttpPost("new_transaction")]
         public async Task NewTransaction(JObject data)
         {
-            var account_id = Int32.Parse(data["account_id"].ToString());
-            var type = data["type"].ToString();
-            var symbol = data["symbol"].ToString();
-            var stock_count = Int32.Parse(data["stock_count"].ToString());
-            var cost_per_stock = float.Parse(data["cost_per_stock"].ToString());
-            var cost_per_transaction = float.Parse(data["cost_per_transaction"].ToString());
-            var transaction_date = DateTime.Now;
+            var AccountId = Int32.Parse(data["AccountId"].ToString());
+            var Type = data["Type"].ToString();
+            var Symbol = data["Symbol"].ToString();
+            var StockCount = Int32.Parse(data["StockCount"].ToString());
+            var CostPerStock = float.Parse(data["CostPerStock"].ToString());
+            var CostPerTransaction = float.Parse(data["CostPerTransaction"].ToString());
+            var TransactionDate = DateTime.Now;
 
             Console.WriteLine("in new_transaction");
-            Console.WriteLine("account_id = " + account_id);
-            Console.WriteLine("type = " + type);
-            Console.WriteLine("symbol = " + symbol);
-            Console.WriteLine("stock_count = " + stock_count);
-            Console.WriteLine("cost = " + cost_per_stock);
-            Console.WriteLine("cost = " + cost_per_transaction);
-            Console.WriteLine("transaction_date = " + transaction_date);
+            Console.WriteLine("account_id = " + AccountId);
+            Console.WriteLine("type = " + Type);
+            Console.WriteLine("symbol = " + Symbol);
+            Console.WriteLine("stock_count = " + StockCount);
+            Console.WriteLine("cost = " + CostPerStock);
+            Console.WriteLine("cost = " + CostPerTransaction);
+            Console.WriteLine("transaction_date = " + TransactionDate);
 
-            await _transactionService.NewTransaction(account_id, type, symbol, stock_count,
-                                    cost_per_stock, cost_per_transaction, transaction_date);
+            await _transactionService.NewTransaction(AccountId, Type, Symbol, StockCount,
+                                    CostPerStock, CostPerTransaction, TransactionDate);
         }
     }
 }

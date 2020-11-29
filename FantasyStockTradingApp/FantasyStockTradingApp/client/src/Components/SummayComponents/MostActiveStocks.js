@@ -6,14 +6,20 @@ import TransactionModal from './TransactionModal';
 function MostActiveStocks() {
     const [showModal, setShowModal] = useState(false);
     const [isBuying, setIsBuying] = useState(true);
-    const [mostActiveHoldings, setMostActiveHoldings] = useState([]);
     const [stockData, setStockData] = useState({});
+    const [mostActiveHoldings, setMostActiveHoldings] = useState(() => {
+        if (sessionStorage.getItem('MostActiveStocks')) {
+            return JSON.parse(sessionStorage.getItem('MostActiveStocks'));
+        } else {
+            return [];
+        }
+    });
 
 
     function handleBuyButton(stock) {
         console.log('Buying');
         console.log(stock);
-        setIsBuying(true);
+        setIsBuying(true); 
         setStockData(stock);
         setShowModal(true);
     }
@@ -41,6 +47,7 @@ function MostActiveStocks() {
     useEffect(() => {
         get_mostActive().then((response) => {
             console.log(response.data);
+            sessionStorage.setItem('MostActiveStocks', JSON.stringify(response.data));
             setMostActiveHoldings(response.data);
         })
     },[]);

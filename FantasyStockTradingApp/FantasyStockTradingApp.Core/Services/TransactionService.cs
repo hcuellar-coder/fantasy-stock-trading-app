@@ -16,8 +16,8 @@ namespace FantasyStockTradingApp.Core.Services
 
     public interface ITransactionService
     {
-        Task NewTransaction(int account_id, string type, string symbol, int stock_count,
-                            float cost_per_stock, float cost_per_transaction, DateTime transaction_date);
+        Task NewTransaction(int AccountId, string Type, string Symbol, int StockCount,
+                            float CostPerStock, float CostPerTransaction, DateTime TransactionDate);
     }
     public class TransactionService : ITransactionService
     {
@@ -31,27 +31,27 @@ namespace FantasyStockTradingApp.Core.Services
             _session = _nHibernateService.OpenSession();
         }
 
-        public async Task NewTransaction(int account_id, string type, string symbol, int stock_count,
-                                     float cost_per_stock, float cost_per_transaction, DateTime transaction_date) { 
-            Console.WriteLine("cost_per_stock = " + cost_per_stock);
-            Console.WriteLine("cost_per_transaction = " + cost_per_transaction);
-            Console.WriteLine("stock_count = " + stock_count);
-            Console.WriteLine("symbol = " + symbol);
-            Console.WriteLine("type = " + type);
-            Console.WriteLine("transaction_date = " + transaction_date);
+        public async Task NewTransaction(int AccountId, string Type, string Symbol, int StockCount,
+                                     float CostPerStock, float CostPerTransaction, DateTime TransactionDate) { 
+            Console.WriteLine("cost_per_stock = " + CostPerStock);
+            Console.WriteLine("cost_per_transaction = " + CostPerTransaction);
+            Console.WriteLine("stock_count = " + StockCount);
+            Console.WriteLine("symbol = " + Symbol);
+            Console.WriteLine("type = " + Type);
+            Console.WriteLine("transaction_date = " + TransactionDate);
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
                     var stock_transaction = new Transaction
                     {
-                        Account_Id = account_id,
-                        Type = type,
-                        Symbol = symbol,
-                        Stock_Count = stock_count,
-                        Cost_per_Stock = cost_per_stock,
-                        Cost_per_Transaction = cost_per_transaction,
-                        Transaction_Date = transaction_date
+                        AccountId = AccountId,
+                        Type = Type,
+                        Symbol = Symbol,
+                        StockCount = StockCount,
+                        CostPerStock = CostPerStock,
+                        CostPerTransaction = CostPerTransaction,
+                        TransactionDate = TransactionDate
 
                     };
                     await _session.SaveAsync(stock_transaction);

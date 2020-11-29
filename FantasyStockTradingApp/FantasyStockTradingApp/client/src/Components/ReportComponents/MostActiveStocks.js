@@ -3,8 +3,13 @@ import { Button, Card, CardDeck } from 'react-bootstrap';
 import { api, iexApi } from '../API';
 
 function MostActiveStocks(props) {
-    const [mostActiveHoldings, setMostActiveHoldings] = useState([]);
-
+    const [mostActiveHoldings, setMostActiveHoldings] = useState(() => {
+        if (sessionStorage.getItem('MostActiveStocks')) {
+            return JSON.parse(sessionStorage.getItem('MostActiveStocks'));
+        } else {
+            return [];
+        }
+    });
 
     function handleViewButton(symbol) {
         console.log('viewing');
@@ -40,6 +45,7 @@ function MostActiveStocks(props) {
     useEffect(() => {
         get_mostActive().then((response) => {
             console.log(response.data);
+            sessionStorage.setItem('MostActiveStocks', JSON.stringify(response.data));
             setMostActiveHoldings(response.data);
         })
     },[]);
