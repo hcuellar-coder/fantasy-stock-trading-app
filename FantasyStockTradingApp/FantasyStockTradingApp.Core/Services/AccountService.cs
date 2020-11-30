@@ -37,6 +37,8 @@ namespace FantasyStockTradingApp.Core.Services
                 {
                     var result = _session.Query<Account>()
                         .Where(account => account.UserId == UserId);
+                    Console.WriteLine("result = "+ result);
+                    Console.WriteLine(result);
                     return result;
                 }
             }

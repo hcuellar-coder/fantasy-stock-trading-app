@@ -5,14 +5,16 @@
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
-	<ItemGroup>
-		<ProjectReference Include="..\FantasyStockTradingApp\FantasyStockTradingApp.Api.csproj" />
-	</ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="NSubstitute" Version="4.2.2" />
     <PackageReference Include="nunit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.17.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FantasyStockTradingApp.Core\FantasyStockTradingApp.Core.csproj" />
   </ItemGroup>
 
 </Project>
