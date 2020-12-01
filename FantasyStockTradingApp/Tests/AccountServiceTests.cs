@@ -28,16 +28,27 @@ namespace Tests
         public void GetAccount_ShouldReturnAccount()
         {
             var UserId = 2;
-            var returnData = new Account
+            var accounts = new List<Account>
             {
-                Id = 2,
-                UserId = 2,
-                Balance = 10000,
-                PortfolioBalance = 0
+                new Account
+                {
+                    Id = 2,
+                    UserId = 2,
+                    Balance = 10000,
+                    PortfolioBalance = 0
+                }
             };
 
-            _sut.GetAccount(UserId).Returns((IQueryable<Account>)returnData);
+            //_session.Query<Account>().Where(account => account.UserId == UserId).Returns(accounts.AsQueryable());
 
+            _session.Query<Account>().Returns(accounts.AsQueryable());
+
+            var resultAccounts = _sut.GetAccount(UserId);
+
+            Assert.That(resultAccounts, Is.EqualTo(accounts));
+
+            //_sut.GetAccount(UserId).Returns((IQueryable<Account>)returnData);
+            Assert.Pass();
             
             //Assert.That()
         }
