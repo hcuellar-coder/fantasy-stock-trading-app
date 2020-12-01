@@ -39,32 +39,41 @@ namespace Tests
                 }
             };
 
-            //_session.Query<Account>().Where(account => account.UserId == UserId).Returns(accounts.AsQueryable());
-
             _session.Query<Account>().Returns(accounts.AsQueryable());
 
             var resultAccounts = _sut.GetAccount(UserId);
 
             Assert.That(resultAccounts, Is.EqualTo(accounts));
+        }
 
-            //_sut.GetAccount(UserId).Returns((IQueryable<Account>)returnData);
-            
-            //Assert.That()
+        [Test]
+        public void NewAccount_ShouldCreateAccount()
+        {
+            var UserId = 2;
+            var accounts = new List<Account>
+            {
+                new Account
+                {
+                    Id = 2,
+                    UserId = 2,
+                    Balance = 10000,
+                    PortfolioBalance = 0
+                }
+            };
+
+            //_session.Query<Account>().Returns(accounts.AsQueryable());
+            _session.SaveAsync(accounts);
+
+            //await _session.CommitAsync();
+
+            //var resultAccounts = 
+
+            _sut.NewAccount(UserId);
+            //_session.Query<Account>().Returns(accounts);
+
+            //var resultAccounts = _sut.GetAccount(UserId);
+
+            //Assert.That(resultAccounts, Is.EqualTo(accounts));
         }
     }
 }
-
-
-/*
-             _sut.GetAccount(UserId)
-                .Returns(new List<Account>
-                {
-                    new Account
-                    {
-                        Id = 2,
-                        UserId = 2,
-                        Balance = 10000,
-                        PortfolioBalance = 0
-                    }
-                });
-             * */
