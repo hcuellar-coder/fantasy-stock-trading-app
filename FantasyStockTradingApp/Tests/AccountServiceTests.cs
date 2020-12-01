@@ -48,7 +48,6 @@ namespace Tests
             Assert.That(resultAccounts, Is.EqualTo(accounts));
 
             //_sut.GetAccount(UserId).Returns((IQueryable<Account>)returnData);
-            Assert.Pass();
             
             //Assert.That()
         }
