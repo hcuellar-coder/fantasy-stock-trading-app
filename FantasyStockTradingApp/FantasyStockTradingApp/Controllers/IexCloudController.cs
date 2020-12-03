@@ -21,56 +21,59 @@ namespace FantasyStockTradingApp.Controllers
         }
 
         [HttpGet("get_quote")]
-        public async Task<QuoteModel> GetQuote(string symbol)
+        public QuoteModel GetQuote(string symbol)
         {
             Console.WriteLine("in get_quote");
             Console.WriteLine("symbol = " + symbol);
 
             var Quote_Result = _iexCloudService.GetQuote(symbol).Result;
             var Quote_Return = new QuoteModel()
-                        {
-                            Symbol = Quote_Result.Symbol,
-                            CompanyName = Quote_Result.CompanyName,
-                            LatestPrice = Quote_Result.LatestPrice,
-                            Change = Quote_Result.Change,
-                            ChangePercent = Quote_Result.ChangePercent
-                        };
+            {
+                Symbol = Quote_Result.Symbol,
+                CompanyName = Quote_Result.CompanyName,
+                LatestPrice = Quote_Result.LatestPrice,
+                Change = Quote_Result.Change,
+                ChangePercent = Quote_Result.ChangePercent
+            };
 
             return Quote_Return;
         }
 
         [HttpGet("get_mostactive")]
-        public IQueryable<List<QuoteModel>> GetMostActive()
+        public List<QuoteModel> GetMostActive()
         {
             Console.WriteLine("in get_mostactive");
-            //var MostActive = await _iexCloudService.GetMostActive();
-            return (IQueryable<List<QuoteModel>>)_iexCloudService.GetMostActive();
+            var Quote_Result = _iexCloudService.GetMostActive().Result;
 
-            /*return (Task<List<QuoteModel>>)_iexCloudService.GetMostActive().Result.Select(quote => new QuoteModel {
-                Symbol = quote.Symbol,
-                CompanyName = quote.CompanyName,
-                LatestPrice = quote.LatestPrice,
-                Change = quote.Change,
-                ChangePercent = quote.ChangePercent
-            });*/
+            var MostActive = Quote_Result.AsEnumerable().Select(quote => new QuoteModel()
+                {
+                    Symbol = quote.Symbol,
+                    CompanyName = quote.CompanyName,
+                    LatestPrice = quote.LatestPrice,
+                    Change = quote.Change,
+                    ChangePercent = quote.ChangePercent
+
+            });
+
+            return MostActive.ToList();
+           
         }
 
-        /*
-         public string Symbol { get; set; }
-        public string CompanyName { get; set; }
-        public float LatestPrice { get; set; }
-        public float Change { get; set; }
-        public float ChangePercent { get; set; } 
-         * */
-
-
         [HttpGet("get_history")]
-        public IQueryable<List<History>> GetHistory(string symbol)
+        public List<History> GetHistory(string symbol)
         {
             Console.WriteLine("in get_quote");
             Console.WriteLine("symbol = " + symbol);
 
-            return (IQueryable<List<History>>)_iexCloudService.GetHistory(symbol);
+            var History_Result = _iexCloudService.GetHistory(symbol).Result;
+
+            var History = History_Result.AsEnumerable().Select(history => new History()
+            {
+                Date = history.Date,
+                Close = history.Close,
+            });
+
+            return History.ToList();
         }
     }
 }
