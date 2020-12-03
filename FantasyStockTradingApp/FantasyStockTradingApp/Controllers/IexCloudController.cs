@@ -21,12 +21,22 @@ namespace FantasyStockTradingApp.Controllers
         }
 
         [HttpGet("get_quote")]
-        public IQueryable<QuoteModel> GetQuote(string symbol)
+        public async Task<QuoteModel> GetQuote(string symbol)
         {
             Console.WriteLine("in get_quote");
             Console.WriteLine("symbol = " + symbol);
 
-            return (IQueryable<QuoteModel>)_iexCloudService.GetQuote(symbol);
+            var Quote_Result = _iexCloudService.GetQuote(symbol).Result;
+            var Quote_Return = new QuoteModel()
+                        {
+                            Symbol = Quote_Result.Symbol,
+                            CompanyName = Quote_Result.CompanyName,
+                            LatestPrice = Quote_Result.LatestPrice,
+                            Change = Quote_Result.Change,
+                            ChangePercent = Quote_Result.ChangePercent
+                        };
+
+            return Quote_Return;
         }
 
         [HttpGet("get_mostactive")]
@@ -35,6 +45,7 @@ namespace FantasyStockTradingApp.Controllers
             Console.WriteLine("in get_mostactive");
             //var MostActive = await _iexCloudService.GetMostActive();
             return (IQueryable<List<QuoteModel>>)_iexCloudService.GetMostActive();
+
             /*return (Task<List<QuoteModel>>)_iexCloudService.GetMostActive().Result.Select(quote => new QuoteModel {
                 Symbol = quote.Symbol,
                 CompanyName = quote.CompanyName,

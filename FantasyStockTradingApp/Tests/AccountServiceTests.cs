@@ -6,6 +6,7 @@ using FantasyStockTradingApp.Core.Services;
 using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System;
 
 namespace Tests
 {
@@ -43,7 +44,38 @@ namespace Tests
 
             var resultAccounts = _sut.GetAccount(UserId);
 
-            Assert.That(resultAccounts, Is.EqualTo(accounts));
+            Assert.That(resultAccounts.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void GetAccount_ShouldThrowException()
+        {
+            var UserId = 3;
+            var accounts = new List<Account>
+            {
+                new Account
+                {
+                    Id = 2,
+                    UserId = 2,
+                    Balance = 10000,
+                    PortfolioBalance = 0
+                }
+            };
+
+            //_session.Query<Account>().Returns(accounts.AsQueryable());
+
+            //_session.Query<Account>().Returns(new Exception("user not found"));
+            //Need to fix this!
+            //var resultAccounts = _sut.GetAccount(UserId);
+            Assert.Throws<ArgumentException>(() => _sut.GetAccount(UserId));
+            //Assert.Throws<Exception>(() => _sut.GetAccount(UserId));
+
+            //Assert.Throws<InvalidOperationException>(() => _sut.GetAccount(UserId));
+
+            //Assert.AreEqual("")
+
+           //Assert.Throws(typeof(ArgumentException), delegate { throw new ArgumentException(); });
+           
         }
 
         [Test]
@@ -62,7 +94,7 @@ namespace Tests
             };
 
             //_session.Query<Account>().Returns(accounts.AsQueryable());
-            _session.SaveAsync(accounts);
+            //_session.SaveAsync(accounts);
 
             //await _session.CommitAsync();
 
