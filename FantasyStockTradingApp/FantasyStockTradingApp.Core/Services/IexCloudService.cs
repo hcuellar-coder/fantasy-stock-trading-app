@@ -13,6 +13,7 @@ using System.Net;
 using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Hosting;
 
 namespace FantasyStockTradingApp.Core.Services
 {
@@ -28,18 +29,29 @@ namespace FantasyStockTradingApp.Core.Services
     {
         private readonly IHttpClientFactory _clientFactory;
         private readonly IConfiguration _configuration;
+        private readonly IWebHostEnvironment _hostingEnvironment;
 
         public IexCloudService(IHttpClientFactory clientFactory,
-                IConfiguration configuration)
+                IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
         {
+            _hostingEnvironment = hostingEnvironment;
             _clientFactory = clientFactory;
             _configuration = configuration;
+
         }
 
 
         public async Task<Quote> GetQuote(string symbol)
         {
-            var token = _configuration["Token_Key:token"];
+            var token = "";
+            if (_hostingEnvironment.EnvironmentName == "Development")
+            {
+                 token = _configuration["Token_Key:token"];
+            } else
+            {
+                 token = Environment.GetEnvironmentVariable("TOKENKEY");
+            }
+
             Console.WriteLine("symbol = " + symbol);
 
             var requestUri = "stock/"+symbol+"/quote?token="+token;
@@ -70,7 +82,15 @@ namespace FantasyStockTradingApp.Core.Services
 
         public async Task<List<Quote>> GetMostActive()
         {
-            var token = _configuration["Token_Key:token"];
+            var token = "";
+            if (_hostingEnvironment.EnvironmentName == "Development")
+            {
+                token = _configuration["Token_Key:token"];
+            }
+            else
+            {
+                token = Environment.GetEnvironmentVariable("TOKENKEY");
+            }
 
             var requestUri = "stock/market/list/mostactive?token=" + token;
 
@@ -99,7 +119,15 @@ namespace FantasyStockTradingApp.Core.Services
 
         public async Task<List<History>> GetHistory(string symbol)
         {
-            var token = _configuration["Token_Key:token"];
+            var token = "";
+            if (_hostingEnvironment.EnvironmentName == "Development")
+            {
+                token = _configuration["Token_Key:token"];
+            }
+            else
+            {
+                token = Environment.GetEnvironmentVariable("TOKENKEY");
+            }
 
             var requestUri = "stock/"+symbol+ "/chart/1m?token=" + token;
 

@@ -132,6 +132,7 @@ function NewUser(props) {
             if (form.checkValidity() !== false) {
                 isValidUser().then((isValidUserResponse) => {
                     if (isValidUserResponse.data) {
+                        console.log('isValidUserResponse.data =', isValidUserResponse.data);
                         alert('User already exists! Login instead!');
                     } else {
                         newUser().then((newUserResponse) => {

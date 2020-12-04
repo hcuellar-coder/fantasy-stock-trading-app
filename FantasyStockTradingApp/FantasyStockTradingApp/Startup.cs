@@ -36,6 +36,7 @@ namespace FantasyStockTradingApp
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+
             services.AddHttpClient("iexCloud", c =>
             {
                 c.BaseAddress = new Uri("https://cloud.iexapis.com/v1/");

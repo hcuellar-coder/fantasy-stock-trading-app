@@ -162,7 +162,7 @@ function Login(props) {
         if (form.checkValidity() !== false) {
             isValidUser().then((isValidUserResponse) => {
                 console.log('isValidUser =', isValidUserResponse);
-                if (isValidUserResponse.data) {
+                if (isValidUserResponse.data === true) {
                     getUser().then((getUserResponse) => {
                         if (getUserResponse.status === 200 && getUserResponse.data.length !== 0) {
                             setUser(getUserResponse.data[0]);
