@@ -10,6 +10,7 @@ function Report() {
     const [key, setKey] = useState('search');
     const [chartData, setChartData] = useState([]);
     const [symbol, setSymbol] = useState([]);
+    const [viewPortfolio, setViewPortfolio] = useState(false);
 
     function handleChartData(propChartData, propSymbol) {
         setChartData(propChartData);
@@ -33,6 +34,7 @@ function Report() {
                 id="summary-report-tabs"
                 activeKey={key}
                 onSelect={(k) => setKey(k)}
+                onClick={() => { handleChartData('', ''); }}
             >
                 <Tab eventKey="search" title="Search">
                     <Search handleChartData={handleChartData} />
@@ -44,7 +46,7 @@ function Report() {
                     <MyHoldings handleChartData={handleChartData}/>
                 </Tab>
                 <Tab eventKey="myportfolio" title="My Portfolio">
-                    <MyPortfolio  />
+                    <MyPortfolio handleChartData={handleChartData}/>
                 </Tab>
             </Tabs>
         </div>

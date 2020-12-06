@@ -30,7 +30,7 @@ function TransactionModal(props) {
     function searchHoldings() {
         for (let i = 0; i < holdings.length; i++) {
             if (holdings[i].symbol === props.stockData.symbol) {
-                setCurrentHoldingStock(holdings[i].stock_Count);
+                setCurrentHoldingStock(holdings[i].stockCount);
             }
         }
     }
@@ -61,12 +61,12 @@ function TransactionModal(props) {
     function new_transaction() {
         try {
             const response = api.post('/new_transaction', {
-                account_id: account.id,
-                type: transactionType,
-                symbol: props.stockData.symbol,
-                stock_count: transactionAmount,
-                cost_per_stock: props.stockData.latestPrice,
-                cost_per_transaction: (props.stockData.latestPrice * transactionAmount)
+                AccountId: account.id,
+                Type: transactionType,
+                Symbol: props.stockData.symbol,
+                StockCount: transactionAmount,
+                CostPerStock: props.stockData.latestPrice,
+                CostPerTransaction: (props.stockData.latestPrice * transactionAmount)
             });
             return response;
         } catch (error) {
@@ -75,21 +75,25 @@ function TransactionModal(props) {
     }
 
     function update_Account() {
+
         let balance = 0;
-        let portfolio_balance = 0;
+        let portfolioBalance = 0;
         if (props.isBuying) {
             balance = account.balance - (props.stockData.latestPrice * transactionAmount);
-            portfolio_balance = account.portfolio_Balance + (props.stockData.latestPrice * transactionAmount);
+            portfolioBalance = account.portfolioBalance + (props.stockData.latestPrice * transactionAmount);
         } else {
             balance = account.balance + (props.stockData.latestPrice * transactionAmount);
-            portfolio_balance = account.portfolio_Balance - (props.stockData.latestPrice * transactionAmount);
+            portfolioBalance = account.portfolioBalance - (props.stockData.latestPrice * transactionAmount);
         } 
+
+        console.log('balance = ', balance);
+        console.log('portfolioBalance = ', portfolioBalance);
 
         try {
             const response = api.post('/update_account', {
-                account_id: account.id,
-                balance: balance,
-                portfolio_balance: portfolio_balance,
+                AccountId: account.id,
+                Balance: balance,
+                PortfolioBalance: portfolioBalance,
             });
             return response;
         } catch (error) {
@@ -102,7 +106,7 @@ function TransactionModal(props) {
         try {
             const response = api.get('/get_account?', {
                 params: {
-                    user_id: user.id
+                    UserId: user.id
                 }
             });
             return response;
@@ -118,16 +122,19 @@ function TransactionModal(props) {
         } else {
             newTransactionAmount = (currentHoldingStock - transactionAmount);
         } 
+        console.log('currentHoldingStock =', currentHoldingStock);
+        console.log('transactionAmount =', transactionAmount);
+        console.log('newTransactionAmount =', newTransactionAmount);
 
         try {
             const response = api.post('/update_holding', {
-                account_id: account.id,
-                company_name: props.stockData.companyName,
-                symbol: props.stockData.symbol,
-                stock_count: newTransactionAmount,
-                latest_cost_per_stock: props.stockData.latestPrice,
-                change: props.stockData.change,
-                change_percentage: props.stockData.changePercent,
+                AccountId: account.id,
+                CompanyName: props.stockData.companyName,
+                Symbol: props.stockData.symbol,
+                StockCount: newTransactionAmount,
+                LatestCostPerStock: props.stockData.latestPrice,
+                Change: props.stockData.change,
+                ChangePercentage: props.stockData.changePercent,
             });
             return response;
         } catch (error) {
@@ -140,7 +147,7 @@ function TransactionModal(props) {
         try {
             const response = api.get('/get_holdings?', {
                 params: {
-                    account_id: account.id
+                    AccountId: account.id
                 }
             });
             return response;
@@ -160,21 +167,25 @@ function TransactionModal(props) {
         
 
         new_transaction().then((transacitonResponse) => {
-            console.log(transacitonResponse.data);
             if (transacitonResponse.status === 200) {
-
+                console.log('transacitonResponse = ', transacitonResponse);
+                
                 update_holding().then((updateHoldingResponse) => {
                     if (updateHoldingResponse.status === 200) {
+                        console.log('updateHoldingResponse = ', updateHoldingResponse);
 
                         update_Account().then((updateAccountResponse) => {
                             if (updateAccountResponse.status === 200) {
+                                console.log('updateAccountResponse = ', updateAccountResponse);
 
                                 get_Holdings().then((getHoldingsResponse) => {
                                     if (getHoldingsResponse.status === 200) {
+                                        console.log('getHoldingsResponse = ', getHoldingsResponse);
                                         setHoldings(getHoldingsResponse.data);
 
                                         get_Account().then((getAccountResponse) => {
                                             if (getAccountResponse.status === 200) {
+                                                console.log('getAccountResponse = ',getAccountResponse);
                                                 setAccount(getAccountResponse.data[0]);
                                             }
                                         })

@@ -146,11 +146,13 @@ function NewUser(props) {
 
                                         newAccout(getUserResponse.data[0].id).then((newAccountResponse) => {
                                             if (newAccountResponse.status === 200) {
+                                                console.log('getUserResponse = ', getUserResponse);
                                                 console.log(newAccountResponse);
 
                                                 getAccount(getUserResponse.data[0].id).then((getAccountResponse) => {
                                                     if (getAccountResponse.status === 200) {
-                                                        setAccount(getAccountResponse.data);
+                                                        console.log('getAccountResponse = ', getAccountResponse);
+                                                        setAccount(getAccountResponse.data[0]);
                                                     }
 
                                                     setHoldings('');

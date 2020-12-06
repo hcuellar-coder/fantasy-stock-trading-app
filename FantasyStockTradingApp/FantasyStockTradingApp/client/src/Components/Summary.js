@@ -15,7 +15,7 @@ function Summary() {
         <div>
             <div id="summary-balance-div">
                 <span id="summary-balance">Balance {account.balance}</span>
-                <span id="summary-portfolio-balance">Portfolio {account.portfolio_Balance}</span>
+                <span id="summary-portfolio-balance">Portfolio {account.portfolioBalance}</span>
             </div>
             <Tabs
                 id="summary-report-tabs"

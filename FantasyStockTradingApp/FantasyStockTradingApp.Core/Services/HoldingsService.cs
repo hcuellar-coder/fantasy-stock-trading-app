@@ -134,9 +134,9 @@ namespace FantasyStockTradingApp.Core.Services
                     "where account_id =:AccountId and symbol =:Symbol");
                     query.SetParameter("StockCount", StockCount);
                     query.SetParameter("LatestCostPerStock", LatestCostPerStock);
-                    query.SetParameter("last_Updated", LastUpdated);
-                    query.SetParameter("account_id", AccountId);
-                    query.SetParameter("symbol", Symbol);
+                    query.SetParameter("LastUpdated", LastUpdated);
+                    query.SetParameter("AccountId", AccountId);
+                    query.SetParameter("Symbol", Symbol);
 
                     await query.ExecuteUpdateAsync();
                     await transaction.CommitAsync();

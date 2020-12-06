@@ -5,7 +5,6 @@ import Chart from 'react-google-charts';
 function MyPortfolio(props) {
     const { holdings } = useHoldings();
 
-
     return (
         <div id="myPortfolio-div">
             {(holdings === undefined || holdings.length === 0)
@@ -19,7 +18,7 @@ function MyPortfolio(props) {
                         loader={<div>Loading Chart</div>}
                         data={[
                             ['Symbol', 'Price'],
-                            ...holdings.map(d => [d.symbol, (d.latest_Cost_per_Stock * d.stock_Count)])
+                            ...holdings.map(d => [d.symbol, (d.latestCostPerStock * d.stockCount)])
                         ]}
                         options={{
                             title: `My Portfolio`,
@@ -38,7 +37,7 @@ function MyPortfolio(props) {
                         loader={<div>Loading Chart</div>}
                         data={[
                             ['Symbol', 'Price'],
-                            ...holdings.map(d => [d.symbol, (d.latest_Cost_per_Stock * d.stock_Count)])
+                            ...holdings.map(d => [d.symbol, (d.latestCostPerStock * d.stockCount)])
                         ]}
                         options={{
                             title: `My Portfolio`,

@@ -14,10 +14,6 @@ const iexApi = axios.create({
     baseURL: '/api/iexcloud/',
 });
 
-/*const iexCloudAPI = axios.create({
-    baseURL: '/api/fantasystocktrading/',
-});*/
-
 export {
     api,
     tokenApi,

@@ -1,7 +1,4 @@
-C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\obj\Debug\netcoreapp3.1\FantasyStockTradingApp.Tests.csprojAssemblyReference.cache
-C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\obj\Debug\netcoreapp3.1\FantasyStockTradingApp.Tests.AssemblyInfoInputs.cache
-C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\obj\Debug\netcoreapp3.1\FantasyStockTradingApp.Tests.AssemblyInfo.cs
-C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\obj\Debug\netcoreapp3.1\FantasyStockTradingApp.Tests.csproj.CoreCompileInputs.cache
+C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\FantasyStockTradingApp.Core.exe
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\NUnit3.TestAdapter.dll
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\NUnit3.TestAdapter.pdb
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\nunit.engine.dll
@@ -33,6 +30,7 @@ C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTra
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\NHibernate.dll
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\NHibernate.Extensions.NpgSql.dll
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\Npgsql.dll
+C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\NSubstitute.dll
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\NuGet.Frameworks.dll
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\nunit.framework.dll
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\Remotion.Linq.dll
@@ -106,11 +104,13 @@ C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTra
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.TestPlatform.CrossPlatEngine.resources.dll
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\zh-Hant\Microsoft.VisualStudio.TestPlatform.Common.resources.dll
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\FantasyStockTradingApp.Core.dll
+C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\FantasyStockTradingApp.Core.pdb
+C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\obj\Debug\netcoreapp3.1\FantasyStockTradingApp.Tests.csprojAssemblyReference.cache
+C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\obj\Debug\netcoreapp3.1\FantasyStockTradingApp.Tests.AssemblyInfoInputs.cache
+C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\obj\Debug\netcoreapp3.1\FantasyStockTradingApp.Tests.AssemblyInfo.cs
+C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\obj\Debug\netcoreapp3.1\FantasyStockTradingApp.Tests.csproj.CoreCompileInputs.cache
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\obj\Debug\netcoreapp3.1\FantasyStockTradingApp.Tests.csproj.CopyComplete
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\obj\Debug\netcoreapp3.1\FantasyStockTradingApp.Tests.dll
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\obj\Debug\netcoreapp3.1\FantasyStockTradingApp.Tests.pdb
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\obj\Debug\netcoreapp3.1\FantasyStockTradingApp.Tests.genruntimeconfig.cache
-C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\FantasyStockTradingApp.Core.exe
-C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\FantasyStockTradingApp.Core.dll
-C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\FantasyStockTradingApp.Core.pdb
-C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\Tests\bin\Debug\netcoreapp3.1\NSubstitute.dll

@@ -15,11 +15,11 @@ function MyHoldings() {
         setIsBuying(true);
         setStockData({
             symbol: holding.symbol,
-            changePercent: holding.change_Percentage,
+            changePercent: holding.changePercentage,
             change: holding.change,
-            companyName: holding.company_Name,
-            latestPrice: holding.latest_Cost_per_Stock,
-            stockCount: holding.stock_count
+            companyName: holding.companyName,
+            latestPrice: holding.latestCostPerStock,
+            stockCount: holding.stockCount
         });
         setShowModal(true);
     }
@@ -29,11 +29,11 @@ function MyHoldings() {
         setIsBuying(false);
         setStockData({
             symbol: holding.symbol,
-            changePercent: holding.change_Percentage,
+            changePercent: holding.changePercentage,
             change: holding.change,
-            companyName: holding.company_Name,
-            latestPrice: holding.latest_Cost_per_Stock,
-            stockCount: holding.stock_Count
+            companyName: holding.companyName,
+            latestPrice: holding.latestCostPerStock,
+            stockCount: holding.stockCount
         });
         setShowModal(true);
     }
@@ -55,12 +55,12 @@ function MyHoldings() {
                         <Card className="cards-responsive" key={index}>
                             <Card.Header>
                                         <h3>{holding.symbol}</h3> 
-                                        <span>Quantity: {holding.stock_Count}</span>
+                                        <span>Quantity: {holding.stockCount}</span>
                             </Card.Header>
                             <Card.Body>
-                                <Card.Title>{holding.company_Name}</Card.Title>
+                                <Card.Title>{holding.companyName}</Card.Title>
                                 <Card.Text className="card-details">
-                                            <span> Price: {holding.latest_Cost_per_Stock} </span>
+                                            <span> Price: {holding.latestCostPerStock} </span>
                                             <span> Change: {holding.change} </span>
                                             {/*<span> % Changes: {holding.change_Percentage} </span>*/}
                                 </Card.Text>

@@ -140,8 +140,8 @@ function Login(props) {
         for (let holding of holdings) {
             console.log('holding.symbol =', holding.symbol);
             if (holding.symbol === symbol) {
-                console.log('holding.stock_Count = ', holding.stock_Count);
-                return holding.stock_Count;
+                console.log('holding.stock_Count = ', holding.stockCount);
+                return holding.stockCount;
             }
         }
     }
@@ -172,7 +172,7 @@ function Login(props) {
                             getAccount(getUserResponse.data[0].id).then((getAccountResponse) => {
                                 if (getAccountResponse.status === 200 && getAccountResponse.data.length !== 0) {
                                     console.log('getAccountResponse = ', getAccountResponse);
-                                    console.log('getAccountResponse[0] = ',getAccountResponse[0]);
+                                    console.log('getAccountResponse.data[0] = ',getAccountResponse.data[0]);
                                     setAccount(getAccountResponse.data[0]);
 
                                     getHoldings(getAccountResponse.data[0].id).then((getHoldingsResponse) => {
