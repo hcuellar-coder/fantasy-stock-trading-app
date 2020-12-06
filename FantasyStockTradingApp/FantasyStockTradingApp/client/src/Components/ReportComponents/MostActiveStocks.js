@@ -12,10 +12,7 @@ function MostActiveStocks(props) {
     });
 
     function handleViewButton(symbol) {
-        console.log('viewing');
-        console.log(symbol);
         get_history(symbol).then((response) => {
-            console.log(response.data);
             props.handleChartData(response.data, symbol);
         });
     }
@@ -44,7 +41,6 @@ function MostActiveStocks(props) {
 
     useEffect(() => {
         get_mostActive().then((response) => {
-            console.log(response.data);
             sessionStorage.setItem('MostActiveStocks', JSON.stringify(response.data));
             setMostActiveHoldings(response.data);
         })

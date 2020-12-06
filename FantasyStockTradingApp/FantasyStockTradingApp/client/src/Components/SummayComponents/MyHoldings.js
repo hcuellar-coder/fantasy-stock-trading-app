@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react'
-import { Form, Button, Card, CardDeck } from 'react-bootstrap';
+import React, { useState } from 'react'
+import { Button, Card, CardDeck } from 'react-bootstrap';
 import { useHoldings } from "../../Context/HoldingsContext";
 import TransactionModal from './TransactionModal';
 
@@ -10,8 +10,6 @@ function MyHoldings() {
     const { holdings } = useHoldings();
 
     function handleBuyButton(holding) {
-        console.log('Buying');
-        console.log(holding);
         setIsBuying(true);
         setStockData({
             symbol: holding.symbol,
@@ -25,7 +23,6 @@ function MyHoldings() {
     }
 
     function handleSellButton(holding) {
-        console.log('Selling');
         setIsBuying(false);
         setStockData({
             symbol: holding.symbol,
@@ -62,7 +59,6 @@ function MyHoldings() {
                                 <Card.Text className="card-details">
                                             <span> Price: {holding.latestCostPerStock} </span>
                                             <span> Change: {holding.change} </span>
-                                            {/*<span> % Changes: {holding.change_Percentage} </span>*/}
                                 </Card.Text>
                                 <div className="card-buttons">
                                             <Button className="card-button" onClick={() => { handleBuyButton(holding) }}>Buy</Button>

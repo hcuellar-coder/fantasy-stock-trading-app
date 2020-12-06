@@ -17,15 +17,12 @@ function MostActiveStocks() {
 
 
     function handleBuyButton(stock) {
-        console.log('Buying');
-        console.log(stock);
         setIsBuying(true); 
         setStockData(stock);
         setShowModal(true);
     }
 
     function handleSellButton(stock) {
-        console.log('Selling');
         setIsBuying(false);
         setStockData(stock);
         setShowModal(true);
@@ -46,7 +43,6 @@ function MostActiveStocks() {
 
     useEffect(() => {
         get_mostActive().then((response) => {
-            console.log(response.data);
             sessionStorage.setItem('MostActiveStocks', JSON.stringify(response.data));
             setMostActiveHoldings(response.data);
         })
@@ -69,11 +65,9 @@ function MostActiveStocks() {
                                     <Card.Text className="card-details">
                                             <span> Price: {stock.latestPrice} </span>
                                             <span> Change: {stock.change} </span>
-                                        {/*<span> % Changes: {stock.changePercent} </span>*/}
                                     </Card.Text>
                                     <div className="card-buttons">
                                         <Button className="card-button" onClick={() => { handleBuyButton(stock) }}>Buy</Button>
-                                        {/*<Button className="card-button" onClick={() => { handleSellButton(stock) }}>Sell</Button>*/}
                                     </div>
                                 </Card.Body>
                             </Card>

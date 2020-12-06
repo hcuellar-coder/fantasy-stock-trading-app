@@ -8,7 +8,6 @@ import { useAccount } from "../Context/AccountContext";
 
 function Summary() {
     const [key, setKey] = useState('search');
-    const { user } = useUser();
     const { account } = useAccount();
 
     return (

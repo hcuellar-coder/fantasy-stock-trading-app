@@ -60,7 +60,6 @@ function NewUser(props) {
     }
 
     function newAccout(userId) {
-        console.log('UserID =', userId);
         try {
             const response = api.post('/new_account', {
                 UserId: userId,
@@ -72,7 +71,6 @@ function NewUser(props) {
     }
 
     function getAccount(userID) {
-        console.log('userId', userID);
         try {
             const response = api.get('/get_account?', {
                 params: {
@@ -132,7 +130,6 @@ function NewUser(props) {
             if (form.checkValidity() !== false) {
                 isValidUser().then((isValidUserResponse) => {
                     if (isValidUserResponse.data) {
-                        console.log('isValidUserResponse.data =', isValidUserResponse.data);
                         alert('User already exists! Login instead!');
                     } else {
                         newUser().then((newUserResponse) => {
@@ -141,17 +138,12 @@ function NewUser(props) {
                                 getUser().then((getUserResponse) => {
                                     if (getUserResponse.status === 200) {
                                         setUser(getUserResponse.data[0]);
-                                        console.log('getUserResponse.data[0].id = ', getUserResponse.data[0].id);
-
 
                                         newAccout(getUserResponse.data[0].id).then((newAccountResponse) => {
                                             if (newAccountResponse.status === 200) {
-                                                console.log('getUserResponse = ', getUserResponse);
-                                                console.log(newAccountResponse);
 
                                                 getAccount(getUserResponse.data[0].id).then((getAccountResponse) => {
                                                     if (getAccountResponse.status === 200) {
-                                                        console.log('getAccountResponse = ', getAccountResponse);
                                                         setAccount(getAccountResponse.data[0]);
                                                     }
 
@@ -173,14 +165,12 @@ function NewUser(props) {
                     }
                 })
             }              
-            console.log('data is valid');
             setValidated(true);
         }
     }
 
     function handleAlreadyExistingUser(e) {
         props.login(true);
-        console.log('handle already existing user');
     }
 
     useEffect(() => {

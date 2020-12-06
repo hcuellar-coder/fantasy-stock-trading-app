@@ -14,7 +14,6 @@ using FluentNHibernate.Conventions;
 
 namespace FantasyStockTradingApp.Core.Services
 {
-
     public interface IUserService
     {
         bool isValidUser(string Email, string? Password = null);
@@ -69,8 +68,6 @@ namespace FantasyStockTradingApp.Core.Services
 
         public IQueryable<User> GetUser(string Email)
         {
-            Console.WriteLine("email = "+ Email);
-
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
@@ -94,11 +91,6 @@ namespace FantasyStockTradingApp.Core.Services
        
         public async Task NewUser(string Email, string Password, string FirstName, string LastName)
         {
-            Console.WriteLine("In second NewUser ");
-            Console.WriteLine("email = "+ Email);
-            Console.WriteLine("password = " + Password);
-            Console.WriteLine("first_name = "+ FirstName);
-            Console.WriteLine("last_name = "+ LastName);
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())

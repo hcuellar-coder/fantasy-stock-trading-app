@@ -37,8 +37,7 @@ namespace FantasyStockTradingApp.Core.Services
                 {
                     var result = _session.Query<Account>()
                         .Where(account => account.UserId == UserId);
-                    Console.WriteLine("result = "+ result);
-                    Console.WriteLine(result);
+
                     return result;
                 }
             }
@@ -55,8 +54,6 @@ namespace FantasyStockTradingApp.Core.Services
 
         public async Task NewAccount(int UserId)
         {
-            Console.WriteLine("account_id = " + UserId);
-
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
@@ -85,10 +82,6 @@ namespace FantasyStockTradingApp.Core.Services
 
         public async Task UpdateAccount(int AccountId, float Balance, float PortfolioBalance)
         {
-            Console.WriteLine("account_id = " + AccountId);
-            Console.WriteLine("balance = " + Balance);
-            Console.WriteLine("portfolio_balance = " + PortfolioBalance);
-
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())

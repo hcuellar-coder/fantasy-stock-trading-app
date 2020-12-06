@@ -2,7 +2,7 @@
 import { useHoldings } from "../../Context/HoldingsContext";
 import Chart from 'react-google-charts';
 
-function MyPortfolio(props) {
+function MyPortfolio() {
     const { holdings } = useHoldings();
 
     return (

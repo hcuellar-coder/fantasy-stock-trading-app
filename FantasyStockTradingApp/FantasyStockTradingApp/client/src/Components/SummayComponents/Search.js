@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Form, Button, Card, CardDeck } from 'react-bootstrap';
-import { api, iexApi } from '../API';
+import { iexApi } from '../API';
 import TransactionModal from './TransactionModal';
 
 function Search() {
@@ -37,7 +37,6 @@ function Search() {
         if (form.checkValidity() !== false) {
             searchSymbol().then((searchSymbolResponse) => {
                 if (searchSymbolResponse.status === 200 && searchSymbolResponse.data.length !== 0) {
-                    console.log(searchSymbolResponse.data);
                     setStockData(searchSymbolResponse.data);
                     setSearchValid(true);
                 } else {
@@ -46,14 +45,11 @@ function Search() {
             }).catch(e => {
                 setIsError(true);
             });
-            console.log('data is valid');
         }
         setValidated(true);
     }
 
     function handleBuyButton() {
-        console.log('Buying');
-        console.log("latestPrice = " + stockData.latestPrice);
         setIsBuying(true);
         setShowModal(true);
     }

@@ -75,33 +75,7 @@ namespace FantasyStockTradingApp.Core.Services
                .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
                .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
                .BuildSessionFactory();
-
-                /*onnectionString = "Server=localhost;Port=5432;Database=test;Username=test;Password=password;Timeout=1000;SslMode=require;Ssl=true"*/
             }
         }
-
     }
 }
-
-/*"Server=fantasystocktradingapp-hcuellar-postgresql.postgres.database.azure.com;
- * Database=stocktradingapp;
- * Port=5432;
- * User Id=postgreSQLAdmin@fantasystocktradingapp-hcuellar-postgresql;
- * Password=rSzVdC2M7rGfTmVc;
- * Ssl Mode=Require;"*/
-
-
-/*
- return Fluently.Configure()
-               .Database(PostgreSQLConfiguration.PostgreSQL82
-               .ConnectionString(c => 
-                    c.Host("localhost")
-                    .Port(5432)
-                    .Database("FantasyStockTradingApp")
-                    .Username("postgres")
-                    .Password("postgres")))
-               
-               .Mappings(m => m.FluentMappings.AddFromAssembly(Assembly.GetExecutingAssembly()))
-               .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true))
-               .BuildSessionFactory();
- */

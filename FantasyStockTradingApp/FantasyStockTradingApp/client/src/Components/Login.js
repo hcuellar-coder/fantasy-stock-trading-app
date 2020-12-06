@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { Redirect } from 'react-router-dom';
 import { Form, Button, Container, NavLink } from 'react-bootstrap';
 import { api, tokenApi, iexApi } from './API';
 import { useAuth } from '../Context/AuthContext';
@@ -45,7 +44,6 @@ function Login(props) {
     }
 
     function getAccount(userID) {
-        console.log('userId', userID);
         try {
             const response = api.get('/get_account?', {
                 params: {
@@ -59,7 +57,6 @@ function Login(props) {
     }
 
     function getHoldings(accountID) {
-        console.log('accountID', accountID);
         try {
             const response = api.get('/get_holdings?', {
                 params: {
@@ -100,9 +97,6 @@ function Login(props) {
     }
 
     function update_holding(holding, stockCount) {
-        console.log('holding = ', holding);
-        console.log('account = ', account);
-        console.log('stockCount = ', stockCount);
         try {
             const response = api.post('/update_holding', {
                 AccountId: account.id,
@@ -121,13 +115,10 @@ function Login(props) {
 
     function updateHoldings() {
         for (let holding of holdings) {
-            console.log('holding =', holding);
             get_quote(holding.symbol).then((getQuoteResponse) => {
                 if (getQuoteResponse.status === 200) {
-                    console.log('getQuoteResponse.data = ', getQuoteResponse.data);
                     let stockCount = searchHoldings(holding.symbol);
                     update_holding(getQuoteResponse.data, stockCount).then((updateHoldingResponse) => {
-                        console.log(updateHoldingResponse);
                     });
                 }
             });
@@ -135,12 +126,8 @@ function Login(props) {
     }
 
     function searchHoldings(symbol) {
-        console.log('symbol =', symbol);
-        console.log('holdings =', holdings);
         for (let holding of holdings) {
-            console.log('holding.symbol =', holding.symbol);
             if (holding.symbol === symbol) {
-                console.log('holding.stock_Count = ', holding.stockCount);
                 return holding.stockCount;
             }
         }
@@ -161,18 +148,13 @@ function Login(props) {
        const form = e.target;
         if (form.checkValidity() !== false) {
             isValidUser().then((isValidUserResponse) => {
-                console.log('isValidUser =', isValidUserResponse);
                 if (isValidUserResponse.data === true) {
                     getUser().then((getUserResponse) => {
                         if (getUserResponse.status === 200 && getUserResponse.data.length !== 0) {
                             setUser(getUserResponse.data[0]);
-                            console.log('getUserResponse.data =', getUserResponse.data);
-                            console.log('getUserResponse.data[0] =', getUserResponse.data[0]);
 
                             getAccount(getUserResponse.data[0].id).then((getAccountResponse) => {
                                 if (getAccountResponse.status === 200 && getAccountResponse.data.length !== 0) {
-                                    console.log('getAccountResponse = ', getAccountResponse);
-                                    console.log('getAccountResponse.data[0] = ',getAccountResponse.data[0]);
                                     setAccount(getAccountResponse.data[0]);
 
                                     getHoldings(getAccountResponse.data[0].id).then((getHoldingsResponse) => {
@@ -196,14 +178,12 @@ function Login(props) {
             }).catch(e => {
                 setIsError(true);
             });
-            console.log('data is valid');
         }
         setValidated(true);
     }
 
     function handleNewUser(e) {
         props.login(false);
-        console.log('handle new user information');
     }
 
     useEffect(() => {

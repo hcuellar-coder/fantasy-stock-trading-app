@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Tabs, Tab } from 'react-bootstrap';
 import MyHoldings from './ReportComponents/MyHoldings';
 import MyPortfolio from './ReportComponents/MyPortfolio';
@@ -10,16 +10,11 @@ function Report() {
     const [key, setKey] = useState('search');
     const [chartData, setChartData] = useState([]);
     const [symbol, setSymbol] = useState([]);
-    const [viewPortfolio, setViewPortfolio] = useState(false);
 
     function handleChartData(propChartData, propSymbol) {
         setChartData(propChartData);
         setSymbol(propSymbol);
     }
-
-    useEffect(() => {
-        console.log(chartData);
-    }, [chartData]);
 
     return (
         <div>

@@ -23,9 +23,6 @@ namespace FantasyStockTradingApp.Controllers
         [HttpGet("get_quote")]
         public QuoteModel GetQuote(string symbol)
         {
-            Console.WriteLine("in get_quote");
-            Console.WriteLine("symbol = " + symbol);
-
             var Quote_Result = _iexCloudService.GetQuote(symbol).Result;
             var Quote_Return = new QuoteModel()
             {
@@ -42,7 +39,6 @@ namespace FantasyStockTradingApp.Controllers
         [HttpGet("get_mostactive")]
         public List<QuoteModel> GetMostActive()
         {
-            Console.WriteLine("in get_mostactive");
             var Quote_Result = _iexCloudService.GetMostActive().Result;
 
             var MostActive = Quote_Result.AsEnumerable().Select(quote => new QuoteModel()
@@ -62,9 +58,6 @@ namespace FantasyStockTradingApp.Controllers
         [HttpGet("get_history")]
         public List<History> GetHistory(string symbol)
         {
-            Console.WriteLine("in get_quote");
-            Console.WriteLine("symbol = " + symbol);
-
             var History_Result = _iexCloudService.GetHistory(symbol).Result;
 
             var History = History_Result.AsEnumerable().Select(history => new History()

@@ -19,9 +19,6 @@ function TransactionModal(props) {
 
     useEffect(() => {
         if (props.show) {
-            console.log('holdings = ', holdings);
-            console.log('account = ', account);
-            console.log('props.stockData = ', props.stockData);
             searchHoldings();
             transactionSetup();
         }
@@ -78,6 +75,7 @@ function TransactionModal(props) {
 
         let balance = 0;
         let portfolioBalance = 0;
+
         if (props.isBuying) {
             balance = account.balance - (props.stockData.latestPrice * transactionAmount);
             portfolioBalance = account.portfolioBalance + (props.stockData.latestPrice * transactionAmount);
@@ -85,9 +83,6 @@ function TransactionModal(props) {
             balance = account.balance + (props.stockData.latestPrice * transactionAmount);
             portfolioBalance = account.portfolioBalance - (props.stockData.latestPrice * transactionAmount);
         } 
-
-        console.log('balance = ', balance);
-        console.log('portfolioBalance = ', portfolioBalance);
 
         try {
             const response = api.post('/update_account', {
@@ -102,7 +97,6 @@ function TransactionModal(props) {
     }
 
     function get_Account() {
-        console.log('userID', user.id);
         try {
             const response = api.get('/get_account?', {
                 params: {
@@ -122,9 +116,6 @@ function TransactionModal(props) {
         } else {
             newTransactionAmount = (currentHoldingStock - transactionAmount);
         } 
-        console.log('currentHoldingStock =', currentHoldingStock);
-        console.log('transactionAmount =', transactionAmount);
-        console.log('newTransactionAmount =', newTransactionAmount);
 
         try {
             const response = api.post('/update_holding', {
@@ -143,7 +134,6 @@ function TransactionModal(props) {
     }
 
     function get_Holdings() {
-        console.log('accountID', account.id);
         try {
             const response = api.get('/get_holdings?', {
                 params: {
@@ -158,34 +148,21 @@ function TransactionModal(props) {
 
     function handleTransactionButtons() {
 
-        console.log("account id = ", account.id);
-        console.log("transaction type = ", transactionType);
-        console.log("symbol = ", props.stockData.symbol);
-        console.log("transactionAmount = ", transactionAmount);
-        console.log("cost per stock = ", props.stockData.latestPrice);
-        console.log("cost per transaction = ", props.stockData.latestPrice * transactionAmount);
-        
-
         new_transaction().then((transacitonResponse) => {
             if (transacitonResponse.status === 200) {
-                console.log('transacitonResponse = ', transacitonResponse);
                 
                 update_holding().then((updateHoldingResponse) => {
                     if (updateHoldingResponse.status === 200) {
-                        console.log('updateHoldingResponse = ', updateHoldingResponse);
 
                         update_Account().then((updateAccountResponse) => {
                             if (updateAccountResponse.status === 200) {
-                                console.log('updateAccountResponse = ', updateAccountResponse);
 
                                 get_Holdings().then((getHoldingsResponse) => {
                                     if (getHoldingsResponse.status === 200) {
-                                        console.log('getHoldingsResponse = ', getHoldingsResponse);
                                         setHoldings(getHoldingsResponse.data);
 
                                         get_Account().then((getAccountResponse) => {
                                             if (getAccountResponse.status === 200) {
-                                                console.log('getAccountResponse = ',getAccountResponse);
                                                 setAccount(getAccountResponse.data[0]);
                                             }
                                         })

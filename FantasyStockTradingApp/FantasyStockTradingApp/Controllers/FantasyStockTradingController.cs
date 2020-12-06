@@ -36,9 +36,6 @@ namespace FantasyStockTradingApp.Controllers
         [HttpGet("get_user")]
         public IQueryable<UserModel> GetUser(string Email)
         {
-            Console.WriteLine("in get_user");
-            Console.WriteLine("email = " + Email);
-
             return _userService.GetUser(Email).Select(user => new UserModel 
             { 
                 Id = user.Id, 
@@ -51,19 +48,12 @@ namespace FantasyStockTradingApp.Controllers
         [HttpGet("is_valid_user")]
         public bool isValidUser(string Email, string Password)
         {
-            Console.WriteLine("in check_user");
-            Console.WriteLine("email = " + Email);
-            Console.WriteLine("password = " + Password);
-
             return _userService.isValidUser(Email, Password);
         }
 
         [HttpGet("check_user")]
         public IQueryable<UserModel> CheckUser(string Email)
         {
-            Console.WriteLine("in check_user");
-            Console.WriteLine("email = " + Email);
-
             return _userService.GetUser(Email).Select(user => new UserModel 
             { 
                 Id = user.Id, 
@@ -80,11 +70,6 @@ namespace FantasyStockTradingApp.Controllers
             var Password = data["Password"].ToString();
             var FirstName = data["FirstName"].ToString();
             var LastName = data["LastName"].ToString();
-            Console.WriteLine("in new_user");
-            Console.WriteLine("mail = " + Email);
-            Console.WriteLine("password = " + Password);
-            Console.WriteLine("first_name = " + FirstName);
-            Console.WriteLine("last_name = " + LastName);
 
             await _userService.NewUser(Email, Password, FirstName, LastName);
         }
@@ -92,8 +77,6 @@ namespace FantasyStockTradingApp.Controllers
         [HttpGet("get_account")]
         public IQueryable<AccountModel> GetAccount(int UserId)
         {
-            Console.WriteLine("in get_account");
-            Console.WriteLine("user_id = " + UserId);
             return _accountService.GetAccount(UserId)
                 .Select(account => new AccountModel 
                 { 
@@ -107,10 +90,6 @@ namespace FantasyStockTradingApp.Controllers
         [HttpPost("new_account")]
         public async Task NewAccount(JObject data)
         {
-            var UserId = Int32.Parse(data["UserId"].ToString());
-            Console.WriteLine("in new_account");
-            Console.WriteLine("UserId = " + UserId);
-            
             await _accountService.NewAccount(UserId);
         }
 
@@ -121,19 +100,12 @@ namespace FantasyStockTradingApp.Controllers
             var Balance = float.Parse(data["Balance"].ToString());
             var PortfolioBalance = float.Parse(data["PortfolioBalance"].ToString());
 
-            Console.WriteLine("in update_account");
-            Console.WriteLine("AccountId = " + AccountId);
-            Console.WriteLine("Balance = " + Balance);
-            Console.WriteLine("PortfolioBalance = " + PortfolioBalance);
-
             await _accountService.UpdateAccount(AccountId, Balance, PortfolioBalance);
         }
 
         [HttpGet("get_holdings")]
         public IQueryable<HoldingsModel> GetHoldings(int AccountId)
         {
-            Console.WriteLine("in get_holdings");
-            Console.WriteLine("account_id = " + AccountId);
             return _holdingsService.GetHoldings(AccountId)
                 .Select(holdings => new HoldingsModel
                 {
@@ -161,13 +133,6 @@ namespace FantasyStockTradingApp.Controllers
             var ChangePercentage = float.Parse(data["ChangePercentage"].ToString());
             var LastUpdated = DateTime.Now;
 
-            Console.WriteLine("in update_holding");
-            Console.WriteLine("AccountId = " + AccountId);
-            Console.WriteLine("Symbol = " + Symbol);
-            Console.WriteLine("stock_count = " + StockCount);
-            Console.WriteLine("cost = " + LatestCostPerStock);
-            Console.WriteLine("updated time = " + LastUpdated);
-            
             if (_holdingsService.HoldingExists(AccountId, Symbol))
             {
                 if (StockCount == 0)
@@ -188,9 +153,6 @@ namespace FantasyStockTradingApp.Controllers
         [HttpPost("update_holdings")]
         public async Task UpdateHoldings(JObject data)
         {
-            Console.WriteLine("in update_holdings");
-            Console.WriteLine("data = " + data);
-            
             await _holdingsService.UpdateHoldings(data);
         }
 
@@ -204,15 +166,6 @@ namespace FantasyStockTradingApp.Controllers
             var CostPerStock = float.Parse(data["CostPerStock"].ToString());
             var CostPerTransaction = float.Parse(data["CostPerTransaction"].ToString());
             var TransactionDate = DateTime.Now;
-
-            Console.WriteLine("in new_transaction");
-            Console.WriteLine("account_id = " + AccountId);
-            Console.WriteLine("type = " + Type);
-            Console.WriteLine("symbol = " + Symbol);
-            Console.WriteLine("stock_count = " + StockCount);
-            Console.WriteLine("cost = " + CostPerStock);
-            Console.WriteLine("cost = " + CostPerTransaction);
-            Console.WriteLine("transaction_date = " + TransactionDate);
 
             await _transactionService.NewTransaction(AccountId, Type, Symbol, StockCount,
                                     CostPerStock, CostPerTransaction, TransactionDate);

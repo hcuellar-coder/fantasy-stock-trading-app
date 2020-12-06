@@ -32,13 +32,8 @@ namespace FantasyStockTradingApp.Core.Services
         }
 
         public async Task NewTransaction(int AccountId, string Type, string Symbol, int StockCount,
-                                     float CostPerStock, float CostPerTransaction, DateTime TransactionDate) { 
-            Console.WriteLine("cost_per_stock = " + CostPerStock);
-            Console.WriteLine("cost_per_transaction = " + CostPerTransaction);
-            Console.WriteLine("stock_count = " + StockCount);
-            Console.WriteLine("symbol = " + Symbol);
-            Console.WriteLine("type = " + Type);
-            Console.WriteLine("transaction_date = " + TransactionDate);
+                                     float CostPerStock, float CostPerTransaction, DateTime TransactionDate) 
+        { 
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())

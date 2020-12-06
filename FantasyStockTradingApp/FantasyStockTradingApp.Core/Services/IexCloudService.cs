@@ -40,7 +40,6 @@ namespace FantasyStockTradingApp.Core.Services
 
         }
 
-
         public async Task<Quote> GetQuote(string symbol)
         {
             var token = "";
@@ -52,20 +51,13 @@ namespace FantasyStockTradingApp.Core.Services
                  token = Environment.GetEnvironmentVariable("TOKENKEY");
             }
 
-            Console.WriteLine("symbol = " + symbol);
-
             var requestUri = "stock/"+symbol+"/quote?token="+token;
-
-            Console.WriteLine("requestUri = " + requestUri);
 
 
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
             var client = _clientFactory.CreateClient("iexCloud");
-            Console.WriteLine("request = " + request);
-            Console.WriteLine("client = " + client);
 
             var response = await client.SendAsync(request);
-            Console.WriteLine("response = " + response);
 
             if (response.IsSuccessStatusCode == false)
             {
@@ -74,7 +66,7 @@ namespace FantasyStockTradingApp.Core.Services
             }
 
             var responseStream = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("responseStream = " + responseStream);
+
             return JsonConvert.DeserializeObject<Quote>(responseStream);
 
         }
@@ -94,16 +86,10 @@ namespace FantasyStockTradingApp.Core.Services
 
             var requestUri = "stock/market/list/mostactive?token=" + token;
 
-            Console.WriteLine("requestUri = " + requestUri);
-
-
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
             var client = _clientFactory.CreateClient("iexCloud");
-            Console.WriteLine("request = " + request);
-            Console.WriteLine("client = " + client);
 
             var response = await client.SendAsync(request);
-            Console.WriteLine("response = " + response);
 
             if (response.IsSuccessStatusCode == false)
             {
@@ -112,7 +98,7 @@ namespace FantasyStockTradingApp.Core.Services
             }
 
             var responseStream = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("responseStream = " + responseStream);
+
             return JsonConvert.DeserializeObject<List<Quote>>(responseStream);
 
         }
@@ -131,16 +117,10 @@ namespace FantasyStockTradingApp.Core.Services
 
             var requestUri = "stock/"+symbol+ "/chart/1m?token=" + token;
 
-            Console.WriteLine("requestUri = " + requestUri);
-
-
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
             var client = _clientFactory.CreateClient("iexCloud");
-            Console.WriteLine("request = " + request);
-            Console.WriteLine("client = " + client);
 
             var response = await client.SendAsync(request);
-            Console.WriteLine("response = " + response);
 
             if (response.IsSuccessStatusCode == false)
             {
@@ -149,7 +129,7 @@ namespace FantasyStockTradingApp.Core.Services
             }
 
             var responseStream = await response.Content.ReadAsStringAsync();
-            Console.WriteLine("responseStream = " + responseStream);
+
             return JsonConvert.DeserializeObject<List<History>>(responseStream);
 
         }

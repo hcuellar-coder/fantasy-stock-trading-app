@@ -47,7 +47,6 @@ function Search(props) {
         if (form.checkValidity() !== false) {
             searchSymbol().then((searchSymbolResponse) => {
                 if (searchSymbolResponse.status === 200 && searchSymbolResponse.data.length !== 0) {
-                    console.log(searchSymbolResponse.data);
                     setStockData(searchSymbolResponse.data);
                     setSearchValid(true);
                 } else {
@@ -56,16 +55,12 @@ function Search(props) {
             }).catch(e => {
                 setIsError(true);
             });
-            console.log('data is valid');
         }
         setValidated(true);
     }
 
     function handleViewButton(symbol) {
-        console.log('viewing');
-        console.log(symbol);
         get_history(symbol).then((response) => {
-            console.log(response.data);
             props.handleChartData(response.data, symbol);
         });
     }

@@ -1,17 +1,13 @@
-import React, { useState, useEffect } from 'react'
-import { Form, Button, Card, CardDeck } from 'react-bootstrap';
-import { api, iexApi } from '../API';
+import React from 'react'
+import { Button, Card, CardDeck } from 'react-bootstrap';
+import { iexApi } from '../API';
 import { useHoldings } from "../../Context/HoldingsContext";
 
 function MyHoldings(props) {
-    const [history, setHistory] = useState({});
     const { holdings } = useHoldings();
 
     function handleViewButton(symbol) {
-        console.log('viewing');
-        console.log(symbol);
         get_history(symbol).then((response) => {
-            console.log(response.data);
             props.handleChartData(response.data, symbol);
         });
     }
@@ -28,10 +24,6 @@ function MyHoldings(props) {
             console.error(error);
         }
     }
-
-    useEffect(() => {
-        console.log(history);
-    }, [history])
 
     return (
         <div id="summary-myHoldings-div">

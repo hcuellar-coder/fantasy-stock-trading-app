@@ -118,12 +118,6 @@ namespace FantasyStockTradingApp.Core.Services
         public async Task UpdateHolding(int AccountId, string Symbol, int StockCount,
                         float LatestCostPerStock, DateTime LastUpdated)
         {
-            Console.WriteLine("account_id = " + AccountId);
-            Console.WriteLine("symbol = " + Symbol);
-            Console.WriteLine("stock_count = " + StockCount);
-            Console.WriteLine("latest_cost_per_stock = " + LatestCostPerStock);
-            Console.WriteLine("last_Updated = " + LastUpdated);
-
             try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
@@ -163,8 +157,6 @@ namespace FantasyStockTradingApp.Core.Services
                     dynamic holding_data = JsonConvert.DeserializeObject((string)Data);
                     foreach (var holding in holding_data)
                     {
-                        Console.WriteLine("holding = " + holding);
-
                         var query = _session.CreateQuery("Update Holdings set latest_cost_per_stock =:LatestCostPerStock, " +
                             "last_Updated =:LastUpdated where account_id =:AccountId and symbol =:Symbol");
                         query.SetParameter("LatestCostPerStock", holding_data.LatestCostPerStock);
