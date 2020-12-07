@@ -15,10 +15,6 @@ function Home() {
         setLogin(bool);
     }
 
-    useEffect(() => {
-        console.log(account);
-    }, [account])
-
     return (
         <div>{!authTokens ? (
             login ?

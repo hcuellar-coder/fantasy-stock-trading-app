@@ -37,12 +37,12 @@ function MyHoldings(props) {
                         <Card className="cards-responsive" key={index}>
                             <Card.Header>
                                         <h3>{holding.symbol}</h3> 
-                                        <span>Quantity: {holding.stock_Count}</span>
+                                        <span>Quantity: {holding.stockCount}</span>
                             </Card.Header>
                             <Card.Body>
                                 <Card.Title>{holding.company_Name}</Card.Title>
                                 <Card.Text>
-                                            <span>Total: {(holding.latest_Cost_per_Stock * holding.stock_Count).toFixed(2)}</span>
+                                            <span>Total: {(holding.latestCostPerStock * holding.stockCount).toFixed(2)}</span>
                                 </Card.Text>
                                 <div className="card-buttons">
                                         <Button className="card-button" onClick={() => { handleViewButton(holding.symbol) }}>View</Button>

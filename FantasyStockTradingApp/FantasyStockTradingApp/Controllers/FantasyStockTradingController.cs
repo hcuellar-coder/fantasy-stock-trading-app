@@ -90,6 +90,8 @@ namespace FantasyStockTradingApp.Controllers
         [HttpPost("new_account")]
         public async Task NewAccount(JObject data)
         {
+            var UserId = Int32.Parse(data["UserId"].ToString());
+
             await _accountService.NewAccount(UserId);
         }
 
