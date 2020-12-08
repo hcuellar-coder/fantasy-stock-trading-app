@@ -137,7 +137,6 @@ namespace FantasyStockTradingApp.Core.Services
 
                     await query.ExecuteUpdateAsync();
                     await transaction.CommitAsync();
-
                 }
             }
             catch (Exception ex)
