@@ -150,7 +150,38 @@ namespace FantasyStockTradingApp.Core.Services
 
         public async Task UpdateHoldings(JObject Data)
         {
-            try
+
+            foreach (var holding in Data)
+            {
+                var AccountId = Int32.Parse(holding.Value["AccountId"].ToString());
+                var CompanyName = holding.Value["CompanyName"].ToString();
+                var Symbol = holding.Value["Symbol"].ToString();
+                var StockCount = Int32.Parse(holding.Value["StockCount"].ToString());
+                var LatestCostPerStock = float.Parse(holding.Value["LatestCostPerStock"].ToString());
+                var Change = float.Parse(holding.Value["Change"].ToString());
+                var ChangePercentage = float.Parse(holding.Value["ChangePercentage"].ToString());
+                var LastUpdated = DateTime.Now;
+
+
+                Console.WriteLine("AccountId " + AccountId);
+                Console.WriteLine("CompanyName " + CompanyName);
+                Console.WriteLine("Symbol " + Symbol);
+                Console.WriteLine("StockCount " + StockCount);
+                Console.WriteLine("LatestCostPerStock " + LatestCostPerStock);
+                Console.WriteLine("Change " + Change);
+                Console.WriteLine("ChangePercentage " + ChangePercentage);
+                Console.WriteLine("LastUpdated " + LastUpdated);
+            }
+
+
+
+
+
+
+
+
+
+           /* try
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
@@ -178,8 +209,32 @@ namespace FantasyStockTradingApp.Core.Services
             finally
             {
                 _nHibernateService.CloseSession();
+            }*/
+        }
+
+        /*
+         
+            function updateHoldings() {
+            for (let holding of holdings) {
+                get_quote(holding.symbol).then((getQuoteResponse) => {
+                    if (getQuoteResponse.status === 200) {
+                        let stockCount = searchHoldings(holding.symbol);
+                        update_holding(getQuoteResponse.data, stockCount).then((updateHoldingResponse) => {
+                        });
+                    }
+                });
             }
         }
+
+        function searchHoldings(symbol) {
+            for (let holding of holdings) {
+                if (holding.symbol === symbol) {
+                    return holding.stockCount;
+                }
+            }
+        }
+          
+         */
 
         public async Task DeleteHolding(int AccountId, string Symbol)
         {

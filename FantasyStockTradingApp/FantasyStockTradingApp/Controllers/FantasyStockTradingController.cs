@@ -153,9 +153,9 @@ namespace FantasyStockTradingApp.Controllers
         }
 
         [HttpPost("update_holdings")]
-        public async Task UpdateHoldings(JObject data)
+        public async Task UpdateHoldings(JObject Holdings)
         {
-            await _holdingsService.UpdateHoldings(data);
+            await _holdingsService.UpdateHoldings(Holdings);
         }
 
         [HttpPost("new_transaction")]

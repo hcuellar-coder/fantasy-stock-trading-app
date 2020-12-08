@@ -113,6 +113,17 @@ function Login(props) {
         }
     }
 
+    function update_holdings() {
+        try {
+            const response = api.post('/update_holdings', {
+                Holdings: holdings
+            });
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     function updateHoldings() {
         for (let holding of holdings) {
             get_quote(holding.symbol).then((getQuoteResponse) => {
@@ -196,7 +207,8 @@ function Login(props) {
 
     useEffect(() => {
         if (holdings) {
-            updateHoldings();
+            update_holdings();
+            //updateHoldings();
         }
     },[holdings])
 
