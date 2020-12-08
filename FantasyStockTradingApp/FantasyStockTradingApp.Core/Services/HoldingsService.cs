@@ -148,12 +148,15 @@ namespace FantasyStockTradingApp.Core.Services
             }
         }
 
-        public async Task UpdateHoldings(JObject Data)
+        public async Task UpdateHoldings(JObject Holdings)
         {
 
-            foreach (var holding in Data)
+            foreach (var holding in Holdings["Holdings"])
             {
-                var AccountId = Int32.Parse(holding.Value["AccountId"].ToString());
+                Console.WriteLine("holding = "+ holding);
+
+
+                /*var AccountId = Int32.Parse(holding.Value["AccountId"].ToString());
                 var CompanyName = holding.Value["CompanyName"].ToString();
                 var Symbol = holding.Value["Symbol"].ToString();
                 var StockCount = Int32.Parse(holding.Value["StockCount"].ToString());
@@ -161,16 +164,16 @@ namespace FantasyStockTradingApp.Core.Services
                 var Change = float.Parse(holding.Value["Change"].ToString());
                 var ChangePercentage = float.Parse(holding.Value["ChangePercentage"].ToString());
                 var LastUpdated = DateTime.Now;
+*/
 
-
-                Console.WriteLine("AccountId " + AccountId);
+                /*Console.WriteLine("AccountId " + AccountId);
                 Console.WriteLine("CompanyName " + CompanyName);
                 Console.WriteLine("Symbol " + Symbol);
                 Console.WriteLine("StockCount " + StockCount);
                 Console.WriteLine("LatestCostPerStock " + LatestCostPerStock);
                 Console.WriteLine("Change " + Change);
                 Console.WriteLine("ChangePercentage " + ChangePercentage);
-                Console.WriteLine("LastUpdated " + LastUpdated);
+                Console.WriteLine("LastUpdated " + LastUpdated);*/
             }
 
 
