@@ -83,36 +83,6 @@ function Login(props) {
         }
     } 
 
-    function get_quote(symbol) {
-        try {
-            const response = iexApi.get('/get_quote', {
-                params: {
-                    Symbol: symbol
-                }
-            });
-            return response;
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
-    function update_holding(holding, stockCount) {
-        try {
-            const response = api.post('/update_holding', {
-                AccountId: account.id,
-                CompanyName: holding.companyName,
-                Symbol: holding.symbol,
-                StockCount: stockCount,
-                LatestCostPerStock: holding.latestPrice,
-                Change: holding.change,
-                ChangePercentage: holding.changePercent,
-            });
-            return response;
-        } catch (error) {
-            console.error(error);
-        }
-    }
-
     function update_holdings() {
         try {
             const response = api.post('/update_holdings', {
@@ -121,26 +91,6 @@ function Login(props) {
             return response;
         } catch (error) {
             console.error(error);
-        }
-    }
-
-    function updateHoldings() {
-        for (let holding of holdings) {
-            get_quote(holding.symbol).then((getQuoteResponse) => {
-                if (getQuoteResponse.status === 200) {
-                    let stockCount = searchHoldings(holding.symbol);
-                    update_holding(getQuoteResponse.data, stockCount).then((updateHoldingResponse) => {
-                    });
-                }
-            });
-        }
-    }
-
-    function searchHoldings(symbol) {
-        for (let holding of holdings) {
-            if (holding.symbol === symbol) {
-                return holding.stockCount;
-            }
         }
     }
 
