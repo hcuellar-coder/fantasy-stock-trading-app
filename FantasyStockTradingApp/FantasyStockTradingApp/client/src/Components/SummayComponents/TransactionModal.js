@@ -82,7 +82,7 @@ function TransactionModal(props) {
         } else {
             balance = account.balance + (props.stockData.latestPrice * transactionAmount);
             portfolioBalance = account.portfolioBalance - (props.stockData.latestPrice * transactionAmount);
-        } 
+        }
 
         try {
             const response = api.post('/update_account', {
