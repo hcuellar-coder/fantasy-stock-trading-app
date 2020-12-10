@@ -93,7 +93,6 @@ namespace FantasyStockTradingApp.Core.Services
                     query.SetParameter("Id", AccountId);
                     await query.ExecuteUpdateAsync();
                     await transaction.CommitAsync();
-
                 }
             }
             catch (Exception ex)
