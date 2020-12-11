@@ -40,6 +40,7 @@ namespace FantasyStockTradingApp.Controllers
         public List<QuoteModel> GetMostActive()
         {
             var Quote_Result = _iexCloudService.GetMostActive().Result;
+            Console.WriteLine("Quote_Result = " + Quote_Result);
 
             var MostActive = Quote_Result.AsEnumerable().Select(quote => new QuoteModel()
                 {

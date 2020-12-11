@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
-import { Form, Button, Card, CardDeck  } from 'react-bootstrap';
-import { api, iexApi } from '../API';
+import { Button, Card, CardDeck  } from 'react-bootstrap';
+import { iexApi } from '../API';
 import TransactionModal from './TransactionModal';
 
 function MostActiveStocks() {
@@ -15,22 +15,15 @@ function MostActiveStocks() {
         }
     });
 
-
     function handleBuyButton(stock) {
         setIsBuying(true); 
         setStockData(stock);
         setShowModal(true);
     }
 
-    function handleSellButton(stock) {
-        setIsBuying(false);
-        setStockData(stock);
-        setShowModal(true);
-    }
-
     function get_mostActive() {
         try {
-            const response = iexApi.get('/get_mostactive?');
+            const response = iexApi.get('/get_mostactive');
             return response;
         } catch (error) {
             console.error(error);

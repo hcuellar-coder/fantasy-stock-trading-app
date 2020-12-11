@@ -1,7 +1,6 @@
-﻿import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Form, Button, Modal } from 'react-bootstrap';
 import { api } from '../API';
-import { useUser } from "../../Context/UserContext";
 import { useAccount } from "../../Context/AccountContext";
 import { useHoldings } from "../../Context/HoldingsContext";
 
@@ -160,7 +159,7 @@ function TransactionModal(props) {
                     if (props.isBuying) {
                         tempHoldings[holdingId].stockCount = currentHoldingStock + transactionAmount;
                     } else {
-                        if (currentHoldingStock - transactionAmount == 0) {
+                        if (currentHoldingStock - transactionAmount === 0) {
                             tempHoldings.splice(holdingId, 1);
                         } else {
                             tempHoldings[holdingId].stockCount = currentHoldingStock - transactionAmount;

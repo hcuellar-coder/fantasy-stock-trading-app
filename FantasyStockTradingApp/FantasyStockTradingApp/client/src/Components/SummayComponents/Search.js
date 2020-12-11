@@ -33,7 +33,6 @@ function Search() {
     function handleSubmit(e) {
         e.preventDefault();
         const form = e.target;
-        let stockData = {};
         if (form.checkValidity() !== false) {
             searchSymbol().then((searchSymbolResponse) => {
                 if (searchSymbolResponse.status === 200 && searchSymbolResponse.data.length !== 0) {

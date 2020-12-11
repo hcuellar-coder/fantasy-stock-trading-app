@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Card, CardDeck } from 'react-bootstrap';
-import { api, iexApi } from '../API';
+import { iexApi } from '../API';
 
 function MostActiveStocks(props) {
     const [mostActiveHoldings, setMostActiveHoldings] = useState(() => {
@@ -32,7 +32,7 @@ function MostActiveStocks(props) {
 
     function get_mostActive() {
         try {
-            const response = iexApi.get('/get_mostactive?');
+            const response = iexApi.get('/get_mostactive');
             return response;
         } catch (error) {
             console.error(error);

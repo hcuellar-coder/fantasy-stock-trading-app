@@ -19,7 +19,7 @@ namespace FantasyStockTradingApp.Core.Services
                         float LatestCostPerStock, float Change, float ChangePercentage, DateTime LastUpdated);
         Task UpdateHolding(int AccountId, string Symbol, int StockCount,
                         float LatestCostPerStock, DateTime LastUpdated);
-        Task UpdateHoldings(JObject Data); //this should take an account Id and updat
+        Task UpdateHoldings(JObject Data);
         Task DeleteHolding(int AccountId, string Symbol);
 
         bool HoldingExists(int AccountId, string Symbol);

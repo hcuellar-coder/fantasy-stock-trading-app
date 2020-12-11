@@ -1,4 +1,4 @@
-﻿import React from 'react'
+import React from 'react'
 import { useHoldings } from "../../Context/HoldingsContext";
 import Chart from 'react-google-charts';
 
@@ -13,7 +13,7 @@ function MyPortfolio() {
                 <div>
                     <Chart
                         width='100%'
-                        height='100%'
+                        height='350px'
                         chartType="PieChart"
                         loader={<div>Loading Chart</div>}
                         data={[
@@ -30,13 +30,14 @@ function MyPortfolio() {
                         }}
                         legendToggle
                     />
+                    <br />
                     <Chart
                         width='100%'
-                        height='100%'
+                        height='350px'
                         chartType="BarChart"
                         loader={<div>Loading Chart</div>}
                         data={[
-                            ['Symbol', 'Price'],
+                            ['Symbol', 'Portfolio Balance'],
                             ...holdings.map(d => [d.symbol, (d.latestCostPerStock * d.stockCount)])
                         ]}
                         options={{
@@ -46,6 +47,10 @@ function MyPortfolio() {
                                 width: '70%',
                                 height: '85%'
                             },
+                            hAxis: {
+                                title: 'Total Asset Cost',
+                                minValue: 0,
+                            }
                         }}
                         legendToggle
                     />

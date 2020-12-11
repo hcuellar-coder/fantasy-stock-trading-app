@@ -85,11 +85,13 @@ namespace FantasyStockTradingApp.Core.Services
             }
 
             var requestUri = "stock/market/list/mostactive?token=" + token;
+            Console.WriteLine("requestUri = " +requestUri);
 
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
             var client = _clientFactory.CreateClient("iexCloud");
 
             var response = await client.SendAsync(request);
+            Console.WriteLine("response = " + response);
 
             if (response.IsSuccessStatusCode == false)
             {
@@ -98,8 +100,15 @@ namespace FantasyStockTradingApp.Core.Services
             }
 
             var responseStream = await response.Content.ReadAsStringAsync();
+            Console.WriteLine("responseStream = " + responseStream);
 
-            return JsonConvert.DeserializeObject<List<Quote>>(responseStream);
+            var settings = new JsonSerializerSettings
+            {
+                NullValueHandling = NullValueHandling.Ignore,
+                MissingMemberHandling = MissingMemberHandling.Ignore
+            };
+
+            return JsonConvert.DeserializeObject<List<Quote>>(responseStream, settings);
 
         }
 

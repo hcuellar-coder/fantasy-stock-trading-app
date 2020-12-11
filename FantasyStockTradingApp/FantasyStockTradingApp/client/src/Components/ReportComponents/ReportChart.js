@@ -1,4 +1,4 @@
-﻿import React, { useEffect } from 'react'
+import React from 'react'
 import Chart from 'react-google-charts';
 
 function ReportChart(props) {

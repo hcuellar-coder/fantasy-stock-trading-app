@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Form, Button, Container, NavLink } from 'react-bootstrap';
-import { api, tokenApi, iexApi } from './API';
+import { api, tokenApi } from './API';
 import { useAuth } from '../Context/AuthContext';
 import { useUser } from '../Context/UserContext';
 import { useAccount } from '../Context/AccountContext';
@@ -13,7 +13,7 @@ function Login(props) {
     const [password, setPassword] = useState('');
     const { setAuthTokens } = useAuth();
     const { setUser } = useUser();
-    const { account, setAccount } = useAccount();
+    const { setAccount } = useAccount();
     const { holdings, setHoldings } = useHoldings();
 
     function isValidUser() {
@@ -158,7 +158,6 @@ function Login(props) {
     useEffect(() => {
         if (holdings) {
             update_holdings();
-            //updateHoldings();
         }
     },[holdings])
 

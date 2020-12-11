@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Form, Button, Card, CardDeck } from 'react-bootstrap';
-import { api, iexApi } from '../API';
+import { iexApi } from '../API';
 
 function Search(props) {
     const [isError, setIsError] = useState(false);
@@ -43,7 +43,6 @@ function Search(props) {
     function handleSubmit(e) {
         e.preventDefault();
         const form = e.target;
-        let stockData = {};
         if (form.checkValidity() !== false) {
             searchSymbol().then((searchSymbolResponse) => {
                 if (searchSymbolResponse.status === 200 && searchSymbolResponse.data.length !== 0) {
