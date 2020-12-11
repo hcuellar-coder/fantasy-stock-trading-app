@@ -40,7 +40,7 @@ function MostActiveStocks(props) {
     }
 
     useEffect(() => {
-        if (!mostActiveHoldings) {
+        if (mostActiveHoldings.length === 0) {
             get_mostActive().then((response) => {
                 sessionStorage.setItem('MostActiveStocks', JSON.stringify(response.data));
                 setMostActiveHoldings(response.data);
