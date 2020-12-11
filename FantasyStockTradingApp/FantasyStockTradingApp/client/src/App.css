@@ -74,6 +74,11 @@ body {
     text-align: center;
 }
 
+.error-text {
+    color: red !important;
+    font-size: 1.85vh;
+}
+
 .home-header {
     color: #e76f51;
 }

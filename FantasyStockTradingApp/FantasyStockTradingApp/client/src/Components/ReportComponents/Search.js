@@ -42,6 +42,7 @@ function Search(props) {
 
     function handleSubmit(e) {
         e.preventDefault();
+        setIsError(false);
         const form = e.target;
         if (form.checkValidity() !== false) {
             searchSymbol().then((searchSymbolResponse) => {
@@ -80,12 +81,18 @@ function Search(props) {
                     <Form.Text className="text-muted">
                         Example: AAPL = apple | GE = General Electric | F = Ford 
                     </Form.Text>
+                    {
+                        !isError ? <div></div> :
+                        <Form.Text className="error-text">
+                            Symbol could not be found, try a different symbol!
+                        </Form.Text>
+                    }
                 </Form.Group>
                 <Button id="search-submit-button" variant="primary" type="submit">
                         Submit
                     </Button>
             </Form >
-            {searchValid ?
+            {searchValid && !isError?
                 <CardDeck>
                     <Card>
                         <Card.Header>{stockData.symbol}</Card.Header>
