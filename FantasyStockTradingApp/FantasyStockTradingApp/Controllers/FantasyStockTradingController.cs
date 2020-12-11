@@ -140,16 +140,18 @@ namespace FantasyStockTradingApp.Controllers
                 if (StockCount == 0)
                 {
                     await _holdingsService.DeleteHolding(AccountId, Symbol);
-                } else
+                }
+                else
                 {
                     await _holdingsService.UpdateHolding(AccountId, Symbol,
                                     StockCount, LatestCostPerStock, LastUpdated);
                 }
-            } else
+            }
+            else
             {
                 await _holdingsService.NewHolding(AccountId, CompanyName, Symbol, StockCount,
-                                   LatestCostPerStock, Change, ChangePercentage, LastUpdated);
-            }
+                                    LatestCostPerStock, Change, ChangePercentage, LastUpdated);
+            }           
         }
 
         [HttpPost("update_holdings")]

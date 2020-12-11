@@ -42,37 +42,17 @@ namespace FantasyStockTradingApp.Core.Services
                     
                     if (Password == null)
                     {
-                        var result = _session.Query<User>()
-                       .Where(user_login => user_login.Email == Email);
-                        if (result == null)
-                        {
-                            return false;
-                        } else
-                        {
-                            return true;
-                        }
-
-                       /* var result = _session.QueryOver<User>()
+                        var result = _session.QueryOver<User>()
                         .Where(user_login => user_login.Email == Email)
                         .RowCount() > 0;
-                        return result;*/
+                        return result;
                     }
                     else
                     {
-                        var result = _session.Query<User>()
-                       .Where(user_login => user_login.Email == Email && user_login.Password == Password);
-                        if (result == null)
-                        {
-                            return false;
-                        } else
-                        {
-                            return true;
-                        }
-
-                        /*var result = _session.QueryOver<User>()
+                        var result = _session.QueryOver<User>()
                         .Where(user_login => user_login.Email == Email && user_login.Password == Password)
                         .RowCount() > 0;
-                        return result;*/
+                        return result;
                     }
                 }
             }

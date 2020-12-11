@@ -14,7 +14,7 @@ function TransactionModal(props) {
     const [currentHoldingStock, setCurrentHoldingStock] = useState(0);
     const [holdingId, setHoldingId] = useState(0);
     const [maxTransactionAmount, setMaxTransactionAmount] = useState(0);
-    const { user } = useUser();
+
     const { account, setAccount } = useAccount();
     const { holdings, setHoldings } = useHoldings();
 
@@ -25,17 +25,11 @@ function TransactionModal(props) {
         }
     }, [props.show])
 
-
-    useEffect(() => {
-        console.log('holdingId = ',holdingId);
-    }, [holdingId])
-
-
     function getCurrentHoldingStock() {
         for (let i = 0; i < holdings.length; i++) {
             if (holdings[i].symbol === props.stockData.symbol) {
                 setCurrentHoldingStock(holdings[i].stockCount);
-                setHoldingId(holdings[i].id);
+                setHoldingId(i);
             }
         }
     }
@@ -79,7 +73,18 @@ function TransactionModal(props) {
         }
     }
 
-    function update_Account(balance, portfolioBalance) {
+    function update_Account() {
+        let balance = 0;
+        let portfolioBalance = 0;
+
+        if (props.isBuying) {
+            balance = account.balance - (props.stockData.latestPrice * transactionAmount);
+            portfolioBalance = account.portfolioBalance + (props.stockData.latestPrice * transactionAmount);
+        } else {
+            balance = account.balance + (props.stockData.latestPrice * transactionAmount);
+            portfolioBalance = account.portfolioBalance - (props.stockData.latestPrice * transactionAmount);
+        } 
+
         try {
             let updatedAccountInformation = {
                 id: account.id,
@@ -100,7 +105,15 @@ function TransactionModal(props) {
         }
     }
 
-    function update_holding(newTransactionAmount) {
+    function update_holding() {
+        let newTransactionAmount = 0;
+
+        if (props.isBuying) {
+            newTransactionAmount = (currentHoldingStock + transactionAmount);
+        } else {
+            newTransactionAmount = (currentHoldingStock - transactionAmount);
+        } 
+
         try {
             const response = api.post('/update_holding', {
                 AccountId: account.id,
@@ -131,19 +144,6 @@ function TransactionModal(props) {
     }
 
     function handleTransactionButtons() {
-        let newTransactionAmount = 0;
-        let balance = 0;
-        let portfolioBalance = 0;
-
-        if (props.isBuying) {
-            newTransactionAmount = (currentHoldingStock + transactionAmount);
-            balance = account.balance - (props.stockData.latestPrice * transactionAmount);
-            portfolioBalance = account.portfolioBalance + (props.stockData.latestPrice * transactionAmount);
-        } else {
-            newTransactionAmount = (currentHoldingStock - transactionAmount);
-            balance = account.balance + (props.stockData.latestPrice * transactionAmount);
-            portfolioBalance = account.portfolioBalance - (props.stockData.latestPrice * transactionAmount);
-        } 
 
         new_transaction().then((transacitonResponse) => {
             if (transacitonResponse.status === 200) {
@@ -153,20 +153,20 @@ function TransactionModal(props) {
             }
         });
  
-        update_holding(newTransactionAmount).then((updateHoldingResponse) => {
+        update_holding().then((updateHoldingResponse) => {
             if (updateHoldingResponse.status === 200) {
                 if (holdingId !== 0) {
-                    let tempHoldings = holdings;
-                    tempHoldings[holdingId - 1].stockCount = newTransactionAmount;
-                    console.log(holdings);
+                    let tempHoldings = [...holdings];
+                    if (props.isBuying) {
+                        tempHoldings[holdingId].stockCount = currentHoldingStock + transactionAmount;
+                    } else {
+                        tempHoldings[holdingId].stockCount = currentHoldingStock - transactionAmount;
+                    }
                     setHoldings(tempHoldings);
                 } else {
                     get_Holdings().then((getHoldingsResponse) => {
                         if (getHoldingsResponse.status === 200) {
                             setHoldings(getHoldingsResponse.data);
-                            console.log(getHoldingsResponse);
-                            console.log(getHoldingsResponse.data);
-
                         }
                     });
                 }
@@ -176,18 +176,15 @@ function TransactionModal(props) {
         });
 
 
-        update_Account(balance, portfolioBalance).then((updateAccountResponse) => {
+        update_Account().then((updateAccountResponse) => {
             if (updateAccountResponse.status === 200) {
             } else {
                 setIsError(true);
             }
         });
-                    
-            
+                       
         props.handleClose();
     }
-
-    
 
     return (
         <Modal show={props.show} onHide={props.handleClose} centered>
