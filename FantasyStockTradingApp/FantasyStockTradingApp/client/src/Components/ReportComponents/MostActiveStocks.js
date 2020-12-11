@@ -40,10 +40,12 @@ function MostActiveStocks(props) {
     }
 
     useEffect(() => {
-        get_mostActive().then((response) => {
-            sessionStorage.setItem('MostActiveStocks', JSON.stringify(response.data));
-            setMostActiveHoldings(response.data);
-        })
+        if (!mostActiveHoldings) {
+            get_mostActive().then((response) => {
+                sessionStorage.setItem('MostActiveStocks', JSON.stringify(response.data));
+                setMostActiveHoldings(response.data);
+            })
+        }
     },[]);
 
     return (
