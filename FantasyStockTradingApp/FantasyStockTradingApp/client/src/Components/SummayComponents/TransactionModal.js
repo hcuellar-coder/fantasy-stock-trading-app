@@ -160,7 +160,11 @@ function TransactionModal(props) {
                     if (props.isBuying) {
                         tempHoldings[holdingId].stockCount = currentHoldingStock + transactionAmount;
                     } else {
-                        tempHoldings[holdingId].stockCount = currentHoldingStock - transactionAmount;
+                        if (currentHoldingStock - transactionAmount == 0) {
+                            tempHoldings.splice(holdingId, 1);
+                        } else {
+                            tempHoldings[holdingId].stockCount = currentHoldingStock - transactionAmount;
+                        }
                     }
                     setHoldings(tempHoldings);
                 } else {
