@@ -7,6 +7,7 @@ import { useHoldings } from "../../Context/HoldingsContext";
 function TransactionModal(props) {
     const [transactionType, setTransactionType] = useState('');
     const [isError, setIsError] = useState(false);
+    const [error, setError] = useState('');
     const [maxDialog, setMaxDialog] = useState('');
     const [modalDialog, setModalDialog] = useState('');
     const [transactionAmount, setTransactionAmount] = useState(0);
@@ -19,6 +20,7 @@ function TransactionModal(props) {
 
     useEffect(() => {
         if (props.show) {
+            setIsError(false);
             getCurrentHoldingStock();
             transactionSetup();
         }
@@ -143,50 +145,41 @@ function TransactionModal(props) {
     }
 
     function handleTransactionButtons() {
-
-        new_transaction().then((transacitonResponse) => {
-            if (transacitonResponse.status === 200) {
-
+        if (maxTransactionAmount < transactionAmount) {
+            setIsError(true);
+            if (props.isBuying) {
+                setError('You cannot purchase more than the max amount!');
             } else {
-                setIsError(true);
+                setError('You cannot sell more than the max amount!');
             }
-        });
- 
-        update_holding().then((updateHoldingResponse) => {
-            if (updateHoldingResponse.status === 200) {
-                if (holdingId !== 0) {
-                    let tempHoldings = [...holdings];
-                    if (props.isBuying) {
-                        tempHoldings[holdingId].stockCount = currentHoldingStock + transactionAmount;
-                    } else {
-                        if (currentHoldingStock - transactionAmount === 0) {
-                            tempHoldings.splice(holdingId, 1);
+        } else {
+            new_transaction();
+            update_Account();
+            update_holding().then((updateHoldingResponse) => {
+                if (updateHoldingResponse.status === 200) {
+                    if (holdingId !== 0) {
+                        let tempHoldings = [...holdings];
+                        if (props.isBuying) {
+                            tempHoldings[holdingId].stockCount = currentHoldingStock + transactionAmount;
                         } else {
-                            tempHoldings[holdingId].stockCount = currentHoldingStock - transactionAmount;
+                            if (currentHoldingStock - transactionAmount === 0) {
+                                tempHoldings.splice(holdingId, 1);
+                            } else {
+                                tempHoldings[holdingId].stockCount = currentHoldingStock - transactionAmount;
+                            }
                         }
+                        setHoldings(tempHoldings);
+                    } else {
+                        get_Holdings().then((getHoldingsResponse) => {
+                            if (getHoldingsResponse.status === 200) {
+                                setHoldings(getHoldingsResponse.data);
+                            }
+                        });
                     }
-                    setHoldings(tempHoldings);
-                } else {
-                    get_Holdings().then((getHoldingsResponse) => {
-                        if (getHoldingsResponse.status === 200) {
-                            setHoldings(getHoldingsResponse.data);
-                        }
-                    });
-                }
-            } else {
-                setIsError(true);
-            }
-        });
-
-
-        update_Account().then((updateAccountResponse) => {
-            if (updateAccountResponse.status === 200) {
-            } else {
-                setIsError(true);
-            }
-        });
-                       
-        props.handleClose();
+                } 
+            });
+            props.handleClose();
+        }
     }
 
     return (
@@ -207,6 +200,12 @@ function TransactionModal(props) {
                     <span>Cost: {(transactionAmount * props.stockData.latestPrice).toFixed(2)}</span>
                     <br />
                     <span>{modalDialog}</span>
+                    {
+                        !isError ? <div></div> :
+                            <Form.Text className="error-text">
+                                {error}
+                        </Form.Text>
+                    }
                     <Form.Control
                         required
                         id="transaction-modal-buy"
@@ -220,10 +219,18 @@ function TransactionModal(props) {
                         onChange={handleChange} />
                 </div>
                 <div id="transaction-modal-buttons">
-                    <Button className="transaction-modal-button" variant="Buy" disabled={!props.isBuying} onClick={handleTransactionButtons}>
+                    <Button
+                        className="transaction-modal-button"
+                        variant="Buy"
+                        disabled={!props.isBuying}
+                        onClick={handleTransactionButtons}>
                         Buy
                     </Button>
-                    <Button className="transaction-modal-button" variant="Sell" disabled={props.isBuying} onClick={handleTransactionButtons}>
+                    <Button
+                        className="transaction-modal-button"
+                        variant="Sell"
+                        disabled={props.isBuying}
+                        onClick={handleTransactionButtons}>
                             Sell
                     </Button>
                 </div>
