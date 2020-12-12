@@ -18,6 +18,7 @@ function NavBar(props) {
         setUser('');
         setAccount('');
         setHoldings('');
+        sessionStorage.setItem('MostActiveStocks', '');
         return < Redirect to = '/' />;
     }
 

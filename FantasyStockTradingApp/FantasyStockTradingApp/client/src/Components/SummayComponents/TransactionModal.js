@@ -41,13 +41,13 @@ function TransactionModal(props) {
             setTransactionType('buy');
             setMaxTransactionAmount(max);
             setMaxDialog(`Maximum quantity purchasable: ${max}`);
-            setModalDialog(`How many ${props.stockData.companyName} stock would you like to buy:`);
+            setModalDialog(`${props.stockData.companyName} stock to buy:`);
         } else {
             props.stockData.stockCount ? max = props.stockData.stockCount : max = currentHoldingStock;
             setTransactionType('sell');
             setMaxTransactionAmount(max);
             setMaxDialog(`Maximum quantity sellable: ${max}`);
-            setModalDialog(`How many ${props.stockData.companyName} stock would you like to sell:`);
+            setModalDialog(`${props.stockData.companyName} stock to sell:`);
         }     
     }
 
@@ -191,12 +191,15 @@ function TransactionModal(props) {
 
     return (
         <Modal show={props.show} onHide={props.handleClose} centered>
-            <Modal.Header closeButton>
+            <Modal.Header id="transaction-modal-header" closeButton>
                 <Modal.Title>{props.stockData.companyName}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>
+            <Modal.Body id="transaction-modal-body">
                 <div>
                     <span>{maxDialog}</span>
+                    <br />
+                    <span>Balance: {(account.balance - (transactionAmount * props.stockData.latestPrice)).toFixed(2)} </span>
+                    <span>Cost: {(transactionAmount * props.stockData.latestPrice).toFixed(2)}</span>
                     <br />
                     <span>{modalDialog}</span>
                     <Form.Control
@@ -211,15 +214,15 @@ function TransactionModal(props) {
                         value={transactionAmount}
                         onChange={handleChange} />
                 </div>
+                <div id="transaction-modal-buttons">
+                    <Button className="transaction-modal-button" variant="Buy" disabled={!props.isBuying} onClick={handleTransactionButtons}>
+                        Buy
+                    </Button>
+                    <Button className="transaction-modal-button" variant="Sell" disabled={props.isBuying} onClick={handleTransactionButtons}>
+                            Sell
+                    </Button>
+                </div>
             </Modal.Body>
-            <Modal.Footer>
-                <Button variant="Buy" disabled={!props.isBuying} onClick={handleTransactionButtons}>
-                    Buy
-          </Button>
-                <Button variant="Sell" disabled={props.isBuying} onClick={handleTransactionButtons}>
-                    Sell
-          </Button>
-            </Modal.Footer>
         </Modal>
         )
 }

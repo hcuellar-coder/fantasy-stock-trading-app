@@ -37,10 +37,6 @@ body {
     color: #e76f51;
 }
 
-.card-buttons {
-
-}
-
 .card-deck {
     justify-content: space-evenly;
 }
@@ -160,6 +156,23 @@ body {
     font-size: 1.85vh;
 }
 
+.transaction-modal-button {
+    outline: none;
+    margin-right: 10px;
+    background-color: #e76f51;
+    border-color: #e76f51;
+    width: 100%;
+    margin-bottom: 5px;
+}
+
+.transaction-modal-button:hover {
+    outline: none;
+    margin-right: 10px;
+    background-color: #366375;
+    border-color: #e76f51;
+    color: #e76f51;
+}
+
 #already-existing-user-button {
     margin-left: -10px;
     margin-bottom: 10px;
@@ -266,16 +279,43 @@ body {
     background-color: transparent;
     color: #f4a261;
 }
+
 #summary-report-tabs-tab-mostactivestocks {
     background-color: transparent;
     color: #f4a261;
 }
+
 #summary-report-tabs-tab-myholdings {
     background-color: transparent;
     color: #f4a261;
 }
+
 #summary-report-tabs-tab-myportfolio {
     background-color: transparent;
     color: #f4a261;
 }
 
+#transaction-modal-header {
+    font-size: 2.5vh;
+    padding-top: 0;
+    padding-bottom: 0;
+    font-weight: bold;
+    color: #366375;
+    background-color: white;
+}
+
+#transaction-modal-body {
+    background-color: #366375;
+    color: white;
+}
+
+#transaction-modal-footer {
+    background-color: #366375;
+    color: white;
+}
+
+#transaction-modal-buttons {
+    margin-top: 10px;
+    margin-left: 10px;
+    display: flex;
+}
