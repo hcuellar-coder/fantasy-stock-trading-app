@@ -198,7 +198,12 @@ function TransactionModal(props) {
                 <div>
                     <span>{maxDialog}</span>
                     <br />
-                    <span>Balance: {(account.balance - (transactionAmount * props.stockData.latestPrice)).toFixed(2)} </span>
+                    <span>Balance: {props.isBuying ?
+                        (account.balance - (transactionAmount * props.stockData.latestPrice)).toFixed(2)
+                        :
+                        (account.balance + (transactionAmount * props.stockData.latestPrice)).toFixed(2)
+                    } </span>
+
                     <span>Cost: {(transactionAmount * props.stockData.latestPrice).toFixed(2)}</span>
                     <br />
                     <span>{modalDialog}</span>

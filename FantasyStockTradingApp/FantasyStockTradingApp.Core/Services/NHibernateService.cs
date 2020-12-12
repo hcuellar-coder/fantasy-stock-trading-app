@@ -46,7 +46,6 @@ namespace FantasyStockTradingApp.Core.Services
         {
             if (_hostingEnvironment.EnvironmentName == "Development")
             {
-                Console.WriteLine("In Development NHibernate");
                 return Fluently.Configure()
                .Database(PostgreSQLConfiguration.PostgreSQL82
                .ConnectionString(c =>
@@ -61,7 +60,6 @@ namespace FantasyStockTradingApp.Core.Services
             } else
             {
                var DBPASSWORD = Environment.GetEnvironmentVariable("DBPASSWORD");
-                Console.WriteLine("In Producation NHibernate");
                 return Fluently.Configure()
                .Database(PostgreSQLConfiguration.PostgreSQL82
                .ConnectionString(c =>
