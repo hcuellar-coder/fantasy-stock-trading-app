@@ -26,18 +26,19 @@ function Home() {
                         <div>
                             <h3 className="home-sub-header">Summary</h3>
                             <p className="home-paragraph">
-                                In the summary page you can buy and sell stocks. You are given
-                                a starting total of 100,000 dollars to buy and sell stocks with. 
-                                Lets see if you got what it takes to become a wall street tycoon!
+                                In the summary page you can buy stocks by searching for a specific stock, or viewing the most active stocks.
+                                You can even buy or sell stocks that you already have in your portfolio. You are initially given a total of 
+                                100,000 dollars to buy stocks with, and then see if you have what it takes to become a wall street tycoon!
                             </p>
                         </div>
 
                         <div>
                             <h3 className="home-sub-header">Report</h3>
                             <p className="home-paragraph">
-                                To view a how your stocks are doing on a graphical interface,
-                                take a look at the report page. It also has options to Search stocks,
-                                or view the most active stocks as well.
+                                To view a 1 month history of stock prices, your holdings and most active stocks
+                                take a look at the report page. With this information you can make informed decisions
+                                on what stocks to buy and maybe pick up on some trends. It also has and option to view 
+                                your portfolio break down! So go on and take a quick gander over at the reports page.
                             </p>
                         </div>
 
