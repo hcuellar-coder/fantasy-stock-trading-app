@@ -46,13 +46,8 @@ function Search(props) {
         const form = e.target;
         if (form.checkValidity() !== false) {
             searchSymbol().then((searchSymbolResponse) => {
-                if (searchSymbolResponse.status === 200 && searchSymbolResponse.data !== undefined) {
-                    setStockData(searchSymbolResponse.data);
-                    setSearchValid(true);
-                } else {
-                    console.log('setting error');
-                    setIsError(true);
-                }
+                setStockData(searchSymbolResponse.data);
+                setSearchValid(true);
             }).catch(e => {
                 setIsError(true);
             });
