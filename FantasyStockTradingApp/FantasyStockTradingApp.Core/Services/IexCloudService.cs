@@ -42,33 +42,34 @@ namespace FantasyStockTradingApp.Core.Services
 
         public async Task<Quote> GetQuote(string symbol)
         {
-            var token = "";
-            if (_hostingEnvironment.EnvironmentName == "Development")
+            try
             {
-                 token = _configuration["Token_Key:token"];
-            } else
-            {
-                 token = Environment.GetEnvironmentVariable("TOKENKEY");
+                var token = "";
+                if (_hostingEnvironment.EnvironmentName == "Development")
+                {
+                    token = _configuration["Token_Key:token"];
+                }
+                else
+                {
+                    token = Environment.GetEnvironmentVariable("TOKENKEY");
+                }
+
+                var requestUri = "stock/" + symbol + "/quote?token=" + token;
+                var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
+                var client = _clientFactory.CreateClient("iexCloud");
+
+                var response = await client.SendAsync(request);
+                var responseStream = await response.Content.ReadAsStringAsync();
+
+                return JsonConvert.DeserializeObject<Quote>(responseStream);
+
             }
-
-            var requestUri = "stock/"+symbol+"/quote?token="+token;
-
-
-            var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
-            var client = _clientFactory.CreateClient("iexCloud");
-
-            var response = await client.SendAsync(request);
-
-            if (response.IsSuccessStatusCode == false)
+            catch (Exception)
             {
-                var errorString = $"There was an error getting quote data: {response.ReasonPhrase}";
-                throw new Exception(errorString);
+
+                throw;
             }
-
-            var responseStream = await response.Content.ReadAsStringAsync();
-
-            return JsonConvert.DeserializeObject<Quote>(responseStream);
-
+            
         }
 
 

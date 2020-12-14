@@ -21,27 +21,39 @@ namespace FantasyStockTradingApp.Controllers
         }
 
         [HttpGet("get_quote")]
-        public QuoteModel GetQuote(string symbol)
+        public ActionResult<QuoteModel> GetQuote(string symbol)
         {
-            var Quote_Result = _iexCloudService.GetQuote(symbol).Result;
-            var Quote_Return = new QuoteModel()
+            try
             {
-                Symbol = Quote_Result.Symbol,
-                CompanyName = Quote_Result.CompanyName,
-                LatestPrice = Quote_Result.LatestPrice,
-                Change = Quote_Result.Change,
-                ChangePercent = Quote_Result.ChangePercent
-            };
+                var Quote_Result = _iexCloudService.GetQuote(symbol).Result;
 
-            return Quote_Return;
+                var Quote_Return = new QuoteModel()
+                {
+                    Symbol = Quote_Result.Symbol,
+                    CompanyName = Quote_Result.CompanyName,
+                    LatestPrice = Quote_Result.LatestPrice,
+                    Change = Quote_Result.Change,
+                    ChangePercent = Quote_Result.ChangePercent
+                };
+
+                return Quote_Return;
+
+            } catch (Exception e)
+            {
+                return StatusCode(500, e.StackTrace);
+            }
+            
+            
         }
 
         [HttpGet("get_mostactive")]
-        public List<QuoteModel> GetMostActive()
+        public ActionResult<List<QuoteModel>> GetMostActive()
         {
-            var Quote_Result = _iexCloudService.GetMostActive().Result;
+            try
+            {
+                var Quote_Result = _iexCloudService.GetMostActive().Result;
 
-            var MostActive = Quote_Result.AsEnumerable().Select(quote => new QuoteModel()
+                var MostActive = Quote_Result.AsEnumerable().Select(quote => new QuoteModel()
                 {
                     Symbol = quote.Symbol,
                     CompanyName = quote.CompanyName,
@@ -49,9 +61,13 @@ namespace FantasyStockTradingApp.Controllers
                     Change = quote.Change,
                     ChangePercent = quote.ChangePercent
 
-            });
+                });
 
-            return MostActive.ToList();
+                return MostActive.ToList();
+            } catch (Exception e)
+            {
+                return StatusCode(500, e.StackTrace);
+            }
            
         }
 
