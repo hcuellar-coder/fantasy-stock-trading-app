@@ -36,8 +36,7 @@ namespace FantasyStockTradingApp.Core.Services
         {
             _hostingEnvironment = hostingEnvironment;
             _clientFactory = clientFactory;
-            _configuration = configuration;
-
+            _configuration = configuration; 
         }
 
         public async Task<Quote> GetQuote(string symbol)
@@ -66,7 +65,6 @@ namespace FantasyStockTradingApp.Core.Services
             }
             catch (Exception)
             {
-
                 throw;
             }
             

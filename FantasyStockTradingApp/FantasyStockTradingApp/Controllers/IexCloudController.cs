@@ -38,9 +38,9 @@ namespace FantasyStockTradingApp.Controllers
 
                 return Quote_Return;
 
-            } catch (Exception e)
+            } catch
             {
-                return StatusCode(500, e.StackTrace);
+                return StatusCode(500, "There was an error getting quote data");
             }
             
             
@@ -64,25 +64,32 @@ namespace FantasyStockTradingApp.Controllers
                 });
 
                 return MostActive.ToList();
-            } catch (Exception e)
+            } catch
             {
-                return StatusCode(500, e.StackTrace);
+                return StatusCode(500, "There was an error getting most active");
             }
            
         }
 
         [HttpGet("get_history")]
-        public List<History> GetHistory(string symbol)
+        public ActionResult<List<History>> GetHistory(string symbol)
         {
-            var History_Result = _iexCloudService.GetHistory(symbol).Result;
-
-            var History = History_Result.AsEnumerable().Select(history => new History()
+            try
             {
-                Date = history.Date,
-                Close = history.Close,
-            });
+                var History_Result = _iexCloudService.GetHistory(symbol).Result;
 
-            return History.ToList();
+                var History = History_Result.AsEnumerable().Select(history => new History()
+                {
+                    Date = history.Date,
+                    Close = history.Close,
+                });
+
+                return History.ToList();
+            }
+            catch
+            {
+                return StatusCode(500, "There was an error getting history");
+            }
         }
     }
 }
