@@ -197,6 +197,11 @@ body {
     max-width: 350px;
 }
 
+#login-loading-container {
+    display: flex;
+    justify-content: center;
+}
+
 #login-new-user-div {
     display: flex;
     flex-direction: row;

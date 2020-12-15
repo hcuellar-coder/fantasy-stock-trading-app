@@ -1,16 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Container, NavLink } from 'react-bootstrap';
+import { Form, Button, Container, NavLink, Image } from 'react-bootstrap';
 import { api, tokenApi } from './API';
 import { useAuth } from '../Context/AuthContext';
 import { useUser } from '../Context/UserContext';
 import { useAccount } from '../Context/AccountContext';
 import { useHoldings } from '../Context/HoldingsContext';
+import loginLoading from '../loaders/Money-1.1s-200px.svg'
 
 function Login(props) {
     const [isError, setIsError] = useState(false);
     const [validated, setValidated] = useState(false);
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [isLoading, setIsLoading] = useState(false);
     const { setAuthTokens } = useAuth();
     const { setUser } = useUser();
     const { setAccount } = useAccount();
@@ -105,6 +107,7 @@ function Login(props) {
     }
 
     function handleSubmit(e) {
+        setIsLoading(true);
         e.preventDefault();
        const form = e.target;
         if (form.checkValidity() !== false) {
@@ -162,42 +165,48 @@ function Login(props) {
     },[holdings])
 
     return (
-        <Container id="login-container">
-            <Form className="login-form" noValidate validated={validated} onSubmit={handleSubmit}>
-                <Form.Row className="login-row">
-                    <Form.Group>
-                        <Form.Control
-                            required
-                            type='text'
-                            placeholder="Email"
-                            onChange={handleEmailChange}
-                            value={email}
-                        />
-                    </Form.Group>
-                </Form.Row>
-                <Form.Row className="login-row">
-                    <Form.Group>
-                        <Form.Control
-                            required
-                            type='password'
-                            placeholder="Password"
-                            onChange={handlePasswordChange}
-                            value={password}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            Incorrect username or password.
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                </Form.Row>
-                <div id='login-buttons-div'>
-                    <Button id="login-user-button" type="submit">Login</Button>
-                    <div id='new-user-login-div'>
-                        Don't have an account?
-                        <NavLink id="new-user-button" onClick={handleNewUser}>Sign up</NavLink>
-                    </div>
-                </div>
-            </Form>
-        </Container>
+        <div>
+            {isLoading ?
+                <Container id="login-loading-container" fluid><Image className="media-gif" src={loginLoading}/></Container>
+                :
+                <Container id="login-container">
+                    <Form className="login-form" noValidate validated={validated} onSubmit={handleSubmit}>
+                        <Form.Row className="login-row">
+                            <Form.Group>
+                                <Form.Control
+                                    required
+                                    type='text'
+                                    placeholder="Email"
+                                    onChange={handleEmailChange}
+                                    value={email}
+                                />
+                            </Form.Group>
+                        </Form.Row>
+                        <Form.Row className="login-row">
+                            <Form.Group>
+                                <Form.Control
+                                    required
+                                    type='password'
+                                    placeholder="Password"
+                                    onChange={handlePasswordChange}
+                                    value={password}
+                                />
+                                <Form.Control.Feedback type="invalid">
+                                    Incorrect username or password.
+                                </Form.Control.Feedback>
+                            </Form.Group>
+                        </Form.Row>
+                        <div id='login-buttons-div'>
+                            <Button id="login-user-button" type="submit">Login</Button>
+                            <div id='new-user-login-div'>
+                                Don't have an account?
+                                <NavLink id="new-user-button" onClick={handleNewUser}>Sign up</NavLink>
+                            </div>
+                        </div>
+                    </Form>
+                    </Container>
+                }
+            </div>
     )
 }
 
