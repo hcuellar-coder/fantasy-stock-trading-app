@@ -55,7 +55,7 @@ The Holdings tab will contain the user's holdings, all the stocks the user has p
 #### Transaction Modal
 The Transaction modal is the key to trading stocks. With the modal having the capability to purchase or sell stocks that are either in the user's holdings, the most active stock list or the from the search tab.
 <p align="center">
-<img align="center"  width="600" height="500" src="./images/TransactionModal.PNG">
+<img align="center"  width="600" height="400" src="./images/TransactionModal.PNG">
 </p>
 
 
