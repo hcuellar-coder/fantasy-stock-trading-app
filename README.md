@@ -4,7 +4,7 @@ The application utilizes IEX Cloude API and was built using ReactJS (Frontend), 
 Run Application [Here](https://stocktradingapp-hcuellar.azurewebsites.net/)
 
 <p align="center">
-<img align="center"  width="400" height="400" src="./images/home.png">
+<img align="center"  width="400" height="400" src="./images/Home.png">
 </p>
 
 ## Summary
@@ -22,7 +22,7 @@ This web application begins with a simple login / sign-up that is used to create
 ### Home Page
 The home page is where the user will arrive at once they have logged in. Here the user will be given descriptions of the functionality of the summary and report pages, and what they have in store for the user.
 <p align="center">
-<img align="center"  width="400" height="400" src="./images/home.png">
+<img align="center"  width="400" height="400" src="./images/Home.png">
 </p>
 
 ### Summary Page
