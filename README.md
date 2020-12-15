@@ -16,6 +16,8 @@ This web application begins with a simple login / sign-up that is used to create
 
 <p align="center">
 <img align="center"  width="600" height="500" src="./images/Login.PNG">
+<br>
+<br>
 <img align="center"  width="600" height="500" src="./images/SignUp.PNG">
 </p>
 
@@ -67,21 +69,18 @@ The report page is where the user will be able to view 1 months worth of stock p
 #### Search
 In the search tab the user can search for a specific stock symbol to view 1 months worth of that stocks prices.
 <p align="center">
-<img align="center"  width="600" height="500" src="./images/Report-Search.PNG">
 <img align="center"  width="600" height="500" src="./images/Report-Search-Graph.PNG">
 </p>
 
 #### Most Active
 In the Most Active tab, the user can view 1 months worth of stock prices for the top 10 most active stocks provided by the IEX Cloud Api. 
 <p align="center">
-<img align="center"  width="600" height="500" src="./images/Report-MostActive.PNG">
 <img align="center"  width="600" height="500" src="./images/Report-MostActive-Graph.PNG">
 </p>
 
 #### My Holdings
 In My Holdings tab the user will be able to view 1 months worth of stock prices for any of the holdings that the user has purchased.  will contain the user's holdings, all the stocks the user has purchased. From this tab, the user can view 1 months worth of stock prices.
 <p align="center">
-<img align="center"  width="600" height="500" src="./images/Report-MyHoldings.PNG">
 <img align="center"  width="600" height="500" src="./images/Report-MyHoldings-Graph.PNG">
 </p>
 
