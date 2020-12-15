@@ -1,5 +1,5 @@
 ## Fantasy Stock Trading App
-The application utilizes IEX Cloude API and was built using ReactJS (Frontend), C# with ASP.NET Core (Backend) and styled with Bootstrap 4
+The application utilizes IEX Cloude API and was built using ReactJS (Frontend), C# with ASP.NET Core (Backend) utilizing Nhibernate with Fluent along with PostgreSQL and styled with Bootstrap 4.
 
 Run Application [Here](https://stocktradingapp-hcuellar.azurewebsites.net/)
 
@@ -8,7 +8,7 @@ Run Application [Here](https://stocktradingapp-hcuellar.azurewebsites.net/)
 </p>
 
 ## Summary
-This web application utilizes IEX Cloude API to retrieve and utilize stock information to simulate a stock trading fantasy app, using React-Bootstrap for styling and responsiveness. ReactJS was used to develop the frontend of the web application. While the backend uses C# with ASP.NET Core for RESTFUL WebAPI and Internal WebAPI calls. An ORM, Nhibernate along with Fluent, was used to map objects models to data models. As well as perform query operations to access data from the PostgreSQL database. The PostgreSQL is being used to handle User, Account, Transaction and Holding information. Session storage and React Context Hooks were used to store user, account, holding and other information to provide a smoother user experience.
+This web application utilizes IEX Cloude API to retrieve and utilize stock information to simulate a stock trading fantasy app, using React-Bootstrap for styling and responsiveness. ReactJS was used to develop the frontend of the web application. While the backend uses C# with ASP.NET Core for RESTFUL WebAPI and Internal WebAPI calls. An ORM, Nhibernate along with Fluent, was used to map objects models to data models. As well as perform query operations to access data from the PostgreSQL database. The PostgreSQL is being used to handle User, Account, Transaction and Holding information. Session storage and React Context Hooks were used to store user, account, holding and other information to provide a smoother user experience. 
 
 
 ### Login and Signup Page
@@ -28,7 +28,7 @@ The home page is where the user will arrive at once they have logged in. Here th
 </p>
 
 ### Summary Page
-The summary page is where the user will be able to purchase stocks. While also keeping track of the amount of funds the user has in their balance. As you purchase more stocks the balance is reduced, the portfolio amount increases and vice versa. The summary page contains 3 tabs, all of which can be used to purchase stocks. The My Holdings Tab is the only tab where selling is possible.
+The summary page is where the user will be able to purchase stocks, while also keeping track of the amount of funds the user has in their balance. As you purchase more stocks the balance is reduced, the portfolio amount increases and vice versa. The summary page contains 3 tabs, all of which can be used to purchase stocks. The My Holdings Tab is the only tab where selling is possible.
 <p align="center">
 <img align="center"  width="600" height="500" src="./images/Summary.PNG">
 </p>
