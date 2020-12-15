@@ -93,6 +93,28 @@ In My Portfolio Tab the users portfolio balance is split by stock into some easy
 <img align="center"  width="600" height="500" src="./images/Report-Portfolio-Graph.PNG">
 </p>
 
+## Installation
+
+#### IEX Cloud Public Token Key
+Rename file `appsettings.Development-Edit.json` to `appsettings.Development.json` in `FantasyStockTradingApp/FanstasyStockTradingApp.API/` and add a public token key into the token key value pair.
+```javascript
+{
+  "Logging": {
+    "LogLevel": {
+      "Default": "Information",
+      "Microsoft": "Warning",
+      "Microsoft.Hosting.Lifetime": "Information"
+    }
+  },
+  "Token_Key": {
+    "token": 
+  }
+}
+```
+To acquire a IEX Cloud public token key, you will need to set up an IEX Cloud Account. Then it will automatically generate a public token key.
+
+#### NHibernate Configuration
+
 
 ### Author's Note
 Creating this web application strengthened my knowledge of how to integrate a ReactJS Front End with C# in a ASP.NET Core Back End for RESTful web API calls and Internal API calls. This application was a lot of fun due to the fact that there were a lot of firsts for me. It was my first time using an ORM, Nhibernate and fluent, to map my object models to data models and query the database for information as an API endpoint with ASP.NET Core. It was also my first experience deploying a web application with a database using Microsoft Azure. I had a wonderful experience creating the application and working through the intricacies of integrating the different technologies together. I also made sure that the styling of the web applicaiton was responsive and would work well on a Mobile Device. I hope you enjoy the using my application!
