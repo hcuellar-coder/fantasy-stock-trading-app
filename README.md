@@ -10,6 +10,9 @@ Run Application [Here](https://stocktradingapp-hcuellar.azurewebsites.net/)
 ## Summary
 This web application utilizes IEX Cloude API to retrieve and utilize stock information to simulate a stock trading fantasy app, using React-Bootstrap for styling and responsiveness. ReactJS was used to develop the frontend of the web application. While the backend uses C# with ASP.NET Core for RESTFUL WebAPI and Internal WebAPI calls. An ORM, Nhibernate along with Fluent, was used to map objects models to data models. As well as perform query operations to access data from the PostgreSQL database. The PostgreSQL is being used to handle User, Account, Transaction and Holding information. Session storage and React Context Hooks were used to store user, account, holding and other information to provide a smoother user experience. 
 
+#### In Developement: ** Unit Testing **
+Currently working on integrating unit testing to the application. I'm excited to learn about unit testing and will be using NUnit a .NET unit testing framework.
+
 
 ### Login and Signup Page
 This web application begins with a simple login / sign-up that is used to create a user account. If you have a user account, go ahead and log in. If you are new to the web application you will need to sign up. Upon creation of the user account, the user will be alloted $100,000, to start buying stocks to add to their portfolio. Upon logging on there will be an automatic update to ones holdings which will also update the portfolio balance.
