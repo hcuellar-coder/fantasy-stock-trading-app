@@ -24,7 +24,7 @@ function NavBar(props) {
 
     return (
         <Navbar id="nav-bar" expanded={expanded} expand="sm" sticky="top">
-            <Navbar.Brand>Stock Trading Application</Navbar.Brand>
+            <Navbar.Brand>Fantasy Stock Trader</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" onClick={() => setExpanded(expanded ? false : "expanded")} />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="ml-auto" onClick={() => { setExpanded(false) }}>
