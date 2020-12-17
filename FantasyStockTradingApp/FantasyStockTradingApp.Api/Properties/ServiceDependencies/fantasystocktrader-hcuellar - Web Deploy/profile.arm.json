@@ -21,7 +21,7 @@
     },
     "resourceName": {
       "type": "string",
-      "defaultValue": "stocktradingapp-hcuellar",
+      "defaultValue": "fantasystocktrader-hcuellar",
       "metadata": {
         "description": "Name of the main resource to be created by this template."
       }

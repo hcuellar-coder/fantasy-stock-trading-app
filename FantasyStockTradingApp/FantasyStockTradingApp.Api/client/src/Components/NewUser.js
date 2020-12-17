@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Container, NavLink } from 'react-bootstrap';
+import { Form, Button, Container, NavLink, Card } from 'react-bootstrap';
 import { api, tokenApi } from './API';
 import { useAuth } from '../Context/AuthContext';
 import { useUser } from '../Context/UserContext';
@@ -182,77 +182,90 @@ function NewUser(props) {
     }, [isError])
 
     return (
-        <Container id="login-container">
-            <Form className="login-form" noValidate validated={validated} onSubmit={handleSubmit}>
-                <Form.Row className="login-row">
-                    <Form.Group>
-                        <Form.Control
-                            required
-                            type='text'
-                            placeholder="Email"
-                            onChange={handleEmailChange}
-                            value={email}
-                        />
-                    </Form.Group>
-                </Form.Row>
-                <Form.Row className="login-row">
-                    <Form.Group>
-                        <Form.Control
-                            required
-                            type='text'
-                            placeholder="First Name"
-                            onChange={handleFirstNameChange}
-                            value={firstName}
-                        />
-                    </Form.Group>
-                </Form.Row>
-                <Form.Row className="login-row">
-                    <Form.Group>
-                        <Form.Control
-                            required
-                            type='text'
-                            placeholder="Last Name"
-                            onChange={handleLastNameChange}
-                            value={lastName}
-                        />
-                    </Form.Group>
-                </Form.Row>
-                <Form.Row className="login-row">
-                    <Form.Group>
-                        <Form.Control
-                            required
-                            type='password'
-                            placeholder="Password"
-                            onChange={handlePasswordChange}
-                            value={password}
-                            isInvalid={password !== confirmPassword}
-                        />
-                    </Form.Group>
-                </Form.Row>
-                <Form.Row className="login-row">
-                    <Form.Group>
-                        <Form.Control
-                            required
-                            type='password'
-                            placeholder="Confirm Password"
-                            onChange={handleConfirmPasswordChange}
-                            value={confirmPassword}
-                            isInvalid={password!==confirmPassword}
-                        />
-                        <Form.Control.Feedback type="invalid">
-                            Passwords do not to match
-                        </Form.Control.Feedback>
-                    </Form.Group>
-                </Form.Row>
-                <div id='login-buttons-div'>
-                    <Button id='join-user-button' type="submit">Join</Button>
-                    <div id='login-new-user-div'>
-                        Have an account?
-                        <NavLink id="already-existing-user-button" onClick={handleAlreadyExistingUser}>Log in</NavLink>
+        <div>
+            <Container>
+                <Card id="login-signup-card">
+                    <Card.Title id="login-signup-card-title"><h3>Welcome to Fantasy Stock Trader!</h3></Card.Title>
+                    <Card.Body id="login-signup-card-body">
+                        <h5>Ever wondered what it'd be like to manage a stock portfolio?</h5> Buying and selling stocks
+                        can be a daunting endevor, especially with your money on the line! Well thats where the
+                        fantasy stock trader comes in to play. Here you can buy and sell stocks, even research the latest
+                        stock trends, all with fantasy money!
+                    </Card.Body>
+                </Card>
+            </Container>
+            <Container id="login-container">
+                <Form className="login-form" noValidate validated={validated} onSubmit={handleSubmit}>
+                    <Form.Row className="login-row">
+                        <Form.Group>
+                            <Form.Control
+                                required
+                                type='text'
+                                placeholder="Email"
+                                onChange={handleEmailChange}
+                                value={email}
+                            />
+                        </Form.Group>
+                    </Form.Row>
+                    <Form.Row className="login-row">
+                        <Form.Group>
+                            <Form.Control
+                                required
+                                type='text'
+                                placeholder="First Name"
+                                onChange={handleFirstNameChange}
+                                value={firstName}
+                            />
+                        </Form.Group>
+                    </Form.Row>
+                    <Form.Row className="login-row">
+                        <Form.Group>
+                            <Form.Control
+                                required
+                                type='text'
+                                placeholder="Last Name"
+                                onChange={handleLastNameChange}
+                                value={lastName}
+                            />
+                        </Form.Group>
+                    </Form.Row>
+                    <Form.Row className="login-row">
+                        <Form.Group>
+                            <Form.Control
+                                required
+                                type='password'
+                                placeholder="Password"
+                                onChange={handlePasswordChange}
+                                value={password}
+                                isInvalid={password !== confirmPassword}
+                            />
+                        </Form.Group>
+                    </Form.Row>
+                    <Form.Row className="login-row">
+                        <Form.Group>
+                            <Form.Control
+                                required
+                                type='password'
+                                placeholder="Confirm Password"
+                                onChange={handleConfirmPasswordChange}
+                                value={confirmPassword}
+                                isInvalid={password!==confirmPassword}
+                            />
+                            <Form.Control.Feedback type="invalid">
+                                Passwords do not to match
+                            </Form.Control.Feedback>
+                        </Form.Group>
+                    </Form.Row>
+                    <div id='login-buttons-div'>
+                        <Button id='join-user-button' type="submit">Join</Button>
+                        <div id='login-new-user-div'>
+                            Have an account?
+                            <NavLink id="already-existing-user-button" onClick={handleAlreadyExistingUser}>Log in</NavLink>
+                        </div>
                     </div>
-                </div>
-            </Form>
-        </Container>
+                </Form>
+            </Container>
+        </div>
     )
 }
 

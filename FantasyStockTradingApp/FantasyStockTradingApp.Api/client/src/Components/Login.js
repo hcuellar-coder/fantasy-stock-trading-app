@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Form, Button, Container, NavLink, Image } from 'react-bootstrap';
+import { Form, Button, Container, NavLink, Image, Card } from 'react-bootstrap';
 import { api, tokenApi } from './API';
 import { useAuth } from '../Context/AuthContext';
 import { useUser } from '../Context/UserContext';
@@ -166,6 +166,17 @@ function Login(props) {
 
     return (
         <div>
+            <Container>
+                <Card id="login-signup-card">
+                    <Card.Title id="login-signup-card-title"><h3>Welcome to Fantasy Stock Trader!</h3></Card.Title>
+                    <Card.Body id="login-signup-card-body">
+                        <h5>Ever wondered what it'd be like to manage a stock portfolio?</h5> Buying and selling stocks
+                        can be a daunting endevor, especially with your money on the line! Well thats where the 
+                        fantasy stock trader comes in to play. Here you can buy and sell stocks, even research the latest 
+                        stock trends, all with fantasy money!
+                    </Card.Body>
+                </Card>
+            </Container>
             {isLoading ?
                 <Container id="login-loading-container" fluid><Image className="media-gif" src={loginLoading}/></Container>
                 :

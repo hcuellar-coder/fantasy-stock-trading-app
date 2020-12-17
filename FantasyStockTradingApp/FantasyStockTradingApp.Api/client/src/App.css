@@ -192,6 +192,25 @@ body {
     flex-direction: column;
 }
 
+#login-signup-card {
+    margin-bottom: 20px;
+    border-radius: 25px;
+    background-color: #366375;
+}
+#login-signup-card-title {
+    color: #e76f51;
+    background-color: #366375;
+    margin: 0;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+}
+#login-signup-card-body {
+    color: white;
+    background-color: #366375;
+    border-bottom-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+
 #login-container {
     justify-content: center;
     max-width: 350px;

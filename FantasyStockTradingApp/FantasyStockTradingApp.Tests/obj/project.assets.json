@@ -5265,11 +5265,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\FantasyStockTradingApp.Tests.csproj",
+      "projectUniqueName": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp.Tests\\FantasyStockTradingApp.Tests.csproj",
       "projectName": "FantasyStockTradingApp.Tests",
-      "projectPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\FantasyStockTradingApp.Tests.csproj",
+      "projectPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp.Tests\\FantasyStockTradingApp.Tests.csproj",
       "packagesPath": "C:\\Users\\herib\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\Tests\\obj\\",
+      "outputPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp.Tests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\herib\\AppData\\Roaming\\NuGet\\NuGet.Config",
