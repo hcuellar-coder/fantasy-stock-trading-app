@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "/drzKZuh4C1RAfBLF99sXgHX/9Yo8ag/dSj9PFL/ZyHrvMgJflspMucRh6Tm99KVrMzcFUQ0Jlf8exJwXvnmoA==",
+  "dgSpecHash": "hXHqjHP4ZpxKvoYyG/tJgzQ7utIdIhCvWEq8VOHsVd5i0h0azGlo9XjQyrQCZa9+6n8bd6K3xyMQUHG1Z5LU+Q==",
   "success": true,
   "projectFilePath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp.Core\\FantasyStockTradingApp.Core.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\herib\\.nuget\\packages\\antlr3.runtime\\3.5.1\\antlr3.runtime.3.5.1.nupkg.sha512",
+    "C:\\Users\\herib\\.nuget\\packages\\emailvalidation\\1.0.4\\emailvalidation.1.0.4.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\fluentnhibernate\\3.1.0\\fluentnhibernate.3.1.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\iesi.collections\\4.0.4\\iesi.collections.4.0.4.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.9\\microsoft.aspnetcore.jsonpatch.3.1.9.nupkg.sha512",
@@ -41,6 +42,8 @@
     "C:\\Users\\herib\\.nuget\\packages\\system.buffers\\4.3.0\\system.buffers.4.3.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\system.collections\\4.3.0\\system.collections.4.3.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\system.collections.concurrent\\4.3.0\\system.collections.concurrent.4.3.0.nupkg.sha512",
+    "C:\\Users\\herib\\.nuget\\packages\\system.componentmodel\\4.3.0\\system.componentmodel.4.3.0.nupkg.sha512",
+    "C:\\Users\\herib\\.nuget\\packages\\system.componentmodel.annotations\\4.3.0\\system.componentmodel.annotations.4.3.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\system.configuration.configurationmanager\\4.4.1\\system.configuration.configurationmanager.4.4.1.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\system.console\\4.3.0\\system.console.4.3.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\system.diagnostics.debug\\4.3.0\\system.diagnostics.debug.4.3.0.nupkg.sha512",

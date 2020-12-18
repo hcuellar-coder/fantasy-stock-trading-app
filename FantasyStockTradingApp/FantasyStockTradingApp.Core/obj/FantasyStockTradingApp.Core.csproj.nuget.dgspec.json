@@ -38,6 +38,10 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
+            "EmailValidation": {
+              "target": "Package",
+              "version": "[1.0.4, )"
+            },
             "FluentNHibernate": {
               "target": "Package",
               "version": "[3.1.0, )"

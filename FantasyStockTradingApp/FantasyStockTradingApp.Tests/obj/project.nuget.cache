@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "FYbsu1OXQZeGkt7/yrBUJPkpLKVe5RUigThl6pvpxOKQpOG5L9l43o8tI9dO/Ui5ZeYwYtwIh5poY2iCQmIE7g==",
+  "dgSpecHash": "FmQfKtgOrV09PP/u0NTjJvli2p/Rj/FG50FeFU3LvR6MXGcSmIoUqhn76yyhTAEta8bO0lfGIHzaqscqDSSTYA==",
   "success": true,
   "projectFilePath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp.Tests\\FantasyStockTradingApp.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\herib\\.nuget\\packages\\antlr3.runtime\\3.5.1\\antlr3.runtime.3.5.1.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\castle.core\\4.4.0\\castle.core.4.4.0.nupkg.sha512",
+    "C:\\Users\\herib\\.nuget\\packages\\emailvalidation\\1.0.4\\emailvalidation.1.0.4.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\fluentnhibernate\\3.1.0\\fluentnhibernate.3.1.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\iesi.collections\\4.0.4\\iesi.collections.4.0.4.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\microsoft.aspnetcore.jsonpatch\\3.1.9\\microsoft.aspnetcore.jsonpatch.3.1.9.nupkg.sha512",
@@ -38,6 +39,7 @@
     "C:\\Users\\herib\\.nuget\\packages\\system.collections.nongeneric\\4.3.0\\system.collections.nongeneric.4.3.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\system.collections.specialized\\4.3.0\\system.collections.specialized.4.3.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\system.componentmodel\\4.3.0\\system.componentmodel.4.3.0.nupkg.sha512",
+    "C:\\Users\\herib\\.nuget\\packages\\system.componentmodel.annotations\\4.3.0\\system.componentmodel.annotations.4.3.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\system.componentmodel.eventbasedasync\\4.3.0\\system.componentmodel.eventbasedasync.4.3.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\system.componentmodel.primitives\\4.3.0\\system.componentmodel.primitives.4.3.0.nupkg.sha512",
     "C:\\Users\\herib\\.nuget\\packages\\system.componentmodel.typeconverter\\4.3.0\\system.componentmodel.typeconverter.4.3.0.nupkg.sha512",

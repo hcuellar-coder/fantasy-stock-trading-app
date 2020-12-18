@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EmailValidation;
 using System.Net.Http;
 using System.Web;
 using Microsoft.AspNetCore.Server.HttpSys;
@@ -39,7 +40,7 @@ namespace FantasyStockTradingApp.Core.Services
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
-                    
+
                     if (Password == null)
                     {
                         var result = _session.QueryOver<User>()
@@ -94,17 +95,25 @@ namespace FantasyStockTradingApp.Core.Services
         {
             try
             {
-                using (ITransaction transaction = _session.BeginTransaction())
+                if (EmailValidator.Validate(Email))
                 {
-                    var user = new User
+                    using (ITransaction transaction = _session.BeginTransaction())
                     {
-                        Email = Email,
-                        Password = Password,
-                        FirstName = FirstName,
-                        LastName = LastName
-                    };
-                    await _session.SaveAsync(user);
-                    await transaction.CommitAsync();
+                        var user = new User
+                        {
+                            Email = Email,
+                            Password = Password,
+                            FirstName = FirstName,
+                            LastName = LastName
+                        };
+                        await _session.SaveAsync(user);
+                        await transaction.CommitAsync();
+                    }
+                }
+                else
+                {
+                    var errorString = $"Incorrect Email";
+                    throw new Exception(errorString);
                 }
             }
             catch (Exception ex)

@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v3.1": {
       "FantasyStockTradingApp.Core/1.0.0": {
         "dependencies": {
+          "EmailValidation": "1.0.4",
           "FluentNHibernate": "3.1.0",
           "Microsoft.AspNetCore.Mvc.NewtonsoftJson": "3.1.9",
           "NHibernate": "5.3.5",
@@ -26,6 +27,17 @@
           "lib/netstandard1.1/Antlr3.Runtime.dll": {
             "assemblyVersion": "3.5.0.2",
             "fileVersion": "3.5.1.0"
+          }
+        }
+      },
+      "EmailValidation/1.0.4": {
+        "dependencies": {
+          "System.ComponentModel.Annotations": "4.3.0"
+        },
+        "runtime": {
+          "lib/netstandard2.0/EmailValidation.dll": {
+            "assemblyVersion": "1.0.0.0",
+            "fileVersion": "1.0.4.0"
           }
         }
       },
@@ -311,6 +323,26 @@
           "System.Runtime.Extensions": "4.3.0",
           "System.Threading": "4.3.0",
           "System.Threading.Tasks": "4.3.0"
+        }
+      },
+      "System.ComponentModel/4.3.0": {
+        "dependencies": {
+          "System.Runtime": "4.3.0"
+        }
+      },
+      "System.ComponentModel.Annotations/4.3.0": {
+        "dependencies": {
+          "System.Collections": "4.3.0",
+          "System.ComponentModel": "4.3.0",
+          "System.Globalization": "4.3.0",
+          "System.Linq": "4.3.0",
+          "System.Reflection": "4.3.0",
+          "System.Reflection.Extensions": "4.3.0",
+          "System.Resources.ResourceManager": "4.3.0",
+          "System.Runtime": "4.3.0",
+          "System.Runtime.Extensions": "4.3.0",
+          "System.Text.RegularExpressions": "4.3.0",
+          "System.Threading": "4.3.0"
         }
       },
       "System.Configuration.ConfigurationManager/4.4.1": {
@@ -909,6 +941,13 @@
       "path": "antlr3.runtime/3.5.1",
       "hashPath": "antlr3.runtime.3.5.1.nupkg.sha512"
     },
+    "EmailValidation/1.0.4": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ouufej+j0TXGknTyANvFaXHpfEyf45FtnMTyWUC8Uss7JUz+6FShI8o/RstUB/++MPuur2MECa0BbjYdqsEv0A==",
+      "path": "emailvalidation/1.0.4",
+      "hashPath": "emailvalidation.1.0.4.nupkg.sha512"
+    },
     "FluentNHibernate/3.1.0": {
       "type": "package",
       "serviceable": true,
@@ -1160,6 +1199,20 @@
       "sha512": "sha512-ztl69Xp0Y/UXCL+3v3tEU+lIy+bvjKNUmopn1wep/a291pVPK7dxBd6T7WnlQqRog+d1a/hSsgRsmFnIBKTPLQ==",
       "path": "system.collections.concurrent/4.3.0",
       "hashPath": "system.collections.concurrent.4.3.0.nupkg.sha512"
+    },
+    "System.ComponentModel/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-VyGn1jGRZVfxnh8EdvDCi71v3bMXrsu8aYJOwoV7SNDLVhiEqwP86pPMyRGsDsxhXAm2b3o9OIqeETfN5qfezw==",
+      "path": "system.componentmodel/4.3.0",
+      "hashPath": "system.componentmodel.4.3.0.nupkg.sha512"
+    },
+    "System.ComponentModel.Annotations/4.3.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-SY2RLItHt43rd8J9D8M8e8NM4m+9WLN2uUd9G0n1I4hj/7w+v3pzK6ZBjexlG1/2xvLKQsqir3UGVSyBTXMLWA==",
+      "path": "system.componentmodel.annotations/4.3.0",
+      "hashPath": "system.componentmodel.annotations.4.3.0.nupkg.sha512"
     },
     "System.Configuration.ConfigurationManager/4.4.1": {
       "type": "package",
