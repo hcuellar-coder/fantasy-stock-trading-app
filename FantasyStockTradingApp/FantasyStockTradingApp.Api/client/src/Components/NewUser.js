@@ -21,19 +21,17 @@ function NewUser(props) {
     const { setHoldings } = useHoldings();
 
     function newUser() {
-            api.post('/new_user', {
+        try {
+            const response = api.post('/new_user', {
                 Email: email.toLowerCase(),
                 Password: password,
                 FirstName: firstName,
                 LastName: lastName
-            })
-            .then(response => {
-                console.log('response = ', response);
-                return response;
-            })
-            .catch (error => {
-            console.error('error = ', error);
             });
+            return response;
+        } catch (error) {
+            console.error('error = ', error);
+        }
     }
 
     function getUser() {
