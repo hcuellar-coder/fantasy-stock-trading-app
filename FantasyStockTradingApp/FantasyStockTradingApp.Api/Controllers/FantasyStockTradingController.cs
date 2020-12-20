@@ -66,7 +66,6 @@ namespace FantasyStockTradingApp.Controllers
         [HttpPost("new_user")]
         public async Task NewUser(JObject data)
         {
-
             var Email = data["Email"].ToString();
             var Password = data["Password"].ToString();
             var FirstName = data["FirstName"].ToString();

@@ -130,7 +130,12 @@ body {
     margin-right: 20px;
 }
 
-.search-card-deck{
+.new-user-form-text {
+    color: #e76f51;
+
+}
+
+.search-card-deck {
     margin-left: 10px;
     margin-right: 10px;
 }

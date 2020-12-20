@@ -27,3 +27,4 @@ C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTra
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\FantasyStockTradingApp.Core\obj\Release\netcoreapp3.1\FantasyStockTradingApp.Core.dll
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\FantasyStockTradingApp.Core\obj\Release\netcoreapp3.1\FantasyStockTradingApp.Core.pdb
 C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\FantasyStockTradingApp.Core\obj\Release\netcoreapp3.1\FantasyStockTradingApp.Core.genruntimeconfig.cache
+C:\Users\herib\Documents\SDMM Projects\fantasy-stock-trading-app\FantasyStockTradingApp\FantasyStockTradingApp.Core\bin\Release\netcoreapp3.1\EmailValidation.dll

@@ -9,6 +9,7 @@ import { useHoldings } from '../Context/HoldingsContext';
 function NewUser(props) {
     const [validated, setValidated] = useState(false);
     const [isError, setIsError] = useState(false);
+    const [error, setError] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setconfirmPassword] = useState('');
@@ -20,17 +21,19 @@ function NewUser(props) {
     const { setHoldings } = useHoldings();
 
     function newUser() {
-        try {
-            const response = api.post('/new_user', {
+            api.post('/new_user', {
                 Email: email.toLowerCase(),
                 Password: password,
                 FirstName: firstName,
                 LastName: lastName
+            })
+            .then(response => {
+                console.log('response = ', response);
+                return response;
+            })
+            .catch (error => {
+            console.error('error = ', error);
             });
-            return response;
-        } catch (error) {
-            console.error(error);
-        }
     }
 
     function getUser() {
@@ -42,7 +45,7 @@ function NewUser(props) {
             });
             return response;
         } catch (error) {
-            console.error(error);
+            console.error('error = ', error);
         }
     }
 
@@ -106,11 +109,13 @@ function NewUser(props) {
     function handlePasswordChange(e) {
         e.preventDefault();
         setPassword(e.target.value);
+        checkPasswordsMatch(e.target.value, confirmPassword);
     }
 
     function handleConfirmPasswordChange(e) {
         e.preventDefault();
         setconfirmPassword(e.target.value);
+        checkPasswordsMatch(password, e.target.value);
     }
 
     function handleFirstNameChange(e) {
@@ -123,6 +128,14 @@ function NewUser(props) {
         setLastName(e.target.value);
     }
 
+    function checkPasswordsMatch(password, confirmPassword) {
+        if (password !== confirmPassword) {
+            setError('Passwords do not match');
+        } else {
+            setError('');
+        }
+    }
+
     function handleSubmit(e) {
         e.preventDefault();
         const form = e.target;
@@ -133,6 +146,7 @@ function NewUser(props) {
                         alert('User already exists! Login instead!');
                     } else {
                         newUser().then((newUserResponse) => {
+                            console.log('newUserResponse = ', newUserResponse);
                             if (newUserResponse.status === 200) {
 
                                 getUser().then((getUserResponse) => {
@@ -160,6 +174,7 @@ function NewUser(props) {
                                 setIsError(true);
                             }
                         }).catch(e => {
+                            console.log('e =', e);
                             setIsError(true);
                         });
                     }
@@ -205,6 +220,9 @@ function NewUser(props) {
                                 onChange={handleEmailChange}
                                 value={email}
                             />
+                            <Form.Text className="new-user-form-text">
+                               ex: john.smith@example.com
+                            </Form.Text>
                         </Form.Group>
                     </Form.Row>
                     <Form.Row className="login-row">
@@ -237,7 +255,6 @@ function NewUser(props) {
                                 placeholder="Password"
                                 onChange={handlePasswordChange}
                                 value={password}
-                                isInvalid={password !== confirmPassword}
                             />
                         </Form.Group>
                     </Form.Row>
@@ -249,13 +266,12 @@ function NewUser(props) {
                                 placeholder="Confirm Password"
                                 onChange={handleConfirmPasswordChange}
                                 value={confirmPassword}
-                                isInvalid={password!==confirmPassword}
-                            />
-                            <Form.Control.Feedback type="invalid">
-                                Passwords do not to match
-                            </Form.Control.Feedback>
+                            /> 
                         </Form.Group>
                     </Form.Row>
+                    <Form.Text className="error-text">
+                        { error }
+                            </Form.Text>
                     <div id='login-buttons-div'>
                         <Button id='join-user-button' type="submit">Join</Button>
                         <div id='login-new-user-div'>

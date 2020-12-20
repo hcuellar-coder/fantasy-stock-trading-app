@@ -112,13 +112,13 @@ namespace FantasyStockTradingApp.Core.Services
                 }
                 else
                 {
-                    var errorString = $"Incorrect Email";
+                    var errorString = $"Incorrect Email Format";
                     throw new Exception(errorString);
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var errorString = $"Error inserting user: { ex }";
+                var errorString = $"Error inserting user";
                 throw new Exception(errorString);
             }
             finally
