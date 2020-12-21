@@ -1,4 +1,4 @@
-﻿using FantasyStockTradingApp.Api.CustomExceptionMiddleware;
+﻿using FantasyStockTradingApp.Api.Middleware;
 using FantasyStockTradingApp.Api.Models;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics;

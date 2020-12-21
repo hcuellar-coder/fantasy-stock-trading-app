@@ -95,7 +95,7 @@ namespace FantasyStockTradingApp
              }*/
 
             //app.ConfigureExceptionHandler();
-            app.ConfigureCustomExceptionMiddleware();
+            //app.ConfigureCustomExceptionMiddleware();
 
             app.UseHttpsRedirection();
 

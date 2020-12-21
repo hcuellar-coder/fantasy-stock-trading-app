@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 
-namespace FantasyStockTradingApp.Api.CustomExceptionMiddleware
+namespace FantasyStockTradingApp.Api.Middleware
 {
     public class ExceptionMiddleware
     {
@@ -37,7 +37,7 @@ namespace FantasyStockTradingApp.Api.CustomExceptionMiddleware
             return context.Response.WriteAsync(new ErrorDetails
             {
                 StatusCode = context.Response.StatusCode,
-                Message = "Internal Server Error"
+                Message = "testing Message"
             }.ToString());
         }
     }
