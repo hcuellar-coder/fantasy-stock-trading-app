@@ -12,6 +12,8 @@ using System.Web;
 using Microsoft.AspNetCore.Server.HttpSys;
 using System.Net;
 using FluentNHibernate.Conventions;
+using System.IO;
+using FantasyStockTradingApp.Core.Exceptions;
 
 namespace FantasyStockTradingApp.Core.Services
 {
@@ -25,12 +27,14 @@ namespace FantasyStockTradingApp.Core.Services
     {
         private readonly ISession _session;
         private readonly INHibernateService _nHibernateService;
+        private readonly string _path;
 
 
         public UserService(INHibernateService nHibernateService)
         {
             _nHibernateService = nHibernateService;
             _session = _nHibernateService.OpenSession();
+            _path = Path.GetFullPath(ToString());
 
         }
 
@@ -93,38 +97,39 @@ namespace FantasyStockTradingApp.Core.Services
        
         public async Task NewUser(string Email, string Password, string FirstName, string LastName)
         {
-            try
-            {
+            
                 if (EmailValidator.Validate(Email))
                 {
-                    using (ITransaction transaction = _session.BeginTransaction())
+                    try
                     {
-                        var user = new User
+                        using (ITransaction transaction = _session.BeginTransaction())
                         {
-                            Email = Email,
-                            Password = Password,
-                            FirstName = FirstName,
-                            LastName = LastName
-                        };
-                        await _session.SaveAsync(user);
-                        await transaction.CommitAsync();
+                            var user = new User
+                            {
+                                Email = Email,
+                                Password = Password,
+                                FirstName = FirstName,
+                                LastName = LastName
+                            };
+                            await _session.SaveAsync(user);
+                            await transaction.CommitAsync();
+                        }
+                    }
+                    catch
+                    {
+                        var errorString = $"Error inserting user";
+                        throw new Exception(errorString);
+                    }
+                    finally
+                    {
+                        _nHibernateService.CloseSession();
                     }
                 }
                 else
                 {
-                    var errorString = $"Incorrect Email Format";
-                    throw new Exception(errorString);
+                    throw new NewUserEmailException(_path, "NewUser()");
                 }
-            }
-            catch
-            {
-                var errorString = $"Error inserting user";
-                throw new Exception(errorString);
-            }
-            finally
-            {
-                _nHibernateService.CloseSession();
-            }
+           
         }
     }
 }

@@ -172,6 +172,7 @@ function NewUser(props) {
                                 setIsError(true);
                             }
                         }).catch(e => {
+                            console.log('e =', e.Message);
                             console.log('e =', e);
                             setIsError(true);
                         });

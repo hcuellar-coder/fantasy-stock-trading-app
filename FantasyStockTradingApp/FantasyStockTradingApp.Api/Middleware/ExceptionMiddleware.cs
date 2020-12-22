@@ -1,4 +1,5 @@
 ﻿using FantasyStockTradingApp.Api.Models;
+using FantasyStockTradingApp.Core.Exceptions;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
@@ -23,22 +24,19 @@ namespace FantasyStockTradingApp.Api.Middleware
             {
                 await _next(httpContext);
             }
-            catch
+            catch (StockTraderExceptions ex)
             {
-                await HandleExceptionAsync(httpContext);
+                httpContext.Response.ContentType = "application/json";
+                httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                await httpContext.Response.WriteAsync(new StockTraderExceptionModel(ex).ToString());
             }
-        }
-
-        private Task HandleExceptionAsync(HttpContext context)
-        {
-            context.Response.ContentType = "application/json";
-            context.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
-
-            return context.Response.WriteAsync(new ErrorDetails
+            catch (Exception ex)
             {
-                StatusCode = context.Response.StatusCode,
-                Message = "testing Message"
-            }.ToString());
+                httpContext.Response.ContentType = "application/json";
+                httpContext.Response.StatusCode = (int)HttpStatusCode.InternalServerError;
+                await httpContext.Response.WriteAsync(new DefaultExceptionModel(ex).ToString());
+
+            }
         }
     }
 }

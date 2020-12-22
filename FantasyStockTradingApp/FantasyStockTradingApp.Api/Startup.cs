@@ -19,6 +19,7 @@ using System;
 using System.Configuration;
 using System.Text;
 using FantasyStockTradingApp.Api.Extensions;
+using FantasyStockTradingApp.Api.Middleware;
 
 namespace FantasyStockTradingApp
 {
@@ -96,6 +97,7 @@ namespace FantasyStockTradingApp
 
             //app.ConfigureExceptionHandler();
             //app.ConfigureCustomExceptionMiddleware();
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();
 
