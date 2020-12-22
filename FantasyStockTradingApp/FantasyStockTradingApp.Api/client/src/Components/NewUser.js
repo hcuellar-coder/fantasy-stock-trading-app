@@ -20,8 +20,8 @@ function NewUser(props) {
     const { setAccount} = useAccount();
     const { setHoldings } = useHoldings();
 
-    function newUser() {
-        try {
+    async function newUser() {
+        /*try {
             const response = api.post('/new_user', {
                 Email: email.toLowerCase(),
                 Password: password,
@@ -31,10 +31,22 @@ function NewUser(props) {
             return response;
         } catch (error) {
             console.error('error = ', error);
-        }
+        }*/
+        await api.post('/new_user', {
+            Email: email.toLowerCase(),
+            Password: password,
+            FirstName: firstName,
+            LastName: lastName
+        }).then(response => {
+            return response;
+        }).catch(error => {
+            if (error.response) {
+                console.log('error.response = ', error.response);
+            }
+        });
     }
 
-    function getUser() {
+    /*function getUser() {
         try {
             const response = api.get('/get_user?', {
                 params: {
@@ -45,6 +57,20 @@ function NewUser(props) {
         } catch (error) {
             console.error('error = ', error);
         }
+    }*/
+
+    async function getUser() {
+        await api.get('/get_user?', {
+            params: {
+                Email: email.toLowerCase(),
+            }
+        }).then(response => {
+            if (response !== undefined && response.status === 200) {
+                setUser(response.data[0]);
+            }
+        }).catch(error => {
+            console.log('error = ', error);
+        });
     }
 
     function isValidUser() {
@@ -56,11 +82,11 @@ function NewUser(props) {
             });
             return response;
         } catch (error) {
-            console.error(error);
+            console.log(error);
         }
     }
 
-    function newAccout(userId) {
+    /*function newAccout(userId) {
         try {
             const response = api.post('/new_account', {
                 UserId: userId,
@@ -69,9 +95,20 @@ function NewUser(props) {
         } catch (error) {
             console.error(error);
         }
+    }*/
+
+
+    async function newAccout(userId) {
+        await api.post('/new_account', {
+                UserId: userId,
+        }).then(response => {
+            return response;
+        }).catch (error => {
+            console.log(error);
+        });
     }
 
-    function getAccount(userID) {
+    /*function getAccount(userID) {
         try {
             const response = api.get('/get_account?', {
                 params: {
@@ -82,9 +119,23 @@ function NewUser(props) {
         } catch (error) {
             console.error(error);
         }
+    }*/
+
+    async function getAccount(userID) {
+        await api.get('/get_account?', {
+            params: {
+                UserId: userID
+            }
+        }).then(response => {
+            if (response.status === 200) {
+                setAccount(response.data[0]);
+            }
+        }).catch(error => {
+            console.log(error);
+        });
     }
 
-    function getToken() {
+    /*function getToken() {
         try {
             const response = tokenApi.get('/get_token?', {
                 params: {
@@ -96,6 +147,19 @@ function NewUser(props) {
         } catch (error) {
             console.error(error);
         }
+    }*/
+
+    async function getToken() {
+        await tokenApi.get('/get_token?', {
+            params: {
+                Email: email.toLowerCase(),
+                Password: password
+            }
+        }).then(response => {
+            setAuthTokens(response.data);
+        }).catch (error => {
+            console.error(error);
+        });
     }
 
 
@@ -143,26 +207,33 @@ function NewUser(props) {
                     if (isValidUserResponse.data) {
                         alert('User already exists! Login instead!');
                     } else {
+
+/*                        Promise.all([newUser(), getUser(), newAccout(), getAccount(), getToken()])
+                            .then(function (results) {
+                                console.log(results);
+                            });
+*/
+
                         newUser().then((newUserResponse) => {
-                            console.log('newUserResponse = ', newUserResponse);
-                            if (newUserResponse.status === 200) {
+                            if (newUserResponse !== undefined) {
 
                                 getUser().then((getUserResponse) => {
-                                    if (getUserResponse.status === 200) {
-                                        setUser(getUserResponse.data[0]);
+                                    if (newUserResponse !== undefined) {
+                                        //setUser(getUserResponse.data[0]);
 
                                         newAccout(getUserResponse.data[0].id).then((newAccountResponse) => {
-                                            if (newAccountResponse.status === 200) {
+                                            if (newAccountResponse !== undefined) {
 
                                                 getAccount(getUserResponse.data[0].id).then((getAccountResponse) => {
-                                                    if (getAccountResponse.status === 200) {
+                                                    /*if (getAccountResponse !== undefined && getAccountResponse.status === 200) {
                                                         setAccount(getAccountResponse.data[0]);
-                                                    }
+                                                    }*/
 
                                                     setHoldings('');
-                                                    getToken().then((getTokenResponse) => {
+                                                    getToken();
+                                                    /*getToken().then((getTokenResponse) => {
                                                         setAuthTokens(getTokenResponse.data);
-                                                    });
+                                                    });*/
                                                 })
                                             }
                                         });
@@ -171,11 +242,7 @@ function NewUser(props) {
                             } else {
                                 setIsError(true);
                             }
-                        }).catch(e => {
-                            console.log('e =', e.Message);
-                            console.log('e =', e);
-                            setIsError(true);
-                        });
+                        })
                     }
                 })
             }              
