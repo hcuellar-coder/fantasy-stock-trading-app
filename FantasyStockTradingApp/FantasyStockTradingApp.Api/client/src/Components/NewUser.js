@@ -16,13 +16,15 @@ function NewUser(props) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const { setAuthTokens } = useAuth();
-    const { setUser } = useUser();
+    const { user, setUser } = useUser();
     const { setAccount} = useAccount();
     const { setHoldings } = useHoldings();
 
-    async function newUser() {
-        /*try {
-            const response = api.post('/new_user', {
+
+
+     async function newUser() {
+        try {
+            const response = await api.post('/new_user', {
                 Email: email.toLowerCase(),
                 Password: password,
                 FirstName: firstName,
@@ -31,24 +33,13 @@ function NewUser(props) {
             return response;
         } catch (error) {
             console.error('error = ', error);
-        }*/
-        await api.post('/new_user', {
-            Email: email.toLowerCase(),
-            Password: password,
-            FirstName: firstName,
-            LastName: lastName
-        }).then(response => {
-            return response;
-        }).catch(error => {
-            if (error.response) {
-                console.log('error.response = ', error.response);
-            }
-        });
+            return error.response;
+        }
     }
 
-    /*function getUser() {
+    async function getUser() {
         try {
-            const response = api.get('/get_user?', {
+            const response = await api.get('/get_user?', {
                 params: {
                     Email: email.toLowerCase(),
                 }
@@ -56,26 +47,13 @@ function NewUser(props) {
             return response;
         } catch (error) {
             console.error('error = ', error);
+            return error.response;
         }
-    }*/
-
-    async function getUser() {
-        await api.get('/get_user?', {
-            params: {
-                Email: email.toLowerCase(),
-            }
-        }).then(response => {
-            if (response !== undefined && response.status === 200) {
-                setUser(response.data[0]);
-            }
-        }).catch(error => {
-            console.log('error = ', error);
-        });
     }
 
-    function isValidUser() {
+    async function isValidUser() {
         try {
-            const response = api.get('/is_valid_user?', {
+            const response = await api.get('/is_valid_user?', {
                 params: {
                     Email: email.toLowerCase(),
                 }
@@ -83,34 +61,25 @@ function NewUser(props) {
             return response;
         } catch (error) {
             console.log(error);
+            return error.response;
         }
     }
 
-    /*function newAccout(userId) {
+    async function newAccount(userId) {
         try {
-            const response = api.post('/new_account', {
+            const response = await api.post('/new_account', {
                 UserId: userId,
             });
             return response;
         } catch (error) {
             console.error(error);
+            return error.response;
         }
-    }*/
-
-
-    async function newAccout(userId) {
-        await api.post('/new_account', {
-                UserId: userId,
-        }).then(response => {
-            return response;
-        }).catch (error => {
-            console.log(error);
-        });
     }
 
-    /*function getAccount(userID) {
+    async function getAccount(userID) {
         try {
-            const response = api.get('/get_account?', {
+            const response = await api.get('/get_account?', {
                 params: {
                     UserId: userID
                 }
@@ -118,26 +87,13 @@ function NewUser(props) {
             return response;
         } catch (error) {
             console.error(error);
+            return error.response;
         }
-    }*/
-
-    async function getAccount(userID) {
-        await api.get('/get_account?', {
-            params: {
-                UserId: userID
-            }
-        }).then(response => {
-            if (response.status === 200) {
-                setAccount(response.data[0]);
-            }
-        }).catch(error => {
-            console.log(error);
-        });
     }
 
-    /*function getToken() {
+    async function getToken() {
         try {
-            const response = tokenApi.get('/get_token?', {
+            const response = await tokenApi.get('/get_token?', {
                 params: {
                     Email: email.toLowerCase(),
                     Password: password
@@ -146,22 +102,9 @@ function NewUser(props) {
             return response;
         } catch (error) {
             console.error(error);
+            return error.response;
         }
-    }*/
-
-    async function getToken() {
-        await tokenApi.get('/get_token?', {
-            params: {
-                Email: email.toLowerCase(),
-                Password: password
-            }
-        }).then(response => {
-            setAuthTokens(response.data);
-        }).catch (error => {
-            console.error(error);
-        });
     }
-
 
     function handleEmailChange(e) {
         e.preventDefault();
@@ -198,23 +141,46 @@ function NewUser(props) {
         }
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         e.preventDefault();
         const form = e.target;
         if (password === confirmPassword) {
             if (form.checkValidity() !== false) {
-                isValidUser().then((isValidUserResponse) => {
+                await isValidUser().then(async (isValidUserResponse) => {
                     if (isValidUserResponse.data) {
                         alert('User already exists! Login instead!');
                     } else {
+                        await newUser().then(async (newUserResponse) => {
+                            console.log('newUserResponse = ',newUserResponse);
+                            if (newUserResponse.status === 200) {
+                                await getUser().then(async (getUserResponse) => {
+                                    console.log('getUserResponse = ', getUserResponse);
+                                    if (getUserResponse.status === 200) {
+                                        setUser(getUserResponse.data[0]);
+                                        await newAccount(getUserResponse.data[0].id).then(async (newAccountResponse) => {
+                                            console.log('newAccountResponse = ', newAccountResponse);
+                                            if (newAccountResponse.status === 200) {
+                                                await getAccount(getUserResponse.data[0].id).then(async (getAccountResponse) => {
+                                                    console.log('getAccountResponse = ', getAccountResponse);
+                                                    if (getAccountResponse.status === 200) {
+                                                        setAccount(getAccountResponse.data[0]);
+                                                        setHoldings('');
+                                                        await getToken().then(async (getTokenResponse) => {
+                                                            setAuthTokens(getTokenResponse.data);
+                                                        })
+                                                    }
+                                                })
+                                            }
+                                        })
+                                    }
+                                })
+                            }
+                        })
 
-/*                        Promise.all([newUser(), getUser(), newAccout(), getAccount(), getToken()])
-                            .then(function (results) {
-                                console.log(results);
-                            });
-*/
 
+                        /*
                         newUser().then((newUserResponse) => {
+                            console.log('newUserResponse = ', newUserResponse);
                             if (newUserResponse !== undefined) {
 
                                 getUser().then((getUserResponse) => {
@@ -225,15 +191,15 @@ function NewUser(props) {
                                             if (newAccountResponse !== undefined) {
 
                                                 getAccount(getUserResponse.data[0].id).then((getAccountResponse) => {
-                                                    /*if (getAccountResponse !== undefined && getAccountResponse.status === 200) {
+                                                    *//*if (getAccountResponse !== undefined && getAccountResponse.status === 200) {
                                                         setAccount(getAccountResponse.data[0]);
-                                                    }*/
+                                                    }*//*
 
                                                     setHoldings('');
                                                     getToken();
-                                                    /*getToken().then((getTokenResponse) => {
+                                                    *//*getToken().then((getTokenResponse) => {
                                                         setAuthTokens(getTokenResponse.data);
-                                                    });*/
+                                                    });*//*
                                                 })
                                             }
                                         });
@@ -242,7 +208,7 @@ function NewUser(props) {
                             } else {
                                 setIsError(true);
                             }
-                        })
+                        })*/
                     }
                 })
             }              
