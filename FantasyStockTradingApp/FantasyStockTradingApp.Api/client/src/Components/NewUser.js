@@ -32,6 +32,8 @@ function NewUser(props) {
             });
             return response;
         } catch (error) {
+            setError(error.response.data.Message);
+            setIsError(true);
             console.error('error = ', error);
             return error.response;
         }
@@ -47,6 +49,8 @@ function NewUser(props) {
             return response;
         } catch (error) {
             console.error('error = ', error);
+            setError(error.response.data.Message);
+            setIsError(true);
             return error.response;
         }
     }
@@ -61,6 +65,8 @@ function NewUser(props) {
             return response;
         } catch (error) {
             console.log(error);
+            setError(error.response.data.Message);
+            setIsError(true);
             return error.response;
         }
     }
@@ -73,6 +79,8 @@ function NewUser(props) {
             return response;
         } catch (error) {
             console.error(error);
+            setError(error.response.data.Message);
+            setIsError(true);
             return error.response;
         }
     }
@@ -87,6 +95,8 @@ function NewUser(props) {
             return response;
         } catch (error) {
             console.error(error);
+            setError(error.response.data.Message);
+            setIsError(true);
             return error.response;
         }
     }
@@ -102,6 +112,8 @@ function NewUser(props) {
             return response;
         } catch (error) {
             console.error(error);
+            setError(error.response.data.Message);
+            setIsError(true);
             return error.response;
         }
     }
@@ -151,66 +163,37 @@ function NewUser(props) {
                         alert('User already exists! Login instead!');
                     } else {
                         await newUser().then(async (newUserResponse) => {
-                            console.log('newUserResponse = ',newUserResponse);
+                            console.log('newUserResponse = ', newUserResponse);
                             if (newUserResponse.status === 200) {
+
                                 await getUser().then(async (getUserResponse) => {
                                     console.log('getUserResponse = ', getUserResponse);
                                     if (getUserResponse.status === 200) {
                                         setUser(getUserResponse.data[0]);
+
                                         await newAccount(getUserResponse.data[0].id).then(async (newAccountResponse) => {
                                             console.log('newAccountResponse = ', newAccountResponse);
                                             if (newAccountResponse.status === 200) {
+
                                                 await getAccount(getUserResponse.data[0].id).then(async (getAccountResponse) => {
                                                     console.log('getAccountResponse = ', getAccountResponse);
                                                     if (getAccountResponse.status === 200) {
                                                         setAccount(getAccountResponse.data[0]);
                                                         setHoldings('');
+
                                                         await getToken().then(async (getTokenResponse) => {
                                                             setAuthTokens(getTokenResponse.data);
-                                                        })
+                                                        });
                                                     }
-                                                })
-                                            }
-                                        })
-                                    }
-                                })
-                            }
-                        })
-
-
-                        /*
-                        newUser().then((newUserResponse) => {
-                            console.log('newUserResponse = ', newUserResponse);
-                            if (newUserResponse !== undefined) {
-
-                                getUser().then((getUserResponse) => {
-                                    if (newUserResponse !== undefined) {
-                                        //setUser(getUserResponse.data[0]);
-
-                                        newAccout(getUserResponse.data[0].id).then((newAccountResponse) => {
-                                            if (newAccountResponse !== undefined) {
-
-                                                getAccount(getUserResponse.data[0].id).then((getAccountResponse) => {
-                                                    *//*if (getAccountResponse !== undefined && getAccountResponse.status === 200) {
-                                                        setAccount(getAccountResponse.data[0]);
-                                                    }*//*
-
-                                                    setHoldings('');
-                                                    getToken();
-                                                    *//*getToken().then((getTokenResponse) => {
-                                                        setAuthTokens(getTokenResponse.data);
-                                                    });*//*
-                                                })
-                                            }
+                                                });
+                                            } 
                                         });
                                     }
                                 });
-                            } else {
-                                setIsError(true);
                             }
-                        })*/
+                        });
                     }
-                })
+                });
             }              
             setValidated(true);
         }

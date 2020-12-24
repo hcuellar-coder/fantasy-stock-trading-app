@@ -18,9 +18,9 @@ function Login(props) {
     const { setAccount } = useAccount();
     const { holdings, setHoldings } = useHoldings();
 
-    function isValidUser() {
+    async function isValidUser() {
         try {
-            const response = api.get('/is_valid_user?', {
+            const response = await api.get('/is_valid_user?', {
                 params: {
                     Email: email.toLowerCase(),
                     Password: password
@@ -29,12 +29,13 @@ function Login(props) {
             return response;
         } catch (error) {
             console.error(error);
+            return error.response;
         }
     }
 
-    function getUser() {
+    async function getUser() {
         try {
-            const response = api.get('/get_user?', {
+            const response = await api.get('/get_user?', {
                 params: {
                     Email: email.toLowerCase(),
                 }
@@ -42,12 +43,13 @@ function Login(props) {
             return response;
         } catch(error) {
             console.error(error);
+            return error.response;
         }
     }
 
-    function getAccount(userID) {
+    async function getAccount(userID) {
         try {
-            const response = api.get('/get_account?', {
+            const response = await api.get('/get_account?', {
                 params: {
                     UserId: userID
                 }
@@ -55,12 +57,13 @@ function Login(props) {
             return response;
         } catch (error) {
             console.error(error);
+            return error.response;
         }
     }
 
-    function getHoldings(accountID) {
+    async function getHoldings(accountID) {
         try {
-            const response = api.get('/get_holdings?', {
+            const response = await api.get('/get_holdings?', {
                 params: {
                     AccountId: accountID
                 }
@@ -68,12 +71,13 @@ function Login(props) {
             return response;
         } catch (error) {
             console.error(error);
+            return error.response;
         }
     }
 
-    function getToken() {
+    async function getToken() {
         try {
-            const response = tokenApi.get('/get_token?', {
+            const response = await tokenApi.get('/get_token?', {
                 params: {
                     Email: email.toLowerCase(),
                     Password: password
@@ -82,17 +86,19 @@ function Login(props) {
             return response;
         } catch (error) {
             console.error(error);
+            return error.response;
         }
     } 
 
-    function update_holdings() {
+    async function update_holdings() {
         try {
-            const response = api.post('/update_holdings', {
+            const response = await api.post('/update_holdings', {
                 Holdings: holdings
             });
             return response;
         } catch (error) {
             console.error(error);
+            return error.response;
         }
     }
 
@@ -106,26 +112,26 @@ function Login(props) {
         setPassword(e.target.value);
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
         setIsLoading(true);
         e.preventDefault();
        const form = e.target;
         if (form.checkValidity() !== false) {
-            isValidUser().then((isValidUserResponse) => {
+            await isValidUser().then(async (isValidUserResponse) => {
                 if (isValidUserResponse.data === true) {
-                    getUser().then((getUserResponse) => {
+                    await getUser().then(async (getUserResponse) => {
                         if (getUserResponse.status === 200 && getUserResponse.data.length !== 0) {
                             setUser(getUserResponse.data[0]);
 
-                            getAccount(getUserResponse.data[0].id).then((getAccountResponse) => {
+                            await getAccount(getUserResponse.data[0].id).then(async (getAccountResponse) => {
                                 if (getAccountResponse.status === 200 && getAccountResponse.data.length !== 0) {
                                     setAccount(getAccountResponse.data[0]);
 
-                                    getHoldings(getAccountResponse.data[0].id).then((getHoldingsResponse) => {
+                                    await getHoldings(getAccountResponse.data[0].id).then(async (getHoldingsResponse) => {
                                         if (getHoldingsResponse.status === 200) {
                                             setHoldings(getHoldingsResponse.data);
 
-                                            getToken().then((getTokenResponse) => {
+                                            await getToken().then(async (getTokenResponse) => {
                                                 if (getTokenResponse.status === 200) {
                                                     setAuthTokens(getTokenResponse.data);
                                                 }
