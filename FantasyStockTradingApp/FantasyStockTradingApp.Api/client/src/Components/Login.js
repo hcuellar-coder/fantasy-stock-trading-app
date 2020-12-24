@@ -8,6 +8,7 @@ import { useHoldings } from '../Context/HoldingsContext';
 import loginLoading from '../loaders/Money-1.1s-200px.svg'
 
 function Login(props) {
+    const [error, setError] = useState('');
     const [isError, setIsError] = useState(false);
     const [validated, setValidated] = useState(false);
     const [email, setEmail] = useState('');
@@ -120,33 +121,50 @@ function Login(props) {
             await isValidUser().then(async (isValidUserResponse) => {
                 if (isValidUserResponse.data === true) {
                     await getUser().then(async (getUserResponse) => {
+                        console.log('getUserResponse = ', getUserResponse);
                         if (getUserResponse.status === 200 && getUserResponse.data.length !== 0) {
                             setUser(getUserResponse.data[0]);
 
                             await getAccount(getUserResponse.data[0].id).then(async (getAccountResponse) => {
+                                console.log('getAccountResponse = ', getAccountResponse);
                                 if (getAccountResponse.status === 200 && getAccountResponse.data.length !== 0) {
                                     setAccount(getAccountResponse.data[0]);
 
                                     await getHoldings(getAccountResponse.data[0].id).then(async (getHoldingsResponse) => {
+                                        console.log('getHoldingsResponse = ', getHoldingsResponse);
                                         if (getHoldingsResponse.status === 200) {
                                             setHoldings(getHoldingsResponse.data);
 
                                             await getToken().then(async (getTokenResponse) => {
+                                                console.log('getTokenResponse = ', getTokenResponse);
                                                 if (getTokenResponse.status === 200) {
                                                     setAuthTokens(getTokenResponse.data);
+                                                } else {
+                                                    setError(getTokenResponse.data.Message);
+                                                    setIsError(true);
                                                 }
                                             });
+                                        } else {
+                                            setError(getHoldingsResponse.data.Message);
+                                            setIsError(true);
                                         }
                                     });
+                                } else {
+                                    setError(getAccountResponse.data.Message);
+                                    setIsError(true);
                                 }
                             });
+                        } else {
+                            setError(getUserResponse.data.Message);
+                            setIsError(true);
                         }
                     });
                 } else {
+                    setError('Sorry, your password was incorrect. ' 
+                            + ' Please double - check your password');
                     setIsError(true);
+                    setIsLoading(false);
                 }
-            }).catch(e => {
-                setIsError(true);
             });
         }
         setValidated(true);
@@ -208,9 +226,9 @@ function Login(props) {
                                     onChange={handlePasswordChange}
                                     value={password}
                                 />
-                                <Form.Control.Feedback type="invalid">
-                                    Incorrect username or password.
-                                </Form.Control.Feedback>
+                                <Form.Text className="error-text">
+                                    {error}
+                                </Form.Text>
                             </Form.Group>
                         </Form.Row>
                         <div id='login-buttons-div'>

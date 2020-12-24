@@ -71,9 +71,11 @@ body {
 }
 
 .error-text {
+    font-size: 1.5vh !important;
     color: red !important;
     font-size: 1.85vh;
     margin-bottom: 5px;
+    text-align:center;
 }
 
 .home-header {

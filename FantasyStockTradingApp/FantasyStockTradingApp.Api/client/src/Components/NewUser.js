@@ -16,7 +16,7 @@ function NewUser(props) {
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
     const { setAuthTokens } = useAuth();
-    const { user, setUser } = useUser();
+    const { setUser } = useUser();
     const { setAccount} = useAccount();
     const { setHoldings } = useHoldings();
 
@@ -32,9 +32,6 @@ function NewUser(props) {
             });
             return response;
         } catch (error) {
-            setError(error.response.data.Message);
-            setIsError(true);
-            console.error('error = ', error);
             return error.response;
         }
     }
@@ -48,9 +45,6 @@ function NewUser(props) {
             });
             return response;
         } catch (error) {
-            console.error('error = ', error);
-            setError(error.response.data.Message);
-            setIsError(true);
             return error.response;
         }
     }
@@ -64,9 +58,6 @@ function NewUser(props) {
             });
             return response;
         } catch (error) {
-            console.log(error);
-            setError(error.response.data.Message);
-            setIsError(true);
             return error.response;
         }
     }
@@ -78,9 +69,6 @@ function NewUser(props) {
             });
             return response;
         } catch (error) {
-            console.error(error);
-            setError(error.response.data.Message);
-            setIsError(true);
             return error.response;
         }
     }
@@ -94,9 +82,6 @@ function NewUser(props) {
             });
             return response;
         } catch (error) {
-            console.error(error);
-            setError(error.response.data.Message);
-            setIsError(true);
             return error.response;
         }
     }
@@ -111,9 +96,6 @@ function NewUser(props) {
             });
             return response;
         } catch (error) {
-            console.error(error);
-            setError(error.response.data.Message);
-            setIsError(true);
             return error.response;
         }
     }
@@ -182,14 +164,31 @@ function NewUser(props) {
                                                         setHoldings('');
 
                                                         await getToken().then(async (getTokenResponse) => {
-                                                            setAuthTokens(getTokenResponse.data);
+                                                            if (getTokenResponse.status === 200) {
+                                                                setAuthTokens(getTokenResponse.data);
+                                                            } else {
+                                                                setError(getTokenResponse.data.Message);
+                                                                setIsError(true);
+                                                            }
                                                         });
+                                                    } else {
+                                                        setError(getAccountResponse.data.Message);
+                                                        setIsError(true);
                                                     }
                                                 });
-                                            } 
+                                            } else {
+                                                setError(newAccountResponse.data.Message);
+                                                setIsError(true);
+                                            }
                                         });
+                                    } else {
+                                        setError(getUserResponse.data.Message);
+                                        setIsError(true);
                                     }
                                 });
+                            } else {
+                                setError(newUserResponse.data.Message);
+                                setIsError(true);
                             }
                         });
                     }
@@ -286,7 +285,7 @@ function NewUser(props) {
                     </Form.Row>
                     <Form.Text className="error-text">
                         { error }
-                            </Form.Text>
+                    </Form.Text>
                     <div id='login-buttons-div'>
                         <Button id='join-user-button' type="submit">Join</Button>
                         <div id='login-new-user-div'>
