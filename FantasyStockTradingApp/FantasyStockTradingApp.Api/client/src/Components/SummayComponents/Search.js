@@ -5,6 +5,7 @@ import TransactionModal from './TransactionModal';
 
 function Search() {
     const [isError, setIsError] = useState(false);
+    const [error, setError] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [isBuying, setIsBuying] = useState(true);
     const [search, setSearch] = useState('');
@@ -21,6 +22,7 @@ function Search() {
             });
             return response;
         } catch (error) {
+            return error.response;
             console.error(error);
         }
     }
@@ -36,10 +38,13 @@ function Search() {
         const form = e.target;
         if (form.checkValidity() !== false) {
             searchSymbol().then((searchSymbolResponse) => {
-                setStockData(searchSymbolResponse.data);
-                setSearchValid(true);
-            }).catch(e => {
-                setIsError(true);
+                if (searchSymbolResponse.status === 200) {
+                    setStockData(searchSymbolResponse.data);
+                    setSearchValid(true);
+                } else {
+                    setError(getAccountResponse.data.Message);
+                    setIsError(true);
+                }
             });
         }
         setValidated(true);
@@ -74,7 +79,7 @@ function Search() {
                     {
                         !isError? <div></div> :
                         <Form.Text className="error-text">
-                            Symbol could not be found, try a different symbol!
+                        { error }
                         </Form.Text>
                     }
                 </Form.Group>

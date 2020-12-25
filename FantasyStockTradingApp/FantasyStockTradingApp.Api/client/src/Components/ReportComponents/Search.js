@@ -4,6 +4,7 @@ import { iexApi } from '../API';
 
 function Search(props) {
     const [isError, setIsError] = useState(false);
+    const [error, setError] = useState('');
     const [search, setSearch] = useState('');
     const [searchValid, setSearchValid] = useState(false);
     const [validated, setValidated] = useState(false);
@@ -19,10 +20,11 @@ function Search(props) {
             return response;
         } catch (error) {
             console.error(error);
+            return error.response;
         }
     }
 
-    function get_history(symbol) {
+    function getHistory(symbol) {
         try {
             const response = iexApi.get('/get_history', {
                 params: {
@@ -32,6 +34,7 @@ function Search(props) {
             return response;
         } catch (error) {
             console.error(error);
+            return error.response;
         }
     }
 
@@ -46,18 +49,26 @@ function Search(props) {
         const form = e.target;
         if (form.checkValidity() !== false) {
             searchSymbol().then((searchSymbolResponse) => {
-                setStockData(searchSymbolResponse.data);
-                setSearchValid(true);
-            }).catch(e => {
-                setIsError(true);
+                if (searchSymbolResponse.status === 200) {
+                    setStockData(searchSymbolResponse.data);
+                    setSearchValid(true);
+                } else {
+                    setError(getAccountResponse.data.Message);
+                    setIsError(true);
+                }
             });
         }
         setValidated(true);
     }
 
     function handleViewButton(symbol) {
-        get_history(symbol).then((response) => {
-            props.handleChartData(response.data, symbol);
+        getHistory(symbol).then((getHistoryResponse) => {
+            if (getHistoryResponse.status === 200) {
+                props.handleChartData(getHistoryResponse.data, symbol);
+            } else {
+                setError(getHistoryResponse.data.Message);
+                setIsError(true);
+            }
         });
     }
 
