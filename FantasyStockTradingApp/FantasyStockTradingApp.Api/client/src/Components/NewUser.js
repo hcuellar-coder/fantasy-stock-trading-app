@@ -136,6 +136,7 @@ function NewUser(props) {
     }
 
     async function handleSubmit(e) {
+        setValidated(true);
         e.preventDefault();
         const form = e.target;
         if (password === confirmPassword) {
@@ -194,7 +195,6 @@ function NewUser(props) {
                     }
                 });
             }              
-            setValidated(true);
         }
     }
 

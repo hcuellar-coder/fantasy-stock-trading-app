@@ -114,6 +114,7 @@ function Login(props) {
     }
 
     async function handleSubmit(e) {
+        setValidated(true);
         setIsLoading(true);
         e.preventDefault();
        const form = e.target;
@@ -167,7 +168,6 @@ function Login(props) {
                 }
             });
         }
-        setValidated(true);
     }
 
     function handleNewUser(e) {

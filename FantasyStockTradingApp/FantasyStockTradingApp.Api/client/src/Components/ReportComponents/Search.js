@@ -53,7 +53,7 @@ function Search(props) {
                     setStockData(searchSymbolResponse.data);
                     setSearchValid(true);
                 } else {
-                    setError(getAccountResponse.data.Message);
+                    setError(searchSymbolResponse.data.Message);
                     setIsError(true);
                 }
             });
