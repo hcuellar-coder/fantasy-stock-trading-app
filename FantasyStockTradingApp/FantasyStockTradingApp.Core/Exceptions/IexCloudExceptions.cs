@@ -4,14 +4,10 @@ using System.Text;
 
 namespace FantasyStockTradingApp.Core.Exceptions
 {
-    class IexCloudExceptions
-    {
-    }
-
     public class GetQouteException : StockTraderExceptions
     {
         public GetQouteException(string path, string method)
-            : base(path, method, "Error getting quote")
+            : base(path, method, "Symbol could not be found, try a different symbol!")
         {
 
         }

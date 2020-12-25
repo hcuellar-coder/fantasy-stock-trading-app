@@ -33,6 +33,7 @@ namespace FantasyStockTradingApp.Core.Services
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _hostingEnvironment;
         private readonly string _path;
+        private readonly string _token;
 
         public IexCloudService(IHttpClientFactory clientFactory,
                 IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
@@ -41,23 +42,21 @@ namespace FantasyStockTradingApp.Core.Services
             _clientFactory = clientFactory;
             _configuration = configuration;
             _path = Path.GetFullPath(ToString());
+
+            if (_hostingEnvironment.EnvironmentName == "Development")
+            {
+                _token = _configuration["Token_Key:token"];
+            }
+            else
+            {
+                _token = Environment.GetEnvironmentVariable("TOKENKEY");
+            }
+
         }
 
         public async Task<Quote> GetQuote(string symbol)
         {
-            try
-            {
-                var token = "";
-                if (_hostingEnvironment.EnvironmentName == "Development")
-                {
-                    token = _configuration["Token_Key:token"];
-                }
-                else
-                {
-                    token = Environment.GetEnvironmentVariable("TOKENKEY");
-                }
-
-                var requestUri = "stock/" + symbol + "/quote?token=" + token;
+                var requestUri = "stock/" + symbol + "/quote?token=" + _token;
                 var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
                 var client = _clientFactory.CreateClient("iexCloud");
 
@@ -65,37 +64,16 @@ namespace FantasyStockTradingApp.Core.Services
                 var responseStream = await response.Content.ReadAsStringAsync();
 
                 return JsonConvert.DeserializeObject<Quote>(responseStream);
-
-            }
-            catch
-            {
-                throw new GetQouteException(_path, "GetQuote()");
-            }
-            
         }
 
 
         public async Task<List<Quote>> GetMostActive()
         {
-            var token = "";
-            if (_hostingEnvironment.EnvironmentName == "Development")
-            {
-                token = _configuration["Token_Key:token"];
-            }
-            else
-            {
-                token = Environment.GetEnvironmentVariable("TOKENKEY");
-            }
-
-            var requestUri = "stock/market/list/mostactive?token=" + token;
+            var requestUri = "stock/market/list/mostactive?token=" + _token;
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
             var client = _clientFactory.CreateClient("iexCloud");
 
             var response = await client.SendAsync(request);
-            if (response.IsSuccessStatusCode == false)
-            {
-                throw new GetMostActiveException(_path, "GetMostActive()");
-            }
 
             var responseStream = await response.Content.ReadAsStringAsync();
             var settings = new JsonSerializerSettings
@@ -110,28 +88,12 @@ namespace FantasyStockTradingApp.Core.Services
 
         public async Task<List<History>> GetHistory(string symbol)
         {
-            var token = "";
-            if (_hostingEnvironment.EnvironmentName == "Development")
-            {
-                token = _configuration["Token_Key:token"];
-            }
-            else
-            {
-                token = Environment.GetEnvironmentVariable("TOKENKEY");
-            }
-
-            var requestUri = "stock/"+symbol+ "/chart/1m?token=" + token;
+            var requestUri = "stock/"+symbol+ "/chart/1m?token=" + _token;
 
             var request = new HttpRequestMessage(HttpMethod.Get, requestUri);
             var client = _clientFactory.CreateClient("iexCloud");
 
             var response = await client.SendAsync(request);
-
-            if (response.IsSuccessStatusCode == false)
-            {
-                throw new GetHistoryException(_path, "GetHistory()");
-            }
-
             var responseStream = await response.Content.ReadAsStringAsync();
 
             return JsonConvert.DeserializeObject<List<History>>(responseStream);
