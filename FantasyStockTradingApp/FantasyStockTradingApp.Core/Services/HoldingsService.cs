@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 using FantasyStockTradingApp.Core.Entities;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
-
+using System.IO;
+using FantasyStockTradingApp.Core.Exceptions;
 
 namespace FantasyStockTradingApp.Core.Services
 {
@@ -30,6 +31,7 @@ namespace FantasyStockTradingApp.Core.Services
         private readonly ISession _session;
         private readonly INHibernateService _nHibernateService;
         private readonly IIexCloudService _iexCloudService;
+        private readonly string _path;
 
         public HoldingsService(INHibernateService nHibernateService,
                             IIexCloudService iexCloudService)
@@ -37,6 +39,7 @@ namespace FantasyStockTradingApp.Core.Services
             _nHibernateService = nHibernateService;
             _session = _nHibernateService.OpenSession();
             _iexCloudService = iexCloudService;
+            _path = Path.GetFullPath(ToString());
         }
 
         public bool HoldingExists(int AccountId, string Symbol)
@@ -51,10 +54,9 @@ namespace FantasyStockTradingApp.Core.Services
                     return result;
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var errorString = $"User does not exist: { ex }";
-                throw new Exception(errorString);
+                throw new HoldingExistsException(_path, "HoldingExists()");
             }
             finally
             {
@@ -73,10 +75,9 @@ namespace FantasyStockTradingApp.Core.Services
                     return result;
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var errorString = $"User does not exist: { ex }";
-                throw new Exception(errorString);
+                throw new GetHoldingException(_path, "GetHoldings()");
             }
             finally
             {
@@ -107,10 +108,9 @@ namespace FantasyStockTradingApp.Core.Services
                     await transaction.CommitAsync();
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var errorString = $"Error inserting user: { ex }";
-                throw new Exception(errorString);
+                throw new NewHoldingException(_path, "NewHolding()");
             }
             finally
             {
@@ -140,10 +140,9 @@ namespace FantasyStockTradingApp.Core.Services
 
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var errorString = $"Error inserting user: { ex }";
-                throw new Exception(errorString);
+                throw new UpdateHoldingException(_path, "UpdateHolding()");
             }
             finally
             {
@@ -183,10 +182,9 @@ namespace FantasyStockTradingApp.Core.Services
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var errorString = $"Error inserting user: { ex }";
-                throw new Exception(errorString);
+                throw new UpdateHoldingsException(_path, "UpdateHoldings()");
             }
             finally
             {
@@ -209,10 +207,9 @@ namespace FantasyStockTradingApp.Core.Services
                     await transaction.CommitAsync();
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var errorString = $"Error inserting user: { ex }";
-                throw new Exception(errorString);
+                throw new DeleteHoldingsException(_path, "DeleteHolding()");
             }
             finally
             {

@@ -61,10 +61,9 @@ namespace FantasyStockTradingApp.Core.Services
                     }
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var errorString = $"User does not exist: { ex }";
-                throw new Exception(errorString);
+                throw new IsUserValidException(_path, "isValidUser()");
             }
             finally
             {
@@ -83,10 +82,9 @@ namespace FantasyStockTradingApp.Core.Services
                     return result;
                 }
             }
-            catch ( Exception ex)
+            catch
             {
-                var errorString = $"User does not exist: { ex }";
-                throw new Exception(errorString);
+                throw new GetUserException(_path, "GetUser()");
             }
             finally
             {
@@ -117,8 +115,7 @@ namespace FantasyStockTradingApp.Core.Services
                     }
                     catch
                     {
-                        var errorString = $"Error inserting user";
-                        throw new Exception(errorString);
+                        throw new NewUserInsertException(_path, "NewUSer()");
                     }
                     finally
                     {

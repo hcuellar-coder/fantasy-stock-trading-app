@@ -8,6 +8,8 @@ using NHibernate.Linq;
 using System.Security.AccessControl;
 using NHibernate.SqlCommand;
 using NHibernate.Impl;
+using System.IO;
+using FantasyStockTradingApp.Core.Exceptions;
 
 namespace FantasyStockTradingApp.Core.Services
 {
@@ -22,11 +24,13 @@ namespace FantasyStockTradingApp.Core.Services
     {
         private readonly ISession _session;
         private readonly INHibernateService _nHibernateService;
+        private readonly string _path;
 
         public AccountService(INHibernateService nHibernateService)
         {
             _nHibernateService = nHibernateService;
             _session = _nHibernateService.OpenSession();
+            _path = Path.GetFullPath(ToString());
         }
 
         public IQueryable<Account> GetAccount(int UserId)
@@ -41,10 +45,9 @@ namespace FantasyStockTradingApp.Core.Services
                     return result;
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var errorString = $"User does not exist: { ex }";
-                throw new Exception(errorString);
+                throw new GetAccountException(_path, "GetAccount()");
             }
             finally
             {
@@ -69,10 +72,9 @@ namespace FantasyStockTradingApp.Core.Services
                     await transaction.CommitAsync();
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var errorString = $"Error inserting user: { ex }";
-                throw new Exception(errorString);
+                throw new NewAccountException(_path, "NewAccount()");
             }
             finally
             {
@@ -95,10 +97,9 @@ namespace FantasyStockTradingApp.Core.Services
                     await transaction.CommitAsync();
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var errorString = $"Error inserting user: { ex }";
-                throw new Exception(errorString);
+                throw new UpdateAccountException(_path, "UpdateAccount()");
             }
             finally
             {

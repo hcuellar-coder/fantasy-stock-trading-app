@@ -10,6 +10,8 @@ using System.Net.Http;
 using System.Web;
 using Microsoft.AspNetCore.Server.HttpSys;
 using System.Net;
+using System.IO;
+using FantasyStockTradingApp.Core.Exceptions;
 
 namespace FantasyStockTradingApp.Core.Services
 {
@@ -24,11 +26,13 @@ namespace FantasyStockTradingApp.Core.Services
 
         private readonly ISession _session;
         private readonly INHibernateService _nHibernateService;
+        private readonly string _path;
 
         public TransactionService(INHibernateService nHibernateService)
         {
             _nHibernateService = nHibernateService;
             _session = _nHibernateService.OpenSession();
+            _path = Path.GetFullPath(ToString());
         }
 
         public async Task NewTransaction(int AccountId, string Type, string Symbol, int StockCount,
@@ -53,10 +57,9 @@ namespace FantasyStockTradingApp.Core.Services
                     await transaction.CommitAsync();
                 }
             }
-            catch (Exception ex)
+            catch
             {
-                var errorString = $"Error inserting user: { ex }";
-                throw new Exception(errorString);
+                throw new NewTransactionException(_path, "NewTransaction()");
             }
             finally
             {

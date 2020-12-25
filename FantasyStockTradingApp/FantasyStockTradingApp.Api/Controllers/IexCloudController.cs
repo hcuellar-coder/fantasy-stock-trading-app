@@ -23,8 +23,6 @@ namespace FantasyStockTradingApp.Controllers
         [HttpGet("get_quote")]
         public ActionResult<QuoteModel> GetQuote(string symbol)
         {
-            try
-            {
                 var Quote_Result = _iexCloudService.GetQuote(symbol).Result;
 
                 var Quote_Return = new QuoteModel()
@@ -37,59 +35,39 @@ namespace FantasyStockTradingApp.Controllers
                 };
 
                 return Quote_Return;
-
-            } catch
-            {
-                return StatusCode(500, "There was an error getting quote data");
-            }
-            
-            
         }
 
         [HttpGet("get_mostactive")]
         public ActionResult<List<QuoteModel>> GetMostActive()
         {
-            try
+            var Quote_Result = _iexCloudService.GetMostActive().Result;
+
+            var MostActive = Quote_Result.AsEnumerable().Select(quote => new QuoteModel()
             {
-                var Quote_Result = _iexCloudService.GetMostActive().Result;
+                Symbol = quote.Symbol,
+                CompanyName = quote.CompanyName,
+                LatestPrice = quote.LatestPrice,
+                Change = quote.Change,
+                ChangePercent = quote.ChangePercent
 
-                var MostActive = Quote_Result.AsEnumerable().Select(quote => new QuoteModel()
-                {
-                    Symbol = quote.Symbol,
-                    CompanyName = quote.CompanyName,
-                    LatestPrice = quote.LatestPrice,
-                    Change = quote.Change,
-                    ChangePercent = quote.ChangePercent
+            });
 
-                });
-
-                return MostActive.ToList();
-            } catch
-            {
-                return StatusCode(500, "There was an error getting most active");
-            }
-           
+            return MostActive.ToList();
         }
 
         [HttpGet("get_history")]
         public ActionResult<List<History>> GetHistory(string symbol)
         {
-            try
-            {
-                var History_Result = _iexCloudService.GetHistory(symbol).Result;
 
-                var History = History_Result.AsEnumerable().Select(history => new History()
-                {
-                    Date = history.Date,
-                    Close = history.Close,
-                });
+            var History_Result = _iexCloudService.GetHistory(symbol).Result;
 
-                return History.ToList();
-            }
-            catch
+            var History = History_Result.AsEnumerable().Select(history => new History()
             {
-                return StatusCode(500, "There was an error getting history");
-            }
+                Date = history.Date,
+                Close = history.Close,
+            });
+
+            return History.ToList();
         }
     }
 }

@@ -4,10 +4,26 @@ using System.Text;
 
 namespace FantasyStockTradingApp.Core.Exceptions
 {
-    public class UserException : StockTraderExceptions
+    public class IsUserValidException : StockTraderExceptions
+    {
+        public IsUserValidException(string path, string method)
+            : base(path, method, "User does not exist")
+        {
+
+        }
+    }
+    public class GetUserException : StockTraderExceptions
     { 
-        public UserException(string path, string method)
-            : base(path, method, "New User Exception Error")
+        public GetUserException(string path, string method)
+            : base(path, method, "User Not Found")
+        {
+
+        }
+    }
+    public class NewUserInsertException : StockTraderExceptions
+    {
+        public NewUserInsertException(string path, string method)
+            : base(path, method, "Error Inserting New User")
         {
 
         }
@@ -21,4 +37,5 @@ namespace FantasyStockTradingApp.Core.Exceptions
 
         }
     }
+
 }

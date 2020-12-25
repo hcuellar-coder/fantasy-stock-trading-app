@@ -14,6 +14,8 @@ using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
+using System.IO;
+using FantasyStockTradingApp.Core.Exceptions;
 
 namespace FantasyStockTradingApp.Core.Services
 {
@@ -30,13 +32,15 @@ namespace FantasyStockTradingApp.Core.Services
         private readonly IHttpClientFactory _clientFactory;
         private readonly IConfiguration _configuration;
         private readonly IWebHostEnvironment _hostingEnvironment;
+        private readonly string _path;
 
         public IexCloudService(IHttpClientFactory clientFactory,
                 IConfiguration configuration, IWebHostEnvironment hostingEnvironment)
         {
             _hostingEnvironment = hostingEnvironment;
             _clientFactory = clientFactory;
-            _configuration = configuration; 
+            _configuration = configuration;
+            _path = Path.GetFullPath(ToString());
         }
 
         public async Task<Quote> GetQuote(string symbol)
@@ -63,9 +67,9 @@ namespace FantasyStockTradingApp.Core.Services
                 return JsonConvert.DeserializeObject<Quote>(responseStream);
 
             }
-            catch (Exception)
+            catch
             {
-                throw;
+                throw new GetQouteException(_path, "GetQuote()");
             }
             
         }
@@ -90,8 +94,7 @@ namespace FantasyStockTradingApp.Core.Services
             var response = await client.SendAsync(request);
             if (response.IsSuccessStatusCode == false)
             {
-                var errorString = $"There was an error getting quote data: {response.ReasonPhrase}";
-                throw new Exception(errorString);
+                throw new GetMostActiveException(_path, "GetMostActive()");
             }
 
             var responseStream = await response.Content.ReadAsStringAsync();
@@ -126,8 +129,7 @@ namespace FantasyStockTradingApp.Core.Services
 
             if (response.IsSuccessStatusCode == false)
             {
-                var errorString = $"There was an error getting quote data: {response.ReasonPhrase}";
-                throw new Exception(errorString);
+                throw new GetHistoryException(_path, "GetHistory()");
             }
 
             var responseStream = await response.Content.ReadAsStringAsync();
