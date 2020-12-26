@@ -13,9 +13,9 @@ function Search() {
     const [validated, setValidated] = useState(false);
     const [stockData, setStockData] = useState([]);
 
-    function searchSymbol() {
+    async function searchSymbol() {
         try {
-            const response = iexApi.get('/get_quote', {
+            const response = await iexApi.get('/get_quote', {
                 params: {
                     symbol: search
                 }
@@ -23,7 +23,6 @@ function Search() {
             return response;
         } catch (error) {
             return error.response;
-            console.error(error);
         }
     }
 
@@ -32,12 +31,13 @@ function Search() {
         setSearch(e.target.value);
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
+        setValidated(true);
         e.preventDefault();
         setIsError(false);
         const form = e.target;
         if (form.checkValidity() !== false) {
-            searchSymbol().then((searchSymbolResponse) => {
+            await searchSymbol().then(async (searchSymbolResponse) => {
                 if (searchSymbolResponse.status === 200) {
                     setStockData(searchSymbolResponse.data);
                     setSearchValid(true);
@@ -47,7 +47,6 @@ function Search() {
                 }
             });
         }
-        setValidated(true);
     }
 
     function handleBuyButton() {

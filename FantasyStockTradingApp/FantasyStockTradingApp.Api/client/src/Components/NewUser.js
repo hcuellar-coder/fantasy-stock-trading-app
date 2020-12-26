@@ -146,20 +146,16 @@ function NewUser(props) {
                         alert('User already exists! Login instead!');
                     } else {
                         await newUser().then(async (newUserResponse) => {
-                            console.log('newUserResponse = ', newUserResponse);
                             if (newUserResponse.status === 200) {
 
                                 await getUser().then(async (getUserResponse) => {
-                                    console.log('getUserResponse = ', getUserResponse);
                                     if (getUserResponse.status === 200) {
                                         setUser(getUserResponse.data[0]);
 
                                         await newAccount(getUserResponse.data[0].id).then(async (newAccountResponse) => {
-                                            console.log('newAccountResponse = ', newAccountResponse);
                                             if (newAccountResponse.status === 200) {
 
                                                 await getAccount(getUserResponse.data[0].id).then(async (getAccountResponse) => {
-                                                    console.log('getAccountResponse = ', getAccountResponse);
                                                     if (getAccountResponse.status === 200) {
                                                         setAccount(getAccountResponse.data[0]);
                                                         setHoldings('');

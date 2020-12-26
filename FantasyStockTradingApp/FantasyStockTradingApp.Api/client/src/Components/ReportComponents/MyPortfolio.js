@@ -1,4 +1,5 @@
 import React from 'react'
+import { Card, Container } from 'react-bootstrap';
 import { useHoldings } from "../../Context/HoldingsContext";
 import Chart from 'react-google-charts';
 
@@ -8,7 +9,12 @@ function MyPortfolio() {
     return (
         <div id="myPortfolio-div">
             {(holdings === undefined || holdings.length === 0)
-                ? <div></div>
+                ? 
+                <Container>
+                    <Card className="no-stocks-card">
+                        <Card.Title className="no-stocks-card-title"><h3>Portfolio is currently empty.</h3></Card.Title>
+                    </Card>
+                </Container>
                 :
                 <div>
                     <Chart

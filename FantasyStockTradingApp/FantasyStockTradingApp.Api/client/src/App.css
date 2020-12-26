@@ -78,6 +78,22 @@ body {
     text-align:center;
 }
 
+.no-stocks-card {
+    margin-bottom: 20px;
+    border-radius: 25px;
+    background-color: #366375;
+}
+
+.no-stocks-card-title {
+    color: #e76f51;
+    background-color: #366375;
+    margin: 0;
+    border-top-left-radius: 25px;
+    border-top-right-radius: 25px;
+    border-bottom-left-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
 .home-header {
     color: #e76f51;
 }

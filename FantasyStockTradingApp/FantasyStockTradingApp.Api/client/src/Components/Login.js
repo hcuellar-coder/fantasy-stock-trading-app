@@ -29,7 +29,6 @@ function Login(props) {
             });
             return response;
         } catch (error) {
-            console.error(error);
             return error.response;
         }
     }
@@ -43,7 +42,6 @@ function Login(props) {
             });
             return response;
         } catch(error) {
-            console.error(error);
             return error.response;
         }
     }
@@ -57,7 +55,6 @@ function Login(props) {
             });
             return response;
         } catch (error) {
-            console.error(error);
             return error.response;
         }
     }
@@ -71,7 +68,6 @@ function Login(props) {
             });
             return response;
         } catch (error) {
-            console.error(error);
             return error.response;
         }
     }
@@ -86,7 +82,6 @@ function Login(props) {
             });
             return response;
         } catch (error) {
-            console.error(error);
             return error.response;
         }
     } 
@@ -98,7 +93,6 @@ function Login(props) {
             });
             return response;
         } catch (error) {
-            console.error(error);
             return error.response;
         }
     }
@@ -122,22 +116,18 @@ function Login(props) {
             await isValidUser().then(async (isValidUserResponse) => {
                 if (isValidUserResponse.data === true) {
                     await getUser().then(async (getUserResponse) => {
-                        console.log('getUserResponse = ', getUserResponse);
                         if (getUserResponse.status === 200 && getUserResponse.data.length !== 0) {
                             setUser(getUserResponse.data[0]);
 
                             await getAccount(getUserResponse.data[0].id).then(async (getAccountResponse) => {
-                                console.log('getAccountResponse = ', getAccountResponse);
                                 if (getAccountResponse.status === 200 && getAccountResponse.data.length !== 0) {
                                     setAccount(getAccountResponse.data[0]);
 
                                     await getHoldings(getAccountResponse.data[0].id).then(async (getHoldingsResponse) => {
-                                        console.log('getHoldingsResponse = ', getHoldingsResponse);
                                         if (getHoldingsResponse.status === 200) {
                                             setHoldings(getHoldingsResponse.data);
 
                                             await getToken().then(async (getTokenResponse) => {
-                                                console.log('getTokenResponse = ', getTokenResponse);
                                                 if (getTokenResponse.status === 200) {
                                                     setAuthTokens(getTokenResponse.data);
                                                 } else {

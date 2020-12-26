@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Card, CardDeck  } from 'react-bootstrap';
+import { Button, Card, CardDeck, Form  } from 'react-bootstrap';
 import { iexApi } from '../API';
 import TransactionModal from './TransactionModal';
 
 function MostActiveStocks() {
+    const [isError, setIsError] = useState(false);
+    const [error, setError] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [isBuying, setIsBuying] = useState(true);
     const [stockData, setStockData] = useState({});
@@ -21,12 +23,12 @@ function MostActiveStocks() {
         setShowModal(true);
     }
 
-    function get_mostActive() {
+    async function getMostActive() {
         try {
-            const response = iexApi.get('/get_mostactive');
+            const response = await iexApi.get('/get_mostactive');
             return response;
         } catch (error) {
-            console.error(error);
+            return error.response;
         }
     }
 
@@ -36,9 +38,14 @@ function MostActiveStocks() {
 
     useEffect(() => {
         if (mostActiveHoldings.length === 0) {
-            get_mostActive().then((response) => {
-                sessionStorage.setItem('MostActiveStocks', JSON.stringify(response.data));
-                setMostActiveHoldings(response.data);
+            getMostActive().then((getMostActiveResponse) => {
+                if (getMostActiveResponse.status === 200) {
+                    sessionStorage.setItem('MostActiveStocks', JSON.stringify(getMostActiveResponse.data));
+                    setMostActiveHoldings(getMostActiveResponse.data);
+                } else {
+                    setError(getMostActiveResponse.data.Message);
+                    setIsError(true);
+                }
             })
         }
     },[]);
@@ -47,27 +54,37 @@ function MostActiveStocks() {
         <div id="summary-myHoldings-div">
             <TransactionModal show={showModal} handleClose={handleClose} isBuying={isBuying} stockData={stockData} />
             {mostActiveHoldings === undefined
-                ? <div></div>
-                : < CardDeck > {
-                    mostActiveHoldings.map(
-                        (stock, index) =>
-                            <Card className="cards-responsive" key={index}>
-                                <Card.Header>
-                                    <h3>{stock.symbol}</h3>
-                                </Card.Header>
-                                <Card.Body>
-                                    <Card.Title>{stock.companyName}</Card.Title>
-                                    <Card.Text className="card-details">
-                                            <span> Price: {stock.latestPrice} </span>
-                                            <span> Change: {stock.change} </span>
-                                    </Card.Text>
-                                    <div className="card-buttons">
-                                        <Button className="card-button" onClick={() => { handleBuyButton(stock) }}>Buy</Button>
-                                    </div>
-                                </Card.Body>
-                            </Card>
-                    )}
-                </CardDeck>
+                ?
+                <div></div>
+                :
+                <div>
+                    {
+                        !isError ? <div></div> :
+                        <Form.Text className="error-text">
+                            {error}
+                        </Form.Text>
+                    }
+                    <CardDeck> {
+                        mostActiveHoldings.map(
+                            (stock, index) =>
+                                <Card className="cards-responsive" key={index}>
+                                    <Card.Header>
+                                        <h3>{stock.symbol}</h3>
+                                    </Card.Header>
+                                    <Card.Body>
+                                        <Card.Title>{stock.companyName}</Card.Title>
+                                        <Card.Text className="card-details">
+                                                <span> Price: {stock.latestPrice} </span>
+                                                <span> Change: {stock.change} </span>
+                                        </Card.Text>
+                                        <div className="card-buttons">
+                                            <Button className="card-button" onClick={() => { handleBuyButton(stock) }}>Buy</Button>
+                                        </div>
+                                    </Card.Body>
+                                </Card>
+                        )}
+                    </CardDeck>
+                </div>
             }
         </div>
     )

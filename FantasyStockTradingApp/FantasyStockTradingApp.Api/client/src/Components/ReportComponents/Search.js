@@ -10,30 +10,28 @@ function Search(props) {
     const [validated, setValidated] = useState(false);
     const [stockData, setStockData] = useState([]);
 
-    function searchSymbol() {
+    async function searchSymbol() {
         try {
-            const response = iexApi.get('/get_quote', {
+            const response = await iexApi.get('/get_quote', {
                 params: {
                     symbol: search
                 }
             });
             return response;
         } catch (error) {
-            console.error(error);
             return error.response;
         }
     }
 
-    function getHistory(symbol) {
+    async function getHistory(symbol) {
         try {
-            const response = iexApi.get('/get_history', {
+            const response = await iexApi.get('/get_history', {
                 params: {
                     symbol: symbol
                 }
             });
             return response;
         } catch (error) {
-            console.error(error);
             return error.response;
         }
     }
@@ -43,12 +41,13 @@ function Search(props) {
         setSearch(e.target.value);
     }
 
-    function handleSubmit(e) {
+    async function handleSubmit(e) {
+        setValidated(true);
         e.preventDefault();
         setIsError(false);
         const form = e.target;
         if (form.checkValidity() !== false) {
-            searchSymbol().then((searchSymbolResponse) => {
+            await searchSymbol().then(async (searchSymbolResponse) => {
                 if (searchSymbolResponse.status === 200) {
                     setStockData(searchSymbolResponse.data);
                     setSearchValid(true);
@@ -58,11 +57,10 @@ function Search(props) {
                 }
             });
         }
-        setValidated(true);
     }
 
-    function handleViewButton(symbol) {
-        getHistory(symbol).then((getHistoryResponse) => {
+    async function handleViewButton(symbol) {
+       await getHistory(symbol).then(async (getHistoryResponse) => {
             if (getHistoryResponse.status === 200) {
                 props.handleChartData(getHistoryResponse.data, symbol);
             } else {
@@ -91,7 +89,7 @@ function Search(props) {
                     {
                         !isError ? <div></div> :
                         <Form.Text className="error-text">
-                            Symbol could not be found, try a different symbol!
+                                { error }
                         </Form.Text>
                     }
                 </Form.Group>

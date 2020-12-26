@@ -58,9 +58,9 @@ function TransactionModal(props) {
         setTransactionAmount(parseInt(e.target.value));
     }
 
-    function new_transaction() {
+    async function newTransaction() {
         try {
-            const response = api.post('/new_transaction', {
+            const response = await api.post('/new_transaction', {
                 AccountId: account.id,
                 Type: transactionType,
                 Symbol: props.stockData.symbol,
@@ -70,11 +70,11 @@ function TransactionModal(props) {
             });
             return response;
         } catch (error) {
-            console.error(error);
+            return error.response;
         }
     }
 
-    function update_Account() {
+    async function updateAccount() {
         let balance = 0;
         let portfolioBalance = 0;
 
@@ -95,18 +95,18 @@ function TransactionModal(props) {
             }
             setAccount(updatedAccountInformation);
 
-            const response = api.post('/update_account', {
+            const response = await api.post('/update_account', {
                 AccountId: account.id,
                 Balance: balance,
                 PortfolioBalance: portfolioBalance,
             });
             return response;
         } catch (error) {
-            console.error(error);
+            return error.response;
         }
     }
 
-    function update_holding() {
+    async function updateHolding() {
         let newTransactionAmount = 0;
 
         if (props.isBuying) {
@@ -116,7 +116,7 @@ function TransactionModal(props) {
         } 
 
         try {
-            const response = api.post('/update_holding', {
+            const response = await api.post('/update_holding', {
                 AccountId: account.id,
                 CompanyName: props.stockData.companyName,
                 Symbol: props.stockData.symbol,
@@ -127,24 +127,24 @@ function TransactionModal(props) {
             });
             return response;
         } catch (error) {
-            console.error(error);
+            return error.response;
         }
     }
 
-    function get_Holdings() {
+    async function getHoldings() {
         try {
-            const response = api.get('/get_holdings?', {
+            const response = await api.get('/get_holdings?', {
                 params: {
                     AccountId: account.id
                 }
             });
             return response;
         } catch (error) {
-            console.error(error);
+            return error.response;
         }
     }
 
-    function handleTransactionButtons() {
+    async function handleTransactionButtons() {
         if (maxTransactionAmount < transactionAmount) {
             setIsError(true);
             if (props.isBuying) {
@@ -153,9 +153,22 @@ function TransactionModal(props) {
                 setError('You cannot sell more than the max amount!');
             }
         } else {
-            new_transaction();
-            update_Account();
-            update_holding().then((updateHoldingResponse) => {
+
+            await newTransaction().then(async (newTransactionResponse) => {
+                if (newTransactionResponse.status !== 200) {
+                    setError(newTransactionResponse.data.Message);
+                    setIsError(true);
+                }
+            });
+
+            await updateAccount().then(async (updateAccountResponse) => {
+                if (updateAccountResponse.status !== 200) {
+                    setError(updateAccountResponse.data.Message);
+                    setIsError(true);
+                }
+            });
+
+            await updateHolding().then(async (updateHoldingResponse) => {
                 if (updateHoldingResponse.status === 200) {
                     if (holdingId !== 0) {
                         let tempHoldings = [...holdings];
@@ -170,13 +183,19 @@ function TransactionModal(props) {
                         }
                         setHoldings(tempHoldings);
                     } else {
-                        get_Holdings().then((getHoldingsResponse) => {
+                        await getHoldings().then(async (getHoldingsResponse) => {
                             if (getHoldingsResponse.status === 200) {
                                 setHoldings(getHoldingsResponse.data);
+                            } else {
+                                setError(getHoldingsResponse.data.Message);
+                                setIsError(true);
                             }
                         });
                     }
-                } 
+                } else {
+                    setError(updateHoldingResponse.data.Message);
+                    setIsError(true);
+                }
             });
             props.handleClose();
         }

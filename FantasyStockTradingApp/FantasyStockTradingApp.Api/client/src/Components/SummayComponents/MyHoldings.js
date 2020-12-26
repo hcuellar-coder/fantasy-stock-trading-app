@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Card, CardDeck } from 'react-bootstrap';
+import { Button, Card, CardDeck, Container } from 'react-bootstrap';
 import { useHoldings } from "../../Context/HoldingsContext";
 import TransactionModal from './TransactionModal';
 
@@ -43,7 +43,12 @@ function MyHoldings() {
         <div id="summary-myHoldings-div">
             <TransactionModal show={showModal} handleClose={handleClose} isBuying={isBuying} stockData={stockData} />
             {(holdings === undefined || holdings.length === 0)
-                ? <div></div>
+                ?
+                <Container>
+                    <Card className="no-stocks-card">
+                        <Card.Title className="no-stocks-card-title"><h3>No holdings to display.</h3></Card.Title>
+                    </Card>
+                </Container>
                 : < CardDeck > {
                     holdings
                         .sort((a ,b ) => a.id - b.id)
