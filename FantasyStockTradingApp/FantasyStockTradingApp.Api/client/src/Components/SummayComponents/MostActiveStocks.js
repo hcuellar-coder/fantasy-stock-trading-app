@@ -74,8 +74,8 @@ function MostActiveStocks() {
                                     <Card.Body>
                                         <Card.Title>{stock.companyName}</Card.Title>
                                         <Card.Text className="card-details">
-                                                <span> Price: {stock.latestPrice} </span>
-                                                <span> Change: {stock.change} </span>
+                                            <span> Price: {(stock.latestPrice).toFixed(2)} </span>
+                                            <span> Change: {(stock.change).toFixed(2)} </span>
                                         </Card.Text>
                                         <div className="card-buttons">
                                             <Button className="card-button" onClick={() => { handleBuyButton(stock) }}>Buy</Button>

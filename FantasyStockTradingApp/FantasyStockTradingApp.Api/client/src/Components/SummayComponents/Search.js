@@ -93,7 +93,7 @@ function Search() {
                         <Card.Body className="card-body">
                             <Card.Title className="card-title">{stockData.companyName}</Card.Title>
                             <Card.Text className="card-text">
-                                <span>Price ${stockData.latestPrice} | Change {stockData.change} | % Changes {stockData.changePercent*100}</span>
+                                <span>Price ${stockData.latestPrice} | Change {stockData.change} | % Changes {(stockData.changePercent * 100).toFixed(2)}</span>
                             </Card.Text>
                             <div className="card-buttons">
                                 <Button className="card-button" onClick={ handleBuyButton }>Buy</Button>

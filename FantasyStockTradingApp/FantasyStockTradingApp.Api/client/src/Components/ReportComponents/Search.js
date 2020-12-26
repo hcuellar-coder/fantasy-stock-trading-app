@@ -104,7 +104,7 @@ function Search(props) {
                         <Card.Body>
                             <Card.Title>{stockData.companyName}</Card.Title>
                             <Card.Text>
-                                <span>Price ${stockData.latestPrice} | Change {stockData.change} | % Changes {stockData.changePercent*100}</span>
+                                <span>Price ${stockData.latestPrice} | Change {stockData.change} | % Changes {(stockData.changePercent * 100).toFixed(2)}</span>
                             </Card.Text>
                             <div className="card-buttons">
                                 <Button className="card-button" onClick={() => { handleViewButton(stockData.symbol) }}>View</Button>

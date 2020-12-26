@@ -62,8 +62,8 @@ function MyHoldings() {
                             <Card.Body>
                                 <Card.Title>{holding.companyName}</Card.Title>
                                 <Card.Text className="card-details">
-                                            <span> Price: {holding.latestCostPerStock} </span>
-                                            <span> Change: {holding.change} </span>
+                                            <span> Price: {(holding.latestCostPerStock).toFixed(2)} </span>
+                                            <span> Change: {(holding.change).toFixed(2)} </span>
                                 </Card.Text>
                                 <div className="card-buttons">
                                             <Button className="card-button" onClick={() => { handleBuyButton(holding) }}>Buy</Button>
