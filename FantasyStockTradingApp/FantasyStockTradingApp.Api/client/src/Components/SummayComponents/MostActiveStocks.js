@@ -74,7 +74,7 @@ function MostActiveStocks() {
                                     <Card.Body>
                                         <Card.Title>{stock.companyName}</Card.Title>
                                         <Card.Text className="card-details">
-                                            <span> Price: {(stock.latestPrice).toFixed(2)} </span>
+                                            <span> Price: ${(stock.latestPrice).toFixed(2)} </span>
                                             <span> Change: {(stock.change).toFixed(2)} </span>
                                         </Card.Text>
                                         <div className="card-buttons">

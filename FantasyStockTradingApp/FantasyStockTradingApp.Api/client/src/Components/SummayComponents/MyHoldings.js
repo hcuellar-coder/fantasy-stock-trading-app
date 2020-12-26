@@ -62,7 +62,7 @@ function MyHoldings() {
                             <Card.Body>
                                 <Card.Title>{holding.companyName}</Card.Title>
                                 <Card.Text className="card-details">
-                                            <span> Price: {(holding.latestCostPerStock).toFixed(2)} </span>
+                                            <span> Price: ${(holding.latestCostPerStock).toFixed(2)} </span>
                                             <span> Change: {(holding.change).toFixed(2)} </span>
                                 </Card.Text>
                                 <div className="card-buttons">

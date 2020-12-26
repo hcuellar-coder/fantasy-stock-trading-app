@@ -64,7 +64,7 @@ function MyHoldings(props) {
                                 <Card.Body>
                                     <Card.Title>{holding.company_Name}</Card.Title>
                                     <Card.Text>
-                                                <span>Total: {(holding.latestCostPerStock * holding.stockCount).toFixed(2)}</span>
+                                                <span>Total: ${(holding.latestCostPerStock * holding.stockCount).toFixed(2)}</span>
                                     </Card.Text>
                                     <div className="card-buttons">
                                             <Button className="card-button" onClick={() => { handleViewButton(holding.symbol) }}>View</Button>
