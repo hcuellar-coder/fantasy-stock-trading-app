@@ -152,14 +152,14 @@ function Login(props) {
                     });
                 } else {
                     setError('Sorry, your password was incorrect. '
-                        + ' Please double - check your password');
+                        + ' Please double check your password');
                     setIsError(true);
                     setIsLoading(false);
                 }
             });
         } else {
             setError('Sorry, your password was incorrect. '
-            + ' Please double - check your password');
+            + ' Please double check your password');
             setIsError(true);
             setIsLoading(false);
         }

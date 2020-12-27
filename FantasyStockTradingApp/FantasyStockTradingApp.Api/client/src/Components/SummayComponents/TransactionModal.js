@@ -153,7 +153,7 @@ function TransactionModal(props) {
                 setError('You cannot sell more than the max amount!');
             }
         } else {
-
+            props.handleClose();
             await newTransaction().then(async (newTransactionResponse) => {
                 if (newTransactionResponse.status !== 200) {
                     setError(newTransactionResponse.data.Message);
@@ -197,7 +197,6 @@ function TransactionModal(props) {
                     setIsError(true);
                 }
             });
-            props.handleClose();
         }
     }
 
