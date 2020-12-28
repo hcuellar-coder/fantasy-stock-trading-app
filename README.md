@@ -4,7 +4,7 @@ The application utilizes IEX Cloude API and was built using ReactJS (Frontend), 
 Run Application [Here](https://fantasystocktrader-hcuellar.azurewebsites.net/)
 
 <p align="center">
-<img align="center"  width="600" height="500" src="./images/Home.PNG">
+<img align="center"  width="600" height="500" src="./readme-images/Home.PNG">
 </p>
 
 ## Summary
@@ -18,79 +18,79 @@ Currently working on integrating unit testing to the application. I'm excited to
 This web application begins with a simple login / sign-up that is used to create a user account. If you have a user account, go ahead and log in. If you are new to the web application you will need to sign up. Upon creation of the user account, the user will be alloted $100,000, to start buying stocks to add to their portfolio. Upon logging on there will be an automatic update to ones holdings which will also update the portfolio balance.
 
 <p align="center">
-<img align="center"  width="600" height="500" src="./images/Login.PNG">
+<img align="center"  width="600" height="500" src="./readme-images/Login.PNG">
 <br>
 <br>
-<img align="center"  width="600" height="500" src="./images/SignUp.PNG">
+<img align="center"  width="600" height="500" src="./readme-images/SignUp.PNG">
 </p>
 
 ### Home Page
 The home page is where the user will arrive at once they have logged in. Here the user will be given descriptions of the functionality of the summary and report pages, and what they have in store for the user.
 <p align="center">
-<img align="center"  width="600" height="500" src="./images/Home.PNG">
+<img align="center"  width="600" height="500" src="./readme-images/Home.PNG">
 </p>
 
 ### Summary Page
 The summary page is where the user will be able to purchase stocks, while also keeping track of the amount of funds the user has in their balance. As you purchase more stocks the balance is reduced, the portfolio amount increases and vice versa. The summary page contains 3 tabs, all of which can be used to purchase stocks. The My Holdings Tab is the only tab where selling is possible.
 <p align="center">
-<img align="center"  width="600" height="500" src="./images/Summary.PNG">
+<img align="center"  width="600" height="500" src="./readme-images/Summary.PNG">
 </p>
 
 #### Search
 Here the user can search for a specific stock symbol, which will return the latest price and the change from the last closing price. This will give you an idea on how the stock is doing in a more immediate time frame. 
 The buy button will open the transaction modal prompting the user for how many stocks they would like to purchase.
 <p align="center">
-<img align="center"  width="600" height="500" src="./images/Summary-Search.PNG">
+<img align="center"  width="600" height="500" src="./readme-images/Summary-Search.PNG">
 </p>
 
 #### Most Active
 The Most Active tab contains the top 10 most active stocks, provided by the IEX Cloud Api, that you can purchase.
 <p align="center">
-<img align="center"  width="600" height="500" src="./images/Summary-MostActive.PNG">
+<img align="center"  width="600" height="500" src="./readme-images/Summary-MostActive.PNG">
 </p>
 
 #### My Holdings
 The Holdings tab will contain the user's holdings, all the stocks the user has purchased. From this tab, the user can purchase, or sell stock. The stocks are automatically updated upon purchase or selling, with the balances reflecting the users actions.
 <p align="center">
-<img align="center"  width="600" height="500" src="./images/Summary-MyHoldings.PNG">
+<img align="center"  width="600" height="500" src="./readme-images/Summary-MyHoldings.PNG">
 </p>
 
 #### Transaction Modal
 The Transaction modal is the key to trading stocks. With the modal having the capability to purchase or sell stocks that are either in the user's holdings, the most active stock list or the from the search tab.
 <p align="center">
-<img align="center"  width="600" height="400" src="./images/TransactionModal.PNG">
+<img align="center"  width="600" height="400" src="./readme-images/TransactionModal.PNG">
 </p>
 
 
 ### Report Page
 The report page is where the user will be able to view 1 months worth of stock prices in either the Search, Most Active, My Holdings Tabs. The final tab, Portfolio, is used to display the users portfolio balance split by stock into some easy to read graphs.
 <p align="center">
-<img align="center"  width="600" height="500" src="./images/Report.PNG">
+<img align="center"  width="600" height="500" src="./readme-images/Report.PNG">
 </p>
 
 
 #### Search
 In the search tab the user can search for a specific stock symbol to view 1 months worth of that stocks prices.
 <p align="center">
-<img align="center"  width="600" height="500" src="./images/Report-Search-Graph.PNG">
+<img align="center"  width="600" height="500" src="./readme-images/Report-Search-Graph.PNG">
 </p>
 
 #### Most Active
 In the Most Active tab, the user can view 1 months worth of stock prices for the top 10 most active stocks provided by the IEX Cloud Api. 
 <p align="center">
-<img align="center"  width="600" height="500" src="./images/Report-MostActive-Graph.PNG">
+<img align="center"  width="600" height="500" src="./readme-images/Report-MostActive-Graph.PNG">
 </p>
 
 #### My Holdings
 In My Holdings tab the user will be able to view 1 months worth of stock prices for any of the holdings that the user has purchased.  will contain the user's holdings, all the stocks the user has purchased. From this tab, the user can view 1 months worth of stock prices.
 <p align="center">
-<img align="center"  width="600" height="500" src="./images/Report-MyHoldings-Graph.PNG">
+<img align="center"  width="600" height="500" src="./readme-images/Report-MyHoldings-Graph.PNG">
 </p>
 
 ### My Portfolio
 In My Portfolio Tab the users portfolio balance is split by stock into some easy to read graphs. This is a greate way to visualize which stock the majority of your portfolio balance is allocated to.
 <p align="center">
-<img align="center"  width="600" height="500" src="./images/Report-Portfolio-Graph.PNG">
+<img align="center"  width="600" height="500" src="./readme-images/Report-Portfolio-Graph.PNG">
 </p>
 
 ### Author's Note
