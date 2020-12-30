@@ -21,7 +21,8 @@ namespace Tests
         public void Setup()
         {
             _nHibernateService = Substitute.For<INHibernateService>();
-            _session = _nHibernateService.OpenSession();
+            _session = Substitute.For<ISession>();
+            _nHibernateService.OpenSession().Returns(_session);
             _sut = new AccountService(_nHibernateService);
         }
 
@@ -52,7 +53,7 @@ namespace Tests
         public void NewAccount_ShouldCreateAccountAsync()
         {
             var UserId = 3;
-            var account = new List<Account>
+            /*var account = new List<Account>
             {
                 new Account
                 {
@@ -61,13 +62,15 @@ namespace Tests
                     Balance = 10000,
                     PortfolioBalance = 0
                 }
-            };
+            };*/
 
-            ITransaction transaction = _session.BeginTransaction();
-            transaction.CommitAsync();
-            _session.SaveAsync(account);
+            /*ITransaction transaction = _session.BeginTransaction();
+            transaction.CommitAsync();*/
 
             _sut.NewAccount(UserId);
+            //_session.Received(1).SaveAsync(Arg.Any<Account>());
+            _session.Received(1).SaveAsync(Arg.Is<Account>(a => a.Id == 0 && a.UserId == 3 && a.Balance == 100000));
+
 
         }
     }
