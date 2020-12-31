@@ -1,12 +1,15 @@
 using FantasyStockTradingApp.Core.Entities;
 using FantasyStockTradingApp.Core.Services;
+using FantasyStockTradingApp.Core.Exceptions;
 using Microsoft.AspNetCore.Mvc;
 using NHibernate;
 using NSubstitute;
 using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using NSubstitute.ExceptionExtensions;
 
 namespace Tests
 {
@@ -53,23 +56,39 @@ namespace Tests
         public void NewAccount_ShouldCreateAccountAsync()
         {
             var UserId = 3;
-            /*var account = new List<Account>
-            {
-                new Account
-                {
-                    Id = 1,
-                    UserId = 3,
-                    Balance = 10000,
-                    PortfolioBalance = 0
-                }
-            };*/
-
-            /*ITransaction transaction = _session.BeginTransaction();
-            transaction.CommitAsync();*/
 
             _sut.NewAccount(UserId);
-            //_session.Received(1).SaveAsync(Arg.Any<Account>());
-            _session.Received(1).SaveAsync(Arg.Is<Account>(a => a.Id == 0 && a.UserId == 3 && a.Balance == 100000));
+            _session.Received(1).SaveAsync(Arg.Any<Account>());
+            //_session.Received(1).SaveAsync(Arg.Is<Account>(a => a.Id == 0 && a.UserId == 3 && a.Balance == 100000));
+
+
+        }
+
+        [Test]
+        public void NewAccount_ShouldThrowException()
+        {
+            var UserId = 3;
+
+            //_sut.NewAccount(UserId);
+            //_sut.When(x => x.NewAccount(3)).Do(x => throw new NewAccountException("_path", "NewAccount()"));
+            /*_session.Received(1).SaveAsync(Arg.Any<NewAccountException>());*/
+            //Assert.Throws<NewAccountException>(() => _sut.NewAccount(UserId).Throws(new NewAccountException("_path", "NewAccount()")));
+            //var ex1 = _sut.NewAccount(UserId).Throws(new NewAccountException("_path", "New Account()"));
+            //var ex = Assert.Throws<NewAccountException>(() => _sut.NewAccount(UserId).Throws(new NewAccountException("_path", "New Account()")));
+
+            //var ex = Assert.Throws<NewAccountException>( () => throw new NewAccountException("_path", "New Account()"));
+
+
+
+            var ex = Assert.Throws<NewAccountException>(() => _sut.NewAccount(UserId).Returns(x => { throw new NewAccountException("_path", "New Account()"); }));
+
+            //Assert.Throws<NewAccountException>(() => _session.Received(1).SaveAsync(Arg.Any<Account>()));
+
+            //.Returns(x => { throw new NewAccountException("_path", "NewAccount()"); })) ;
+
+            // Assert.Throws<NewAccountException>(() => _session.Received(1).SaveAsync(Arg.Any<Account>()).Returns( x => { throw new NewAccountException("_path", "NewAccount()"); }));
+            // Assert.Throws<NewAccountException>(() => _sut.NewAccount(UserId).Returns(x => { throw new NewAccountException("_path", "NewAccount()"); }));
+            //_session.Received(1).SaveAsync(Arg.Is<Account>(a => a.Id == 0 && a.UserId == 3 && a.Balance == 100000));
 
 
         }
