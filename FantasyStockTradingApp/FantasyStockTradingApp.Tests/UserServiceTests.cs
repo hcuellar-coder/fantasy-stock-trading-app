@@ -65,7 +65,6 @@ namespace FantasyStockTradingApp.Tests
 
             _sut.NewUser(email, password, firstName, lastName);
             _session.Received(1).SaveAsync(Arg.Any<User>());
-            //_session.Received(1).SaveAsync(Arg.Is<Account>(a => a.Id == 0 && a.UserId == 3 && a.Balance == 100000));
         }
 
         [Test]

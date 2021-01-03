@@ -39,9 +39,7 @@ namespace FantasyStockTradingApp.Tests
 
             _sut.NewTransaction(AccountId,Type,Symbol,StockCount,CostPerStock,CostPerTransaction,TransactionDate);
             _session.Received(1).SaveAsync(Arg.Any<Transaction>());
-            //_session.Received(1).SaveAsync(Arg.Is<Account>(a => a.Id == 0 && a.UserId == 3 && a.Balance == 100000));
-
-
+ 
         }
     }
 }
