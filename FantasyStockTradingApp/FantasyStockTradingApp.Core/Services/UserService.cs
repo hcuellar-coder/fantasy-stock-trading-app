@@ -115,7 +115,7 @@ namespace FantasyStockTradingApp.Core.Services
                     }
                     catch
                     {
-                        throw new NewUserInsertException(_path, "NewUSer()");
+                        throw new NewUserInsertException(_path, "NewUser()");
                     }
                     finally
                     {
