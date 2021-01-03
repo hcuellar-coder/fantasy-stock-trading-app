@@ -146,20 +146,73 @@ namespace FantasyStockTradingApp.Tests
             Assert.That(resultUpdate, Is.EqualTo(1));
         }
 
-
-        /*
-          [Test]
-        public void NewAccount_ShouldCreateAccountAsync()
+        [Test]
+        public void UpdateHoldings_ShouldUpdateHoldingAsync()
         {
-            var UserId = 3;
+            int AccountId = 2;
+            string CompanyName = "General Electric Co.";
+            string Symbol = "GE";
+            int StockCount = 5;
+            float LatestCostPerStock = 10.65F;
+            float Change = -0.33F;
+            float ChangePercentage = -0.02957F;
+            var LastUpdated = DateTime.Now;
 
-            _sut.NewAccount(UserId);
-            _session.Received(1).SaveAsync(Arg.Any<Account>());
-            //_session.Received(1).SaveAsync(Arg.Is<Account>(a => a.Id == 0 && a.UserId == 3 && a.Balance == 100000));
+            var holdings = new List<Holdings>
+            {
+                new Holdings
+                {
+                    Id = 2,
+                    AccountId = AccountId,
+                    CompanyName = "General Electric Co.",
+                    Symbol = Symbol,
+                    StockCount = 5,
+                    LatestCostPerStock = LatestCostPerStock,
+                    Change = Change,
+                    ChangePercentage = ChangePercentage,
+                    LastUpdated = LastUpdated
+                }
+            };
 
+           /* _sut.UpdateHoldings(holdings);
 
+            var query = _session.CreateQuery("Update Holdings set stock_count =:StockCount, " +
+                    "latest_cost_per_stock =:LatestCostPerStock, last_Updated =:LastUpdated " +
+                    "where account_id =:AccountId and symbol =:Symbol");
+
+            query.SetParameter("StockCount", StockCount);
+            query.SetParameter("LatestCostPerStock", LatestCostPerStock);
+            query.SetParameter("LastUpdated", LastUpdated);
+            query.SetParameter("AccountId", AccountId);
+            query.SetParameter("Symbol", Symbol);
+
+            var resultUpdate = query.Received(1).ExecuteUpdateAsync();
+            Assert.That(resultUpdate, Is.EqualTo(1));*/
         }
-         
-         */
+
+        [Test]
+        public void DeleteHolding_ShouldDeleteHoldingAsync()
+        {
+            int AccountId = 2;
+            string CompanyName = "General Electric Co.";
+            string Symbol = "GE";
+            int StockCount = 5;
+            float LatestCostPerStock = 10.65F;
+            float Change = -0.33F;
+            float ChangePercentage = -0.02957F;
+            var LastUpdated = DateTime.Now;
+
+            _sut.DeleteHolding(AccountId, Symbol);
+
+            var query = _session.CreateQuery("Delete from Holdings " +
+                        "where account_id =:AccountId and symbol =:Symbol");
+            query.SetParameter("AccountId", AccountId);
+            query.SetParameter("Symbol", Symbol);
+
+            var resultDelete = query.Received(1).ExecuteUpdateAsync();
+            Assert.That(resultDelete, Is.EqualTo(1));
+        }
+
+
     }
 }
