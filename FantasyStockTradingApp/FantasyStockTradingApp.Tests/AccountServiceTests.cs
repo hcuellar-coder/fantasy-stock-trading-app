@@ -1,15 +1,13 @@
 using FantasyStockTradingApp.Core.Entities;
-using FantasyStockTradingApp.Core.Services;
 using FantasyStockTradingApp.Core.Exceptions;
-using Microsoft.AspNetCore.Mvc;
+using FantasyStockTradingApp.Core.Services;
 using NHibernate;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using NSubstitute.ExceptionExtensions;
 
 namespace Tests
 {
@@ -45,10 +43,17 @@ namespace Tests
             };
 
             _session.Query<Account>().Returns(accounts.AsQueryable());
-
             var resultAccounts = _sut.GetAccount(UserId);
-
             Assert.That(resultAccounts.Count, Is.EqualTo(1));
+        }
+
+        [Test]
+        public void GetAccount_ShouldThrowException()
+        {
+            var UserId = 2;
+
+            _session.BeginTransaction().ThrowsForAnyArgs(new Exception());
+            Assert.Throws<GetAccountException>(() => _sut.GetAccount(UserId));
         }
 
 
@@ -60,52 +65,80 @@ namespace Tests
             _sut.NewAccount(UserId);
             _session.Received(1).SaveAsync(Arg.Any<Account>());
             //_session.Received(1).SaveAsync(Arg.Is<Account>(a => a.Id == 0 && a.UserId == 3 && a.Balance == 100000));
-
         }
 
         [Test]
         public void NewAccount_ShouldThrowException()
         {
-            var UserId = 3;
+            _session.BeginTransaction().ThrowsForAnyArgs(new Exception());
+            Assert.ThrowsAsync<NewAccountException>(() => _sut.NewAccount(3));
+        }
 
-            var BadAccount = new List<Account>
+        [Test]
+        public void UpdateAccount_ShouldUpdateAccount()
+        {
+            int Id = 2;
+            int UserId = 2;
+            float Balance = 10000F;
+            float PortfolioBalance = 0F;
+
+            var accounts = new List<Account>
             {
                 new Account
                 {
-
+                    Id = Id,
+                    UserId = UserId,
+                    Balance = Balance,
+                    PortfolioBalance = PortfolioBalance
                 }
             };
 
-            //_sut.NewAccount(UserId).ThrowsForAnyArgsi
-            //var ex3 = _sut.NewAccount(int.Parse("abc")).ThrowsForAnyArgs( new NewAccountException("_path", "New Account()"));
-            //_sut.NewAccount(UserId) = () => { throw new NewAccountException("_path", "New Account()"); };
-            //_sut.NewAccount(UserId).Throws(new Exception());
-            _sut.NewAccount(UserId);
+            var newAccount = new List<Account>
+            {
+                new Account
+                {
+                    Id = Id,
+                    UserId = UserId,
+                    Balance = 9500F,
+                    PortfolioBalance = 500F
+                }
+            };
+            /*
+              _session.Query<Account>().Returns(accounts.AsQueryable());
+            var resultAccounts = _sut.GetAccount(UserId);
+            Assert.That(resultAccounts.Count, Is.EqualTo(1));
+             */
+            /*_session.Query<Account>().Returns(accounts.AsQueryable());
+            var results = _sut.UpdateAccount(Id, 9500F, 500F);*/
 
-            //_sut.When(x => x.NewAccount(3)).Do(x => throw new NewAccountException("_path", "NewAccount()"));
-            /*_session.Received(1).SaveAsync(Arg.Any<NewAccountException>());*/
-            //Assert.Throws<NewAccountException>(() => _sut.NewAccount(UserId).Throws(new NewAccountException("_path", "NewAccount()")));
-            //var ex1 = _sut.NewAccount(UserId).Throws(new NewAccountException("_path", "New Account()"));
-            //var ex = Assert.Throws<NewAccountException>(() => _sut.NewAccount(UserId).Throws(new NewAccountException("_path", "New Account()")));
+            _sut.UpdateAccount(Id, 9500F, 500F);
+            
+            _session.Received(1).UpdateAsync(newAccount);
 
-            var ex = Assert.Throws<NewAccountException>( () => throw new NewAccountException("_path", "New Account()"));
+            
 
-            //var ex1 = _session.Received(1).SaveAsync(BadAccount);
-            //() => throw new NewAccountException("_path", "New Account()")
-            var ex2 = _session.Received(1).SaveAsync(Arg.Any<Account>());
-                //.Throws<NewAccountException>( () => throw new NewAccountException("_path", "New Account()"));
+            //Assert.That(results, Is.EqualTo(1));
 
-            //var ex = Assert.Throws<NewAccountException>(() => _sut.NewAccount(UserId).Returns(x => { throw new NewAccountException("_path", "New Account()"); }));
+            //_session.Received(1).UpdateAsync(Arg.Any<Account>());
 
-            //Assert.Throws<NewAccountException>(() => _session.Received(1).SaveAsync(Arg.Any<Account>()));
+            //_session.UpdateAsync(accounts.AsQueryable());
+            // _session.UpdateAsync.Returns(accounts.AsQueryable());
+            // _sut.UpdateAccount(Id, 9500F, 500F);
 
-            //.Returns(x => { throw new NewAccountException("_path", "NewAccount()"); })) ;
+            //var resultAccounts = _sut.UpdateAccount(Id, 9500F, 500F);
 
-            // Assert.Throws<NewAccountException>(() => _session.Received(1).SaveAsync(Arg.Any<Account>()).Returns( x => { throw new NewAccountException("_path", "NewAccount()"); }));
-            // Assert.Throws<NewAccountException>(() => _sut.NewAccount(UserId).Returns(x => { throw new NewAccountException("_path", "NewAccount()"); }));
-            //_session.Received(1).SaveAsync(Arg.Is<Account>(a => a.Id == 0 && a.UserId == 3 && a.Balance == 100000));
+            //Assert.That(resultAccounts, Is.EqualTo(true));
+        }
 
+        [Test]
+        public void UpdateAccount_ShouldThrowException()
+        {
+            int Id = 2;
+            float Balance = 10000F;
+            float PortfolioBalance = 0F;
 
+            _session.BeginTransaction().ThrowsForAnyArgs(new Exception());
+            Assert.ThrowsAsync<UpdateAccountException>(() => _sut.UpdateAccount(Id, Balance, PortfolioBalance));
         }
     }
 }

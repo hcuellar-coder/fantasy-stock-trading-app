@@ -1,7 +1,9 @@
 ﻿using FantasyStockTradingApp.Core.Entities;
+using FantasyStockTradingApp.Core.Exceptions;
 using FantasyStockTradingApp.Core.Services;
 using NHibernate;
 using NSubstitute;
+using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
@@ -56,6 +58,15 @@ namespace FantasyStockTradingApp.Tests
         }
 
         [Test]
+        public void GetUser_ShouldThrowException()
+        {
+            string email = "test@tesing.com";
+
+            _session.BeginTransaction().ThrowsForAnyArgs(new Exception());
+            Assert.Throws<GetUserException>(() => _sut.GetUser(email));
+        }
+
+        [Test]
         public void NewUser_ShouldCreateUserAsync()
         {
             string email = "test@tesing.com";
@@ -65,6 +76,29 @@ namespace FantasyStockTradingApp.Tests
 
             _sut.NewUser(email, password, firstName, lastName);
             _session.Received(1).SaveAsync(Arg.Any<User>());
+        }
+
+        [Test]
+        public void NewUser_ShouldThrowInsertException()
+        {
+            string email = "test@tesing.com";
+            string password = "password";
+            string firstName = "firstName";
+            string lastName = "lastName";
+
+            _session.BeginTransaction().ThrowsForAnyArgs(new Exception());
+            Assert.ThrowsAsync<NewUserInsertException>(() => _sut.NewUser(email, password, firstName, lastName));
+        }
+
+        [Test]
+        public void NewUser_ShouldThrowEmailException()
+        {
+            string email = "BadEmail";
+            string password = "password";
+            string firstName = "firstName";
+            string lastName = "lastName";
+
+            Assert.ThrowsAsync<NewUserEmailException>(() => _sut.NewUser(email, password, firstName, lastName));
         }
 
         [Test]
@@ -87,14 +121,21 @@ namespace FantasyStockTradingApp.Tests
                     LastName = lastName
                 }
             };
-
-            //_session.QueryOver<Holdings>().Returns(holdings.ToList<Holdings>);
-            //_session.Query<Holdings>().Returns(holdings.AsQueryable());
             _session.Query<User>().Returns(user.AsQueryable());
 
             bool result = _sut.isValidUser(email, password);
             Assert.That(result, Is.EqualTo(true));
 
+        }
+
+        [Test]
+        public void IsValidUser_ShouldThrowException()
+        {
+            string email = "test@tesing.com";
+            string password = "password";
+
+            _session.BeginTransaction().ThrowsForAnyArgs(new Exception());
+            Assert.Throws<IsUserValidException>(() => _sut.isValidUser(email, password));
         }
 
     }

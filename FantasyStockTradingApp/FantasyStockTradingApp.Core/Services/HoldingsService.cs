@@ -48,9 +48,9 @@ namespace FantasyStockTradingApp.Core.Services
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
-                    var result = _session.QueryOver<Holdings>()
+                    var result = _session.Query<Holdings>()
                     .Where(holding => holding.AccountId == AccountId && holding.Symbol == Symbol)
-                    .RowCount() > 0;
+                    .Count() > 0;
                     return result;
                 }
             }
