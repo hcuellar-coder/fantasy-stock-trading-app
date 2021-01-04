@@ -9,7 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Tests
+namespace FantasyStockTradingApp.Tests
 {
     [TestFixture]
     public class AccountServiceTests
@@ -110,10 +110,11 @@ namespace Tests
              */
             /*_session.Query<Account>().Returns(accounts.AsQueryable());
             var results = _sut.UpdateAccount(Id, 9500F, 500F);*/
+            var query = _session.Query<Account>().Returns(accounts.AsQueryable());
 
             _sut.UpdateAccount(Id, 9500F, 500F);
             
-            _session.Received(1).UpdateAsync(newAccount);
+            _session.UpdateAsync(query);
 
             
 

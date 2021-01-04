@@ -10,6 +10,7 @@ using System.Text;
 using System.Linq;
 using NSubstitute.ExceptionExtensions;
 using Newtonsoft.Json.Linq;
+using System.Threading.Tasks;
 
 namespace FantasyStockTradingApp.Tests
 {
@@ -149,7 +150,7 @@ namespace FantasyStockTradingApp.Tests
         }
 
         [Test]
-        public void UpdateHolding_ShouldUpdateHoldingAsync()
+        public async Task UpdateHolding_ShouldUpdateHoldingAsync()
         {
             int AccountId = 2;
             string CompanyName = "General Electric Co.";
@@ -160,20 +161,41 @@ namespace FantasyStockTradingApp.Tests
             float ChangePercentage = -0.02957F;
             var LastUpdated = DateTime.Now;
 
-            _sut.UpdateHolding(AccountId, Symbol, StockCount, LatestCostPerStock, LastUpdated);
+            var holdings = new List<Holdings>
+            {
+                new Holdings
+                {
+                    Id = 2,
+                    AccountId = AccountId,
+                    CompanyName = CompanyName,
+                    Symbol = Symbol,
+                    StockCount = StockCount,
+                    LatestCostPerStock = LatestCostPerStock,
+                    Change = Change,
+                    ChangePercentage = ChangePercentage,
+                    LastUpdated = LastUpdated
+                }
+            };
 
-            var query = _session.CreateQuery("Update Holdings set stock_count =:StockCount, " +
-                    "latest_cost_per_stock =:LatestCostPerStock, last_Updated =:LastUpdated " +
-                    "where account_id =:AccountId and symbol =:Symbol");
 
-            query.SetParameter("StockCount", StockCount);
-            query.SetParameter("LatestCostPerStock", LatestCostPerStock);
-            query.SetParameter("LastUpdated", LastUpdated);
-            query.SetParameter("AccountId", AccountId);
-            query.SetParameter("Symbol", Symbol);
+            //_session.Query<Holdings>().Returns(holdings.AsQueryable());
 
-            var resultUpdate = query.Received(1).ExecuteUpdateAsync();
-            Assert.That(resultUpdate, Is.EqualTo(1));
+            await _sut.UpdateHolding(AccountId, Symbol, StockCount, LatestCostPerStock, LastUpdated);
+            
+            /*_session.Received(1).SaveAsync(Arg.Any<Holdings>());*/
+
+             var query = _session.CreateQuery("Update Holdings set stock_count =:StockCount, " +
+                     "latest_cost_per_stock =:LatestCostPerStock, last_Updated =:LastUpdated " +
+                     "where account_id =:AccountId and symbol =:Symbol");
+
+             query.SetParameter("StockCount", StockCount);
+             query.SetParameter("LatestCostPerStock", 10.55F);
+             query.SetParameter("LastUpdated", LastUpdated);
+             query.SetParameter("AccountId", AccountId);
+             query.SetParameter("Symbol", Symbol);
+
+             var resultUpdate = await query.Received(1).ExecuteUpdateAsync();
+             Assert.That(resultUpdate, Is.EqualTo(1));
         }
 
         [Test]
@@ -245,9 +267,7 @@ namespace FantasyStockTradingApp.Tests
             float ChangePercentage = -0.02957F;
             var LastUpdated = DateTime.Now;
 
-            var holdings = new List<Holdings>
-            {
-                new Holdings
+            var holdings = new Holdings
                 {
                     Id = 2,
                     AccountId = AccountId,
@@ -258,11 +278,10 @@ namespace FantasyStockTradingApp.Tests
                     Change = Change,
                     ChangePercentage = ChangePercentage,
                     LastUpdated = LastUpdated
-                }
             };
 
             _session.BeginTransaction().ThrowsForAnyArgs(new Exception());
-            Assert.ThrowsAsync<UpdateHoldingsException>(() => _sut.UpdateHoldings(JObject.Parse(holdings.ToString())));
+            Assert.ThrowsAsync<UpdateHoldingsException>(() => _sut.UpdateHoldings(JObject.FromObject(holdings)));
         }
 
 
