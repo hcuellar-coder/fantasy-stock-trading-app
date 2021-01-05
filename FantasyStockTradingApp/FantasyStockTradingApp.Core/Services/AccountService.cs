@@ -88,15 +88,14 @@ namespace FantasyStockTradingApp.Core.Services
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 { 
-                    var query =  _session.CreateQuery("Update Account set balance =:Balance, " +
-                        "portfolio_balance =:PortfolioBalance where id =:Id");
+                    var account = _session.Query<Account>().First(h => h.Id == AccountId);
 
-                    query.SetParameter("Balance", Balance);
-                    query.SetParameter("PortfolioBalance", PortfolioBalance);
-                    query.SetParameter("Id", AccountId);
+                    account.Balance = Balance;
+                    account.PortfolioBalance = PortfolioBalance;
 
-                    await query.ExecuteUpdateAsync();
+                    //await _session.UpdateAsync(holding);
                     await transaction.CommitAsync();
+
                 }
             }
             catch

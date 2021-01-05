@@ -9,6 +9,7 @@ using Newtonsoft.Json.Linq;
 using Newtonsoft.Json;
 using System.IO;
 using FantasyStockTradingApp.Core.Exceptions;
+using NHibernate.Linq;
 
 namespace FantasyStockTradingApp.Core.Services
 {
@@ -125,17 +126,15 @@ namespace FantasyStockTradingApp.Core.Services
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
-                   
-                    var query = _session.CreateQuery("Update Holdings set stock_count =:StockCount, " +
-                    "latest_cost_per_stock =:LatestCostPerStock, last_Updated =:LastUpdated " +
-                    "where account_id =:AccountId and symbol =:Symbol");
-                    query.SetParameter("StockCount", StockCount);
-                    query.SetParameter("LatestCostPerStock", LatestCostPerStock);
-                    query.SetParameter("LastUpdated", LastUpdated);
-                    query.SetParameter("AccountId", AccountId);
-                    query.SetParameter("Symbol", Symbol);
+                    
+                    var holding = _session.Query<Holdings>()
+                        .First(h => h.AccountId == AccountId && h.Symbol == Symbol);
 
-                    await query.ExecuteUpdateAsync();
+                    holding.StockCount = StockCount;
+                    holding.LatestCostPerStock = LatestCostPerStock;
+                    holding.LastUpdated = LastUpdated;
+
+                    //await _session.UpdateAsync(holding);
                     await transaction.CommitAsync();
 
                 }
@@ -166,19 +165,14 @@ namespace FantasyStockTradingApp.Core.Services
 
                     using (ITransaction transaction = _session.BeginTransaction())
                     {
+                        var UpdateHolding = _session.Query<Holdings>().First(h => h.AccountId == AccountId && h.Symbol == Symbol);
 
-                        var query = _session.CreateQuery("Update Holdings set stock_count =:StockCount, " +
-                        "latest_cost_per_stock =:LatestCostPerStock, last_Updated =:LastUpdated " +
-                        "where account_id =:AccountId and symbol =:Symbol");
-                        query.SetParameter("StockCount", StockCount);
-                        query.SetParameter("LatestCostPerStock", LatestCostPerStock);
-                        query.SetParameter("LastUpdated", LastUpdated);
-                        query.SetParameter("AccountId", AccountId);
-                        query.SetParameter("Symbol", Symbol);
+                        UpdateHolding.StockCount = StockCount;
+                        UpdateHolding.LatestCostPerStock = LatestCostPerStock;
+                        UpdateHolding.LastUpdated = LastUpdated;
 
-                        await query.ExecuteUpdateAsync();
+                        //await _session.UpdateAsync(holding);
                         await transaction.CommitAsync();
-
                     }
                 }
             }
