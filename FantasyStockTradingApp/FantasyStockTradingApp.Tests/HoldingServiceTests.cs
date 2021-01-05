@@ -11,9 +11,17 @@ using System.Linq;
 using NSubstitute.ExceptionExtensions;
 using Newtonsoft.Json.Linq;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace FantasyStockTradingApp.Tests
 {
+    public class TestHolding
+    {
+        public virtual int accountId { get; set; }
+        public virtual string symbol { get; set; }
+        public virtual int stockCount { get; set; }
+    }
+
     [TestFixture]
     class HoldingServiceTests
     {
@@ -30,7 +38,7 @@ namespace FantasyStockTradingApp.Tests
             _session = Substitute.For<ISession>();
             _nHibernateService.OpenSession().Returns(_session);
             _sut = new HoldingsService(_nHibernateService, _iexCloudService);
-        }
+    }
 
         [Test]
         public void GetHoldings_ShouldReturnHoldings()
@@ -150,18 +158,18 @@ namespace FantasyStockTradingApp.Tests
         }
 
         [Test]
-        public async Task UpdateHolding_ShouldUpdateHoldingAsync()
+        public void UpdateHolding_ShouldUpdateHoldingAsync()
         {
             int AccountId = 2;
             string CompanyName = "General Electric Co.";
             string Symbol = "GE";
-            int StockCount = 5;
-            float LatestCostPerStock = 10.65F;
+            int StockCount = 10;
+            float LatestCostPerStock = 10.95F;
             float Change = -0.33F;
             float ChangePercentage = -0.02957F;
             var LastUpdated = DateTime.Now;
 
-            var holdings = new List<Holdings>
+            var Holding = new List<Holdings>
             {
                 new Holdings
                 {
@@ -169,33 +177,17 @@ namespace FantasyStockTradingApp.Tests
                     AccountId = AccountId,
                     CompanyName = CompanyName,
                     Symbol = Symbol,
-                    StockCount = StockCount,
-                    LatestCostPerStock = LatestCostPerStock,
+                    StockCount = 5,
+                    LatestCostPerStock = 10.65F,
                     Change = Change,
                     ChangePercentage = ChangePercentage,
                     LastUpdated = LastUpdated
                 }
             };
 
-
-            //_session.Query<Holdings>().Returns(holdings.AsQueryable());
-
-            await _sut.UpdateHolding(AccountId, Symbol, StockCount, LatestCostPerStock, LastUpdated);
-            
-            /*_session.Received(1).SaveAsync(Arg.Any<Holdings>());*/
-
-             var query = _session.CreateQuery("Update Holdings set stock_count =:StockCount, " +
-                     "latest_cost_per_stock =:LatestCostPerStock, last_Updated =:LastUpdated " +
-                     "where account_id =:AccountId and symbol =:Symbol");
-
-             query.SetParameter("StockCount", StockCount);
-             query.SetParameter("LatestCostPerStock", 10.55F);
-             query.SetParameter("LastUpdated", LastUpdated);
-             query.SetParameter("AccountId", AccountId);
-             query.SetParameter("Symbol", Symbol);
-
-             var resultUpdate = await query.Received(1).ExecuteUpdateAsync();
-             Assert.That(resultUpdate, Is.EqualTo(1));
+            _session.Query<Holdings>().Returns(Holding.AsQueryable());
+            _sut.UpdateHolding(AccountId, Symbol, StockCount, LatestCostPerStock, LastUpdated);
+            Assert.That(Holding[0].StockCount == StockCount && Holding[0].LatestCostPerStock == LatestCostPerStock);
         }
 
         [Test]
@@ -214,45 +206,31 @@ namespace FantasyStockTradingApp.Tests
         [Test]
         public void UpdateHoldings_ShouldUpdateHoldingAsync()
         {
+            
             int AccountId = 2;
             string CompanyName = "General Electric Co.";
             string Symbol = "GE";
-            int StockCount = 5;
-            float LatestCostPerStock = 10.65F;
+            int StockCount = 10;
+            float LatestCostPerStock = 10.95F;
             float Change = -0.33F;
             float ChangePercentage = -0.02957F;
             var LastUpdated = DateTime.Now;
 
-            var holdings = new List<Holdings>
+            var Holdings = new List<TestHolding>
             {
-                new Holdings
+                new TestHolding
                 {
-                    Id = 2,
-                    AccountId = AccountId,
-                    CompanyName = "General Electric Co.",
-                    Symbol = Symbol,
-                    StockCount = 5,
-                    LatestCostPerStock = LatestCostPerStock,
-                    Change = Change,
-                    ChangePercentage = ChangePercentage,
-                    LastUpdated = LastUpdated
+                    accountId = AccountId,
+                    symbol = Symbol,
+                    stockCount = StockCount
                 }
             };
 
-           /* _sut.UpdateHoldings(holdings);
+            JObject Holding = new JObject();
+            Holding["Holdings"] = JToken.FromObject(Holdings);
 
-            var query = _session.CreateQuery("Update Holdings set stock_count =:StockCount, " +
-                    "latest_cost_per_stock =:LatestCostPerStock, last_Updated =:LastUpdated " +
-                    "where account_id =:AccountId and symbol =:Symbol");
+            _sut.UpdateHoldings(Holding);
 
-            query.SetParameter("StockCount", StockCount);
-            query.SetParameter("LatestCostPerStock", LatestCostPerStock);
-            query.SetParameter("LastUpdated", LastUpdated);
-            query.SetParameter("AccountId", AccountId);
-            query.SetParameter("Symbol", Symbol);
-
-            var resultUpdate = query.Received(1).ExecuteUpdateAsync();
-            Assert.That(resultUpdate, Is.EqualTo(1));*/
         }
 
         [Test]
@@ -289,23 +267,11 @@ namespace FantasyStockTradingApp.Tests
         public void DeleteHolding_ShouldDeleteHoldingAsync()
         {
             int AccountId = 2;
-            string CompanyName = "General Electric Co.";
             string Symbol = "GE";
-            int StockCount = 5;
-            float LatestCostPerStock = 10.65F;
-            float Change = -0.33F;
-            float ChangePercentage = -0.02957F;
-            var LastUpdated = DateTime.Now;
 
             _sut.DeleteHolding(AccountId, Symbol);
+            _session.DeleteAsync(Arg.Any<Holdings>());
 
-            var query = _session.CreateQuery("Delete from Holdings " +
-                        "where account_id =:AccountId and symbol =:Symbol");
-            query.SetParameter("AccountId", AccountId);
-            query.SetParameter("Symbol", Symbol);
-
-            var resultDelete = query.Received(1).ExecuteUpdateAsync();
-            Assert.That(resultDelete, Is.EqualTo(1));
         }
 
 

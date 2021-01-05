@@ -134,7 +134,6 @@ namespace FantasyStockTradingApp.Core.Services
                     holding.LatestCostPerStock = LatestCostPerStock;
                     holding.LastUpdated = LastUpdated;
 
-                    //await _session.UpdateAsync(holding);
                     await transaction.CommitAsync();
 
                 }
@@ -151,7 +150,6 @@ namespace FantasyStockTradingApp.Core.Services
 
         public async Task UpdateHoldings(JObject Holdings)
         {
-
             try
             {
                 foreach (var holding in Holdings["Holdings"])
@@ -165,13 +163,13 @@ namespace FantasyStockTradingApp.Core.Services
 
                     using (ITransaction transaction = _session.BeginTransaction())
                     {
-                        var UpdateHolding = _session.Query<Holdings>().First(h => h.AccountId == AccountId && h.Symbol == Symbol);
+                        var UpdateHolding = _session.Query<Holdings>().
+                            First(h => h.AccountId == AccountId && h.Symbol == Symbol);
 
                         UpdateHolding.StockCount = StockCount;
                         UpdateHolding.LatestCostPerStock = LatestCostPerStock;
                         UpdateHolding.LastUpdated = LastUpdated;
 
-                        //await _session.UpdateAsync(holding);
                         await transaction.CommitAsync();
                     }
                 }
@@ -192,12 +190,10 @@ namespace FantasyStockTradingApp.Core.Services
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 {
-                    var query = _session.CreateQuery("Delete from Holdings " +
-                        "where account_id =:AccountId and symbol =:Symbol");
-                    query.SetParameter("AccountId", AccountId);
-                    query.SetParameter("Symbol", Symbol);
+                    var DeleteHolding = _session.Query<Holdings>().
+                            First(h => h.AccountId == AccountId && h.Symbol == Symbol);
 
-                    await query.ExecuteUpdateAsync();
+                    await _session.DeleteAsync(DeleteHolding);
                     await transaction.CommitAsync();
                 }
             }

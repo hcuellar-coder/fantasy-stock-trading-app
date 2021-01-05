@@ -88,7 +88,8 @@ namespace FantasyStockTradingApp.Core.Services
             {
                 using (ITransaction transaction = _session.BeginTransaction())
                 { 
-                    var account = _session.Query<Account>().First(h => h.Id == AccountId);
+                    var account = _session.Query<Account>()
+                        .First(h => h.Id == AccountId);
 
                     account.Balance = Balance;
                     account.PortfolioBalance = PortfolioBalance;

@@ -48,5 +48,19 @@ namespace FantasyStockTradingApp.Tests
             Assert.IsNotNull(result);
         }
 
+        [Test]
+        public void GetMostActive_ShouldReturnMostActive()
+        {
+            var result = _sut.GetMostActive();
+            Assert.IsNotNull(result);
+        }
+
+        [Test]
+        public void GetHistory_ShouldReturnMostActive()
+        {
+            string Symbol = "GE";
+            var result = _sut.GetHistory(Symbol);
+            Assert.IsNotNull(result);
+        }
     }
 }

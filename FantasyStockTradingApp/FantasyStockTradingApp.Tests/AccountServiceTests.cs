@@ -79,21 +79,10 @@ namespace FantasyStockTradingApp.Tests
         {
             int Id = 2;
             int UserId = 2;
-            float Balance = 10000F;
-            float PortfolioBalance = 0F;
+            float Balance = 9000F;
+            float PortfolioBalance = 1000F;
 
-            var accounts = new List<Account>
-            {
-                new Account
-                {
-                    Id = Id,
-                    UserId = UserId,
-                    Balance = Balance,
-                    PortfolioBalance = PortfolioBalance
-                }
-            };
-
-            var newAccount = new List<Account>
+            var Account = new List<Account>
             {
                 new Account
                 {
@@ -103,32 +92,11 @@ namespace FantasyStockTradingApp.Tests
                     PortfolioBalance = 500F
                 }
             };
-            /*
-              _session.Query<Account>().Returns(accounts.AsQueryable());
-            var resultAccounts = _sut.GetAccount(UserId);
-            Assert.That(resultAccounts.Count, Is.EqualTo(1));
-             */
-            /*_session.Query<Account>().Returns(accounts.AsQueryable());
-            var results = _sut.UpdateAccount(Id, 9500F, 500F);*/
-            var query = _session.Query<Account>().Returns(accounts.AsQueryable());
 
-            _sut.UpdateAccount(Id, 9500F, 500F);
-            
-            _session.UpdateAsync(query);
+            _session.Query<Account>().Returns(Account.AsQueryable());
+            _sut.UpdateAccount(Id, Balance, PortfolioBalance);
+            Assert.That(Account[0].Balance == 9000F && Account[0].PortfolioBalance == 1000F);
 
-            
-
-            //Assert.That(results, Is.EqualTo(1));
-
-            //_session.Received(1).UpdateAsync(Arg.Any<Account>());
-
-            //_session.UpdateAsync(accounts.AsQueryable());
-            // _session.UpdateAsync.Returns(accounts.AsQueryable());
-            // _sut.UpdateAccount(Id, 9500F, 500F);
-
-            //var resultAccounts = _sut.UpdateAccount(Id, 9500F, 500F);
-
-            //Assert.That(resultAccounts, Is.EqualTo(true));
         }
 
         [Test]
