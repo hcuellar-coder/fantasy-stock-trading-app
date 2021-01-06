@@ -1,5 +1,5 @@
 ﻿using FantasyStockTradingApp.Core.Entities;
-using FantasyStockTradingApp.Core.Exceptions;
+using FantasyStockTradingApp.Core.Handler;
 using FantasyStockTradingApp.Core.Services;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -10,6 +10,8 @@ using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using Newtonsoft.Json;
+using System.Net;
 
 namespace FantasyStockTradingApp.Tests
 {
@@ -39,6 +41,49 @@ namespace FantasyStockTradingApp.Tests
                 _token = Environment.GetEnvironmentVariable("TOKENKEY");
             }
         }
+
+        /*[Test]
+        public async void GetQuote_ShouldReturnQuote()
+        {
+            
+            string Symbol = "GE";
+            string CompanyName = "General Electric Co.";
+            float LatestPrice = 10.65F;
+            float Change = -0.33F;
+            float ChangePercent = -0.02957F;
+
+            var Quote = new List<Quote>
+            {
+                new Quote
+                {
+                    Symbol = Symbol,
+                    CompanyName = CompanyName,
+                    LatestPrice = LatestPrice,
+                    Change = Change,
+                    ChangePercent = ChangePercent
+                }
+            };
+
+
+            var response = @"{
+                    ""Symbol"": ""GE"",
+                    ""CompanyName"": ""General Electric Co."",
+                    ""LatestPrice"": 10.65F,
+                    ""Change"": -0.33F,
+                    ""ChangePercent"": -0.02957F
+                    }";
+
+            var messageHandler = new MockHttpMessageHandler(response, HttpStatusCode.OK);
+            var httpClient = new HttpClient(messageHandler);
+            
+            var responseStream = 
+
+            var result = _sut.GetQuote(Symbol);
+
+
+
+            Assert.IsNotNull(result);
+        }*/
 
         [Test]
         public void GetQuote_ShouldReturnQuote()
