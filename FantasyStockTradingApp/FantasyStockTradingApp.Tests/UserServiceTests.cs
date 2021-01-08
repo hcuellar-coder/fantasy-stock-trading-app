@@ -28,7 +28,7 @@ namespace FantasyStockTradingApp.Tests
         }
 
         [Test]
-        public void GetUser_ShouldReturnUsert()
+        public void GetUser_ShouldReturnUser()
         {
             int id = 2;
             string email = "test@tesing.com";
