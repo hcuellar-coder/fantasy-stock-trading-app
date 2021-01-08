@@ -1,5 +1,5 @@
 ## Fantasy Stock Trading App
-The application utilizes IEX Cloude API and was built using ReactJS (Frontend), C# with ASP.NET Core (Backend) utilizing Nhibernate with Fluent along with PostgreSQL and styled with Bootstrap 4.
+The application utilizes IEX Cloud API and was built using ReactJS (Frontend), C# with ASP.NET Core (Backend) utilizing Nhibernate with Fluent along with PostgreSQL and styled with Bootstrap 4.
 
 Run Application [Here](https://fantasystocktrader-hcuellar.azurewebsites.net/)
 
@@ -8,14 +8,14 @@ Run Application [Here](https://fantasystocktrader-hcuellar.azurewebsites.net/)
 </p>
 
 ## Summary
-This web application utilizes IEX Cloude API to retrieve and utilize stock information to simulate a stock trading fantasy app, using React-Bootstrap for styling and responsiveness. ReactJS was used to develop the frontend of the web application. While the backend uses C# with ASP.NET Core for RESTFUL WebAPI and Internal WebAPI calls. An ORM, Nhibernate along with Fluent, was used to map objects models to data models. As well as perform query operations to access data from the PostgreSQL database. The PostgreSQL is being used to handle User, Account, Transaction and Holding information. Session storage and React Context Hooks were used to store user, account, holding and other information to provide a smoother user experience. 
+This web application utilizes IEX Cloud API to retrieve and utilize stock information to simulate a stock trading fantasy app, using React-Bootstrap for styling and responsiveness. ReactJS was used to develop the frontend of the web application. While the backend uses C# with ASP.NET Core for RESTFUL WebAPI and Internal WebAPI calls. An ORM, Nhibernate along with Fluent, was used to map objects models to data models. As well as perform query operations to access data from the PostgreSQL database. The PostgreSQL is being used to handle User, Account, Transaction and Holding information. Session storage and React Context Hooks were used to store user, account, holding and other information to provide a smoother user experience. 
 
 #### Unit Testing 
 This application also implements unit testing. Using NUnit as the unit-testing framework and NSubstitute to mock libraries. It was exciting to learn about unit testing and understand the potential of a TDD approach to programming.
 
 
 ### Login and Signup Page
-This web application begins with a simple login / sign-up that is used to create a user account. If you have a user account, go ahead and log in. If you are new to the web application you will need to sign up. Upon creation of the user account, the user will be alloted $100,000, to start buying stocks to add to their portfolio. Upon logging on there will be an automatic update to ones holdings which will also update the portfolio balance.
+This web application begins with a simple login / sign-up that is used to create a user account. If you have a user account, go ahead and log in. If you are new to the web application, you will need to sign up. Upon creation of the user account, the user will be allotted $100,000, to start buying stocks to add to their portfolio. Upon logging on there will be an automatic update to one's holdings which will also update the portfolio balance.
 
 <p align="center">
 <img align="center"  width="600" height="500" src="./readme-images/Login.PNG">
@@ -44,13 +44,13 @@ The buy button will open the transaction modal prompting the user for how many s
 </p>
 
 #### Most Active
-The Most Active tab contains the top 10 most active stocks, provided by the IEX Cloud Api, that you can purchase.
+The Most Active tab contains the top 10 most active stocks, provided by the IEX Cloud API, that you can purchase.
 <p align="center">
 <img align="center"  width="600" height="500" src="./readme-images/Summary-MostActive.PNG">
 </p>
 
 #### My Holdings
-The Holdings tab will contain the user's holdings, all the stocks the user has purchased. From this tab, the user can purchase, or sell stock. The stocks are automatically updated upon purchase or selling, with the balances reflecting the users actions.
+The Holdings tab will contain the user's holdings, all the stocks the user has purchased. From this tab, the user can purchase, or sell stock. The stocks are automatically updated upon purchase or selling, with the balances reflecting the user's actions.
 <p align="center">
 <img align="center"  width="600" height="500" src="./readme-images/Summary-MyHoldings.PNG">
 </p>
@@ -63,38 +63,38 @@ The Transaction modal is the key to trading stocks. With the modal having the ca
 
 
 ### Report Page
-The report page is where the user will be able to view 1 months worth of stock prices in either the Search, Most Active, My Holdings Tabs. The final tab, Portfolio, is used to display the users portfolio balance split by stock into some easy to read graphs.
+The report page is where the user will be able to view 1 month's worth of stock prices in either the Search, Most Active, My Holdings Tabs. The final tab, Portfolio, is used to display the user's portfolio balance split by stock into some easy to read graphs.
 <p align="center">
 <img align="center"  width="600" height="500" src="./readme-images/Report.PNG">
 </p>
 
 
 #### Search
-In the search tab the user can search for a specific stock symbol to view 1 months worth of that stocks prices.
+In the search tab the user can search for a specific stock symbol to view 1 month's worth of that stocks prices.
 <p align="center">
 <img align="center"  width="600" height="500" src="./readme-images/Report-Search-Graph.PNG">
 </p>
 
 #### Most Active
-In the Most Active tab, the user can view 1 months worth of stock prices for the top 10 most active stocks provided by the IEX Cloud Api. 
+In the Most Active tab, the user can view 1 month's worth of stock prices for the top 10 most active stocks provided by the IEX Cloud API. 
 <p align="center">
 <img align="center"  width="600" height="500" src="./readme-images/Report-MostActive-Graph.PNG">
 </p>
 
 #### My Holdings
-In My Holdings tab the user will be able to view 1 months worth of stock prices for any of the holdings that the user has purchased.  will contain the user's holdings, all the stocks the user has purchased. From this tab, the user can view 1 months worth of stock prices.
+In My Holdings tab the user will be able to view 1 months' worth of stock prices for any of the holdings that the user has purchased.  will contain the user's holdings, all the stocks the user has purchased. From this tab, the user can view 1 month's worth of stock prices.
 <p align="center">
 <img align="center"  width="600" height="500" src="./readme-images/Report-MyHoldings-Graph.PNG">
 </p>
 
 ### My Portfolio
-In My Portfolio Tab the users portfolio balance is split by stock into some easy to read graphs. This is a greate way to visualize which stock the majority of your portfolio balance is allocated to.
+In My Portfolio Tab the user's portfolio balance is split by stock into some easy to read graphs. This is a great way to visualize which stock most of your portfolio balance is allocated to.
 <p align="center">
 <img align="center"  width="600" height="500" src="./readme-images/Report-Portfolio-Graph.PNG">
 </p>
 
 ### Author's Note
-Creating this web application strengthened my knowledge of how to integrate a ReactJS Front End with C# in a ASP.NET Core Back End for RESTful web API calls and Internal API calls. This application was a lot of fun due to the fact that there were a lot of firsts for me. It was my first time using an ORM, Nhibernate and fluent, to map my object models to data models and query the database for information as an API endpoint with ASP.NET Core. It was also my first experience deploying a web application with a database using Microsoft Azure. Lastly, it was my first time working with NUnit and NSubstitute for unit testing my services. I had a wonderful experience creating the application and working through the intricacies of integrating the different technologies together. I also made sure that the styling of the web applicaiton was responsive and would work well on a Mobile Device. I hope you enjoy the using my application!
+Creating this web application strengthened my knowledge of how to integrate a ReactJS Front End with C# in a ASP.NET Core Back End for RESTful web API calls and Internal API calls. This application was a lot of fun because there were a lot of firsts for me. It was my first time using an ORM, Nhibernate and fluent, to map my object models to data models and query the database for information as an API endpoint with ASP.NET Core. It was also my first experience deploying a web application with a database using Microsoft Azure. Lastly, it was my first time working with NUnit and NSubstitute for unit testing my services. I had a wonderful experience creating the application and working through the intricacies of integrating the different technologies together. I also made sure that the styling of the web application was responsive and would work well on a Mobile Device. I hope you enjoy the using my application!
 
 ## Author
 Heriberto Cuellar – Full Stack Software Developer - [Website](https://heribertocuellar.com) | [LinkedIn](https://www.linkedin.com/in/heriberto-cuellar/)
