@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -23,7 +20,7 @@ namespace FantasyStockTradingApp.Core.Handler
             {
                 Input = await requestMessage.Content.ReadAsStringAsync();
             }
-            //return Task.FromResult(new HttpResponseMessage(HttpStatusCode.OK));
+
             return new HttpResponseMessage
             {
                 StatusCode = HttpStatusCode.OK,

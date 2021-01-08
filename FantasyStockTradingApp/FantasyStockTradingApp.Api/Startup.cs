@@ -1,24 +1,16 @@
 using FantasyStockTradingApp.Models;
 using FantasyStockTradingApp.Core.Services;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc.NewtonsoftJson;
 using Microsoft.AspNetCore.SpaServices.ReactDevelopmentServer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.Tokens;
 using NHibernate;
-using NHibernate.NetCore;
-using NHibernate.Tool.hbm2ddl;
 using System;
-using System.Configuration;
 using System.Text;
-using FantasyStockTradingApp.Api.Extensions;
 using FantasyStockTradingApp.Api.Middleware;
 
 namespace FantasyStockTradingApp
@@ -88,15 +80,7 @@ namespace FantasyStockTradingApp
             {
                 app.UseDeveloperExceptionPage();
             }
-            /* else
-             {
-                 app.UseExceptionHandler("/Error");
-                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                 app.UseHsts();
-             }*/
 
-            //app.ConfigureExceptionHandler();
-            //app.ConfigureCustomExceptionMiddleware();
             app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseHttpsRedirection();

@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using FantasyStockTradingApp.Models;
 using FantasyStockTradingApp.Core.Services;
@@ -81,7 +78,6 @@ namespace FantasyStockTradingApp.Controllers
             try
             {
                 var History_Result = _iexCloudService.GetHistory(symbol).Result;
-
                 var History = History_Result.AsEnumerable().Select(history => new History()
                 {
                     Date = history.Date,

@@ -8,7 +8,6 @@ using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace FantasyStockTradingApp.Tests
 {
@@ -125,7 +124,6 @@ namespace FantasyStockTradingApp.Tests
 
             bool result = _sut.isValidUser(email, password);
             Assert.That(result, Is.EqualTo(true));
-
         }
 
         [Test]
@@ -137,6 +135,5 @@ namespace FantasyStockTradingApp.Tests
             _session.BeginTransaction().ThrowsForAnyArgs(new Exception());
             Assert.Throws<IsUserValidException>(() => _sut.isValidUser(email, password));
         }
-
     }
 }

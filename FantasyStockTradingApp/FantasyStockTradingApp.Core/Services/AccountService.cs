@@ -1,13 +1,7 @@
-﻿using System;
-using NHibernate;
-using System.Collections.Generic;
+﻿using NHibernate;
 using System.Linq;
 using System.Threading.Tasks;
 using FantasyStockTradingApp.Core.Entities;
-using NHibernate.Linq;
-using System.Security.AccessControl;
-using NHibernate.SqlCommand;
-using NHibernate.Impl;
 using System.IO;
 using FantasyStockTradingApp.Core.Exceptions;
 
@@ -94,7 +88,6 @@ namespace FantasyStockTradingApp.Core.Services
                     account.Balance = Balance;
                     account.PortfolioBalance = PortfolioBalance;
 
-                    //await _session.UpdateAsync(holding);
                     await transaction.CommitAsync();
 
                 }

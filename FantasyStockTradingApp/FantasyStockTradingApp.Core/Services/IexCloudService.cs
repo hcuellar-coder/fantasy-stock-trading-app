@@ -1,21 +1,12 @@
 ﻿using FantasyStockTradingApp.Core.Entities;
-using Microsoft.AspNetCore.Mvc;
-using NHibernate;
-using NHibernate.Linq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Net.Http;
-using System.Web;
-using Microsoft.AspNetCore.Server.HttpSys;
-using System.Net;
-using Microsoft.AspNetCore.WebUtilities;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
-using FantasyStockTradingApp.Core.Exceptions;
 
 namespace FantasyStockTradingApp.Core.Services
 {
@@ -62,7 +53,7 @@ namespace FantasyStockTradingApp.Core.Services
 
                 var response = await client.SendAsync(request);
                 var responseStream = await response.Content.ReadAsStringAsync();
-
+                
                 return JsonConvert.DeserializeObject<Quote>(responseStream);
         }
 
@@ -81,7 +72,6 @@ namespace FantasyStockTradingApp.Core.Services
                 NullValueHandling = NullValueHandling.Ignore,
                 MissingMemberHandling = MissingMemberHandling.Ignore
             };
-
             return JsonConvert.DeserializeObject<List<Quote>>(responseStream, settings);
 
         }

@@ -6,12 +6,9 @@ using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Linq;
 using NSubstitute.ExceptionExtensions;
 using Newtonsoft.Json.Linq;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace FantasyStockTradingApp.Tests
 {
@@ -208,13 +205,8 @@ namespace FantasyStockTradingApp.Tests
         {
             
             int AccountId = 2;
-            string CompanyName = "General Electric Co.";
             string Symbol = "GE";
             int StockCount = 10;
-            float LatestCostPerStock = 10.95F;
-            float Change = -0.33F;
-            float ChangePercentage = -0.02957F;
-            var LastUpdated = DateTime.Now;
 
             var Holdings = new List<TestHolding>
             {

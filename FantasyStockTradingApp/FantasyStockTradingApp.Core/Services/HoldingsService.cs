@@ -1,15 +1,11 @@
-﻿using NHibernate.Id.Insert;
-using NHibernate;
+﻿using NHibernate;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FantasyStockTradingApp.Core.Entities;
 using Newtonsoft.Json.Linq;
-using Newtonsoft.Json;
 using System.IO;
 using FantasyStockTradingApp.Core.Exceptions;
-using NHibernate.Linq;
 
 namespace FantasyStockTradingApp.Core.Services
 {

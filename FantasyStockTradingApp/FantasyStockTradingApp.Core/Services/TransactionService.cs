@@ -1,15 +1,7 @@
 ﻿using FantasyStockTradingApp.Core.Entities;
-using Microsoft.AspNetCore.Mvc;
 using NHibernate;
-using NHibernate.Linq;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using System.Net.Http;
-using System.Web;
-using Microsoft.AspNetCore.Server.HttpSys;
-using System.Net;
 using System.IO;
 using FantasyStockTradingApp.Core.Exceptions;
 

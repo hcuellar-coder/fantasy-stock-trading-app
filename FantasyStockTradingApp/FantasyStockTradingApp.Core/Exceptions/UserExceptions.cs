@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace FantasyStockTradingApp.Core.Exceptions
+﻿namespace FantasyStockTradingApp.Core.Exceptions
 {
     public class IsUserValidException : StockTraderExceptions
     {

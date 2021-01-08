@@ -6,8 +6,6 @@ using NSubstitute;
 using NSubstitute.ExceptionExtensions;
 using NUnit.Framework;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace FantasyStockTradingApp.Tests
 {
@@ -41,7 +39,6 @@ namespace FantasyStockTradingApp.Tests
 
             _sut.NewTransaction(AccountId,Type,Symbol,StockCount,CostPerStock,CostPerTransaction,TransactionDate);
             _session.Received(1).SaveAsync(Arg.Any<Transaction>());
- 
         }
 
         [Test]
