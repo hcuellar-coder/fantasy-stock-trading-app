@@ -10,8 +10,8 @@ Run Application [Here](https://fantasystocktrader-hcuellar.azurewebsites.net/)
 ## Summary
 This web application utilizes IEX Cloude API to retrieve and utilize stock information to simulate a stock trading fantasy app, using React-Bootstrap for styling and responsiveness. ReactJS was used to develop the frontend of the web application. While the backend uses C# with ASP.NET Core for RESTFUL WebAPI and Internal WebAPI calls. An ORM, Nhibernate along with Fluent, was used to map objects models to data models. As well as perform query operations to access data from the PostgreSQL database. The PostgreSQL is being used to handle User, Account, Transaction and Holding information. Session storage and React Context Hooks were used to store user, account, holding and other information to provide a smoother user experience. 
 
-#### In Developement: ** Unit Testing **
-Currently working on integrating unit testing to the application. I'm excited to learn about unit testing and will be using NUnit a .NET unit testing framework.
+#### Unit Testing 
+This application also implements unit testing. Using NUnit as the unit-testing framework and NSubstitute to mock libraries. It was exciting to learn about unit testing and understand the potential of a TDD approach to programming.
 
 
 ### Login and Signup Page
@@ -94,7 +94,7 @@ In My Portfolio Tab the users portfolio balance is split by stock into some easy
 </p>
 
 ### Author's Note
-Creating this web application strengthened my knowledge of how to integrate a ReactJS Front End with C# in a ASP.NET Core Back End for RESTful web API calls and Internal API calls. This application was a lot of fun due to the fact that there were a lot of firsts for me. It was my first time using an ORM, Nhibernate and fluent, to map my object models to data models and query the database for information as an API endpoint with ASP.NET Core. It was also my first experience deploying a web application with a database using Microsoft Azure. I had a wonderful experience creating the application and working through the intricacies of integrating the different technologies together. I also made sure that the styling of the web applicaiton was responsive and would work well on a Mobile Device. I hope you enjoy the using my application!
+Creating this web application strengthened my knowledge of how to integrate a ReactJS Front End with C# in a ASP.NET Core Back End for RESTful web API calls and Internal API calls. This application was a lot of fun due to the fact that there were a lot of firsts for me. It was my first time using an ORM, Nhibernate and fluent, to map my object models to data models and query the database for information as an API endpoint with ASP.NET Core. It was also my first experience deploying a web application with a database using Microsoft Azure. Lastly, it was my first time working with NUnit and NSubstitute for unit testing my services. I had a wonderful experience creating the application and working through the intricacies of integrating the different technologies together. I also made sure that the styling of the web applicaiton was responsive and would work well on a Mobile Device. I hope you enjoy the using my application!
 
 ## Author
 Heriberto Cuellar – Full Stack Software Developer - [Website](https://heribertocuellar.com) | [LinkedIn](https://www.linkedin.com/in/heriberto-cuellar/)
