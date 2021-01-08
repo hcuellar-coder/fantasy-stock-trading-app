@@ -54,9 +54,9 @@ namespace FantasyStockTradingApp.Controllers
         {
             try 
             {
-                var Quote_Result = _iexCloudService.GetMostActive().Result;
+                var MostActive_Result = _iexCloudService.GetMostActive().Result;
 
-                var MostActive = Quote_Result.AsEnumerable().Select(quote => new QuoteModel()
+                var MostActive = MostActive_Result.AsEnumerable().Select(quote => new QuoteModel()
                 {
                     Symbol = quote.Symbol,
                     CompanyName = quote.CompanyName,

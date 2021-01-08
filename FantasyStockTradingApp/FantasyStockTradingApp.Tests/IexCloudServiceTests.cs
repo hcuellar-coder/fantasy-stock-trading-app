@@ -1,6 +1,6 @@
 ﻿using FantasyStockTradingApp.Core.Entities;
-using FantasyStockTradingApp.Core.Handler;
 using FantasyStockTradingApp.Core.Services;
+using FantasyStockTradingApp.Core.Handler;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
@@ -88,9 +88,23 @@ namespace FantasyStockTradingApp.Tests
         [Test]
         public void GetQuote_ShouldReturnQuote()
         {
+            var response = @"{
+                    ""Symbol"": ""GE"",
+                    ""CompanyName"": ""General Electric Co."",
+                    ""LatestPrice"": 10.65,
+                    ""Change"": -0.33,
+                    ""ChangePercent"": -0.02957
+                    }";
+
             string Symbol = "GE";
+            var messageHandler = new MockHttpMessageHandler(response);
+            var client = new HttpClient(messageHandler) { BaseAddress = new Uri("https://localhost") };
+
+            _clientFactory.CreateClient(Arg.Any<string>()).Returns(client);
+
             var result = _sut.GetQuote(Symbol);
-            Assert.IsNotNull(result);
+            Assert.AreEqual(result.Result.Symbol, "GE");
+            Assert.AreEqual(result.Result.LatestPrice, 10.65F);
         }
 
         [Test]
