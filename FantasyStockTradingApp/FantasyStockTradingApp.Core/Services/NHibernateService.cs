@@ -59,10 +59,10 @@ namespace FantasyStockTradingApp.Core.Services
                 return Fluently.Configure()
                .Database(PostgreSQLConfiguration.PostgreSQL82
                .ConnectionString(c =>
-                    c.Host("fantasystocktradingapp-hcuellar-postgresql.postgres.database.azure.com")
+                    c.Host("fantasystocktrader-hcuellar-postgresql.cukdhjozet53.us-east-2.rds.amazonaws.com")
                     .Port(5432)
-                    .Database("stocktradingapp")
-                    .Username("postgreSQLAdmin@fantasystocktradingapp-hcuellar-postgresql")
+                    .Database("postgres")
+                    .Username("postgreSQLAdmin")
                     .Password(DBPASSWORD)
                     )
                )

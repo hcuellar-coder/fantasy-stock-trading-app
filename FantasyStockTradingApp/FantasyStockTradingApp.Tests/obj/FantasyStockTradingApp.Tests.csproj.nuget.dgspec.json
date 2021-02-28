@@ -26,6 +26,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
               "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp.Core\\FantasyStockTradingApp.Core.csproj": {
                 "projectPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp.Core\\FantasyStockTradingApp.Core.csproj"
@@ -41,6 +42,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "FluentNHibernate": {
               "target": "Package",
@@ -109,7 +111,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -135,6 +137,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {}
           }
         },
@@ -146,6 +149,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "EmailValidation": {
               "target": "Package",
@@ -190,7 +194,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     },
@@ -216,6 +220,7 @@
         },
         "frameworks": {
           "netcoreapp3.1": {
+            "targetAlias": "netcoreapp3.1",
             "projectReferences": {
               "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp.Api\\FantasyStockTradingApp.Api.csproj": {
                 "projectPath": "C:\\Users\\herib\\Documents\\SDMM Projects\\fantasy-stock-trading-app\\FantasyStockTradingApp\\FantasyStockTradingApp.Api\\FantasyStockTradingApp.Api.csproj"
@@ -234,6 +239,7 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
+          "targetAlias": "netcoreapp3.1",
           "dependencies": {
             "Microsoft.NET.Test.Sdk": {
               "target": "Package",
@@ -270,7 +276,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.102\\RuntimeIdentifierGraph.json"
         }
       }
     }

@@ -142,6 +142,8 @@ function NewUser(props) {
         if (password === confirmPassword) {
             if (form.checkValidity() !== false) {
                 await isValidUser().then(async (isValidUserResponse) => {
+                    console.log(isValidUserResponse);
+                    console.log(isValidUserResponse.data);
                     if (isValidUserResponse.data) {
                         alert('User already exists! Login instead!');
                     } else {
