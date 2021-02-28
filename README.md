@@ -1,7 +1,7 @@
 ## Fantasy Stock Trading App
 The application utilizes IEX Cloud API and was built using ReactJS (Frontend), C# with ASP.NET Core (Backend) using Nhibernate with Fluent along with PostgreSQL and styled with Bootstrap 4.
 
-Run Application [Here](https://fantasystocktrader-hcuellar.azurewebsites.net/)
+Run Application [Here](http://fantasystocktrader.us-east-2.elasticbeanstalk.com/)
 
 <p align="center">
 <img align="center"  width="600" height="500" src="./readme-images/Home.PNG">
