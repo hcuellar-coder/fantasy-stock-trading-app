@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Nav, Navbar, NavItem } from 'react-bootstrap';
-import { NavLink, Redirect} from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import { useAuth } from "../Context/AuthContext";
 import { useUser } from "../Context/UserContext";
 import { useAccount } from "../Context/AccountContext";
@@ -11,7 +11,7 @@ function NavBar(props) {
     const { authTokens, setAuthTokens } = useAuth();
     const { setUser } = useUser();
     const { setAccount } = useAccount();
-    const { setHoldings} = useHoldings();
+    const { setHoldings } = useHoldings();
 
     function handleLogOut() {
         setAuthTokens('');
@@ -19,7 +19,7 @@ function NavBar(props) {
         setAccount('');
         setHoldings('');
         sessionStorage.setItem('MostActiveStocks', '');
-        return < Redirect to = '/' />;
+        return < Redirect to='/' />;
     }
 
     return (
