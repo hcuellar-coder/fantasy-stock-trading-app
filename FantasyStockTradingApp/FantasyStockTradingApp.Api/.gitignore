@@ -180,6 +180,7 @@ ClientBin/
 *.publishsettings
 orleans.codegen.cs
 appsettings.Development.json
+appsettings.Development-Edit.json
 
 /node_modules
 
